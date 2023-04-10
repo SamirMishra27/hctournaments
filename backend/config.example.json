@@ -1,0 +1,7 @@
+{
+    "STAGE": "BETA / PROD",
+    "PORT": "Flask application port",
+    "CLOUDINARY_CLOUD_NAME": "Your cloud's name (Check cloudinary dashboard)",
+    "CLOUDINARY_API_KEY": "Api key (Check cloudinary dashboard)",
+    "CLOUDINARY_API_SECRET": "Api Secret (Check cloudinary dashboard)"
+}
