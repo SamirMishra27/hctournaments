@@ -1,14 +1,13 @@
 from flask import jsonify, make_response
 from cloudinary.exceptions import NotFound
-import cloudinary.uploader
 import cloudinary.api
 
 from routes import cloud_name
+from utils import sort_multiple, cloudinary_upload, DAY
 
 from os import listdir
 from operator import itemgetter
 from traceback import print_exception
-from utils import sort_multiple
 from datetime import datetime
 from io import BytesIO
 
@@ -57,29 +56,15 @@ def generate_new_image(name, top_ten_batting, top_ten_bowling):
     )
 
     buffer = BytesIO()
-    image.save(buffer, format = 'jpg')
+    image.save(buffer, format = 'jpeg')
     buffer.seek(0)
 
     image.close()
     return buffer
 
-def cloudinary_upload(image_buffer, public_id, save_path):
-
-    response = cloudinary.uploader.upload(
-        file = image_buffer,
-        use_filename = True ,
-        public_id = public_id,
-        unique_filename = False,
-        overwrite = True,
-        folder = save_path
-    )
-    return response
-
 def playerstats(tournament_name: str):
-    
-    DAY = 60 * 60 * 24
-    tournament_name = tournament_name.lower()
 
+    tournament_name = tournament_name.lower()
     if tournament_name not in listdir('data/'):
         json_body = {
             'success': False,
@@ -158,6 +143,7 @@ def playerstats(tournament_name: str):
         cloudinary_image_url = upload_response.get('secure_url')
 
     else:
+        print("retrieved an existing image from cloudinary, sending in response")
         cloudinary_image_url = cloudinary_image.get('secure_url')
 
     json_body = {
