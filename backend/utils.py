@@ -1,5 +1,10 @@
+# from datetime import datetime
+from time import time
 from functools import reduce
+
 import cloudinary.uploader
+import cloudinary.api
+from cloudinary.exceptions import NotFound
 
 DAY = 60 * 60 * 24
 
@@ -32,3 +37,23 @@ def cloudinary_upload(image_buffer, public_id, save_path):
         folder = save_path
     )
     return response
+
+def get_image_from_cloudinary(public_id, cloud_name):
+
+    cloudinary_image = None
+    image_needs_update = False
+
+    try:
+        cloudinary_image = cloudinary.api.resource(public_id = public_id, cloud_name = cloud_name)
+        # The 'version' of an image is a UNIX timestamp indicating
+        # The last time an image with same public_id was uploaded
+        updated_at = int(cloudinary_image.get('version'))
+        if time() - updated_at > DAY:
+            print('Image was created day ago')
+            image_needs_update = True
+
+    except NotFound as e:
+        print('Image not found in cloudinary')
+        cloudinary_image = None
+
+    return cloudinary_image, image_needs_update

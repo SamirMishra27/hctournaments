@@ -1,14 +1,15 @@
 from flask import jsonify, make_response
-from cloudinary.exceptions import NotFound
-import cloudinary.api
 
 from routes import cloud_name
-from utils import sort_multiple, cloudinary_upload, DAY
+from utils import (
+    cloudinary_upload, 
+    get_image_from_cloudinary, 
+    sort_multiple
+)
 
 from os import listdir
 from operator import itemgetter
 from traceback import print_exception
-from datetime import datetime
 from io import BytesIO
 
 from PIL import Image
@@ -120,21 +121,11 @@ def playerstats(tournament_name: str):
     )[0:11]
 
     cloudinary_path = f'hctournaments/{tournament_name}/playerstats'
-    try:
-        cloudinary_image = cloudinary.api.resource(public_id = cloudinary_path, cloud_name = cloud_name)
-        
-        image_creation_date = cloudinary_image.get('created_at')
-        image_creation_date = datetime.strptime(image_creation_date, '%Y-%m-%dT%H:%M:%SZ')
+    cloudinary_image, image_needs_update = get_image_from_cloudinary(
+        public_id = cloudinary_path, cloud_name = cloud_name
+    )
 
-        if (datetime.now() - image_creation_date).total_seconds() > DAY:
-            print("image created a day ago")
-            cloudinary_image = None
-
-    except NotFound as e:
-        print("image not found in cloudinary")
-        cloudinary_image = None
-
-    if cloudinary_image is None:
+    if cloudinary_image is None or image_needs_update:
         # Image was either not found in storage
         # Or last image was created over a day ago
         image_buffer = generate_new_image(tournament_name, top_ten_batting, top_ten_bowling)
@@ -143,7 +134,7 @@ def playerstats(tournament_name: str):
         cloudinary_image_url = upload_response.get('secure_url')
 
     else:
-        print("retrieved an existing image from cloudinary, sending in response")
+        print('Retrieved an existing image from cloudinary, sending in response')
         cloudinary_image_url = cloudinary_image.get('secure_url')
 
     json_body = {

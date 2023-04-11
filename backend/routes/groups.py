@@ -1,14 +1,11 @@
 from flask import jsonify, make_response
-from cloudinary.exceptions import NotFound
-import cloudinary.api
 
 from routes import cloud_name
-from utils import cloudinary_upload, DAY
+from utils import cloudinary_upload, get_image_from_cloudinary
 
 from json import load
 from traceback import print_exception
 from os import listdir
-from datetime import datetime
 from io import BytesIO
 
 from PIL import Image
@@ -99,21 +96,11 @@ def groups(tournament_name: str, group_name: str):
     group_points_table = sorted(group_points_table, key = lambda x: x.get('points'), reverse = True)
 
     cloudinary_path = f'hctournaments/{tournament_name}/{group_name}'
-    try:
-        cloudinary_image = cloudinary.api.resource(public_id = cloudinary_path, cloud_name = cloud_name)
-        
-        image_creation_date = cloudinary_image.get('created_at')
-        image_creation_date = datetime.strptime(image_creation_date, '%Y-%m-%dT%H:%M:%SZ')
+    cloudinary_image, image_needs_update = get_image_from_cloudinary(
+        public_id = cloudinary_path, cloud_name = cloud_name
+    )
 
-        if (datetime.now() - image_creation_date).total_seconds() > DAY:
-            print('Image was created day ago')
-            cloudinary_image = None
-
-    except NotFound as e:
-        print('Image not found in cloudinary')
-        cloudinary_image = None
-
-    if cloudinary_image is None:
+    if cloudinary_image is None or image_needs_update:
         # Image was either not found in storage
         # Or last image was created over a day ago
         image_buffer = generate_new_image(tournament_name, group_name, group_points_table)
