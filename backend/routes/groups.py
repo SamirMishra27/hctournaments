@@ -1,7 +1,11 @@
 from flask import jsonify, make_response
 
 from routes import cloud_name
-from utils import cloudinary_upload, get_image_from_cloudinary
+from utils import (
+    cloudinary_upload, 
+    get_image_from_cloudinary,
+    send_404_json_response
+)
 
 from json import load
 from traceback import print_exception
@@ -62,12 +66,10 @@ def groups(tournament_name: str, group_name: str):
     group_name = group_name.lower()
 
     if tournament_name not in listdir('data/'):
-        json_body = {
-            'success': False,
-            'message': 'Not Found'
-        }
-        response = make_response(jsonify(json_body), 404)
-        return response
+        return send_404_json_response(
+            success = False,
+            message = 'Not Found'
+        )
     
     file_path = f'data/{tournament_name}/groups.json'
     try:
@@ -76,21 +78,17 @@ def groups(tournament_name: str, group_name: str):
 
     except Exception as e:
         print_exception(e, e, e.__traceback__)
-        json_body = {
-            'success': False,
-            'message': 'An Unexpected Error Occurred',
-            'error': str(e)
-        }
-        response = make_response(jsonify(json_body), 404)
-        return response
+        return send_404_json_response(
+            success = False,
+            message = 'An Unexpected Error Occurred',
+            error = str(e)
+        )
     
     if group_name not in data.keys():
-        json_body = {
-            'success': False,
-            'message': 'Group not found in this tournament'
-        }
-        response = make_response(jsonify(json_body), 404)
-        return response
+        return send_404_json_response(
+            success = False,
+            message = 'Group not found in this tournament'
+        )
     
     group_points_table = data[group_name]
     group_points_table = sorted(group_points_table, key = lambda x: x.get('points'), reverse = True)

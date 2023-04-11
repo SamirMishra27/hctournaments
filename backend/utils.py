@@ -1,10 +1,10 @@
-# from datetime import datetime
 from time import time
 from functools import reduce
 
+from flask import jsonify, make_response
+from cloudinary.exceptions import NotFound
 import cloudinary.uploader
 import cloudinary.api
-from cloudinary.exceptions import NotFound
 
 DAY = 60 * 60 * 24
 
@@ -57,3 +57,12 @@ def get_image_from_cloudinary(public_id, cloud_name):
         cloudinary_image = None
 
     return cloudinary_image, image_needs_update
+
+def send_404_json_response(**kwargs):
+
+    json_body = {}
+    for key, value in kwargs.items():
+        json_body.update({ str(key) : value })
+
+    response = make_response(jsonify(json_body), 404)
+    return response

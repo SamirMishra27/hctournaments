@@ -4,6 +4,7 @@ from routes import cloud_name
 from utils import (
     cloudinary_upload, 
     get_image_from_cloudinary, 
+    send_404_json_response,
     sort_multiple
 )
 
@@ -67,12 +68,10 @@ def playerstats(tournament_name: str):
 
     tournament_name = tournament_name.lower()
     if tournament_name not in listdir('data/'):
-        json_body = {
-            'success': False,
-            'message': 'Not Found'
-        }
-        response = make_response(jsonify(json_body), 404)
-        return response
+        return send_404_json_response(
+            success = False,
+            message = 'Not Found'
+        )
     
     file_path = f'data/{tournament_name}/stats.txt'
     try:
@@ -81,13 +80,11 @@ def playerstats(tournament_name: str):
 
     except Exception as e:
         print_exception(e, e, e.__traceback__)
-        json_body = {
-            'success': False,
-            'message': 'An Unexpected Error Occurred',
-            'error': str(e)
-        }
-        response = make_response(jsonify(json_body), 404)
-        return response
+        return send_404_json_response(
+            success = False,
+            message = 'An Unexpected Error Occurred',
+            error = str(e)
+        )
 
     raw_data = raw_data.split('\n')
     raw_data.remove(raw_data[0])
