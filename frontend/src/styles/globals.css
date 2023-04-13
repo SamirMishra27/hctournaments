@@ -14,4 +14,30 @@
 body {
     width: 100%;
     font-family: 'Inter', 'Grotesk Schibsted', 'Segoe UI', Tahoma, Geneva, 'Open Sans', 'Helvetica Neue', Verdana, sans-serif;
+    background-color: rgb(24, 24, 24);
+}
+
+.hero-section {
+    background: linear-gradient(170deg, #001253, #3E6D9C 40% 50%, #E14D2A);
+}
+
+.overlay-gradient-one {
+    background: linear-gradient(167deg, transparent, #0B2447 60%, #850000 100%);
+}
+
+.overlay-gradient-two {
+    background: linear-gradient(193deg, transparent, #36393e 60%, #39AEA9 100%);
+}
+
+.view-button {
+    background: linear-gradient(to bottom, #ff6a00, #9c4100);
+}
+
+.view-button:hover > div {
+    top: 3.5rem;
+    transition-timing-function: ease-in-out;
+}
+
+.view-button:active {
+    background: linear-gradient(to bottom, #ff7817, #b94d00);
 }
