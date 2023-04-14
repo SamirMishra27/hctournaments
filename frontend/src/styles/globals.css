@@ -42,11 +42,13 @@ body {
     background: linear-gradient(to bottom, #ff7817, #b94d00);
 }
 
-.player-stats-bg-gradient-batting {
+.player-stats-bg-gradient-batting,
+.group-standings-bg-gradient {
     background: linear-gradient(170deg, #d47120, #b63a1f, #d47120);
 }
 
-.player-stats-bg-gradient-batting:hover {
+.player-stats-bg-gradient-batting:hover,
+.group-standings-bg-gradient:hover {
     background: linear-gradient(170deg, #FD841F, #E14D2A, #FD841F);
 }
 
