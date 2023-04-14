@@ -1,11 +1,12 @@
 // import { useRouter } from 'next/router'
 import { Fragment, MouseEvent, useState } from 'react'
+import { GetStaticPaths, GetStaticProps } from 'next'
 
 import Header from '@/components/header'
 import Footer from '@/components/footer'
 import { axiosApi } from '@/api'
-import { GetStaticPaths, GetStaticProps } from 'next'
-import { ParsedUrlQuery } from 'querystring'
+import { Params, ApiResponseData } from '@/types'
+import { getTournamentInfoData } from '@/api'
 
 function InteractiveButton(props: {
     name: string
@@ -276,15 +277,6 @@ export default function statsPage(props: {
     )
 }
 
-async function getTournamentInfoData(tournament: string) {
-    const path = '/tournaments/' + tournament
-
-    const response = await axiosApi.get(path)
-    const data = response.data as ApiResponseData
-
-    return data
-}
-
 export const getStaticProps: GetStaticProps = async (context) => {
     const { tournament } = context.params as Params
 
@@ -324,17 +316,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
         paths: [{ params: { tournament: 'bots' } }, { params: { tournament: 'superleague' } }],
         fallback: false
     }
-}
-
-interface Params extends ParsedUrlQuery {
-    tournament: string
-}
-
-interface ApiResponseData {
-    cloudinary_url: string
-    data: { [key: string]: unknown }
-    message: string
-    success: boolean
 }
 
 interface StatsApiResponseData extends ApiResponseData {
