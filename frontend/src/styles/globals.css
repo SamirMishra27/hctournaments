@@ -17,7 +17,7 @@ body {
     background-color: rgb(24, 24, 24);
 }
 
-.hero-section {
+.hero-section, .player-stats-page-gradient {
     background: linear-gradient(170deg, #001253, #3E6D9C 40% 50%, #E14D2A);
 }
 
@@ -40,4 +40,24 @@ body {
 
 .view-button:active {
     background: linear-gradient(to bottom, #ff7817, #b94d00);
+}
+
+.player-stats-bg-gradient-batting {
+    background: linear-gradient(170deg, #d47120, #b63a1f, #d47120);
+}
+
+.player-stats-bg-gradient-batting:hover {
+    background: linear-gradient(170deg, #FD841F, #E14D2A, #FD841F);
+}
+
+.player-stats-bg-gradient-bowling {
+    background: linear-gradient(170deg, #9E4784, #66347F, #9E4784);
+}
+
+.player-stats-bg-gradient-bowling:hover {
+    background: linear-gradient(170deg, #cf4ea8, #8846a9, #cf4ea8);
+}
+
+.player-key-stat-box:hover > .tooltip {
+    opacity: 1;
 }
