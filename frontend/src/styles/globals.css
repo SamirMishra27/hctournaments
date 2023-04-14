@@ -17,7 +17,7 @@ body {
     background-color: rgb(24, 24, 24);
 }
 
-.hero-section, .player-stats-page-gradient {
+.hero-section, .player-stats-page-gradient, .page-primary-bg-gradient {
     background: linear-gradient(170deg, #001253, #3E6D9C 40% 50%, #E14D2A);
 }
 
@@ -43,12 +43,12 @@ body {
 }
 
 .player-stats-bg-gradient-batting,
-.group-standings-bg-gradient {
+.group-standings-bg-gradient, .row-bg-gradient {
     background: linear-gradient(170deg, #d47120, #b63a1f, #d47120);
 }
 
 .player-stats-bg-gradient-batting:hover,
-.group-standings-bg-gradient:hover {
+.group-standings-bg-gradient:hover, .row-bg-gradient:hover {
     background: linear-gradient(170deg, #FD841F, #E14D2A, #FD841F);
 }
 
@@ -62,4 +62,22 @@ body {
 
 .player-key-stat-box:hover > .tooltip {
     opacity: 1;
+}
+
+.schedule-list::-webkit-scrollbar {
+    width: 1rem;
+}
+
+.schedule-list::-webkit-scrollbar-track {
+    border-radius: 1rem;
+    background-color: #19376D;
+}
+
+.schedule-list::-webkit-scrollbar-thumb {
+    border-radius: 1rem;
+    background-color: #3E6D9C;
+}
+
+.schedule-list::-webkit-scrollbar-thumb:hover {
+    background-color: #001253;
 }
