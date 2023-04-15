@@ -74,16 +74,22 @@ export default function standingsOfAGroupPage(props: {
                                 disabled={groupInfo.id === props.groupId}
                                 className={
                                     'bg-gradient-to-br from-[#D47120] to-[#B63A1F] font-semibold ' +
-                                    'py-3 px-5 my-4 rounded-lg text-center text-slate-50 ' +
+                                    'w-28 h-12 my-4 rounded-lg text-center text-slate-50 ' +
                                     'hover:from-[#FD841F] hover:to-[#E14D2A] active:from-[#D47120] active:to-[#B63A1F] ' +
                                     'disabled:from-slate-300 disabled:to-slate-500'
                                 }
                                 id={props.groupId}>
-                                <Link
-                                    href={'/' + props.tournament + '/standings/' + groupInfo.id}
-                                    className="uppercase">
-                                    {groupInfo.name}
-                                </Link>
+                                {groupInfo.id === props.groupId ? (
+                                    <div className="w-full h-full uppercase flex items-center justify-center">
+                                        {groupInfo.name}
+                                    </div>
+                                ) : (
+                                    <Link
+                                        href={'/' + props.tournament + '/standings/' + groupInfo.id}
+                                        className="w-full h-full uppercase flex items-center justify-center">
+                                        {groupInfo.name}
+                                    </Link>
+                                )}
                             </button>
                         ))}
                     </div>

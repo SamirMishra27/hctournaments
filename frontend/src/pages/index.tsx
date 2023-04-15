@@ -3,6 +3,7 @@ import { Fragment, MutableRefObject, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Header from '@/components/header'
+import Footer from '@/components/footer'
 
 import botslogo from '../../public/assets/bots-logo.png'
 import superlogo from '../../public/assets/superleague-logo.jpg'
@@ -132,6 +133,7 @@ export default function Home() {
                     </div>
                 </section>
             </main>
+            <Footer />
         </Fragment>
     )
 }
