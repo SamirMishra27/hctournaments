@@ -1,4 +1,3 @@
-// import { useRouter } from 'next/router'
 import { Fragment, MouseEvent, useState } from 'react'
 import { GetStaticPaths, GetStaticProps } from 'next'
 

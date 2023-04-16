@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import { Fragment, MouseEvent } from 'react'
 import { GetStaticProps, GetStaticPaths } from 'next'
 
@@ -11,8 +10,8 @@ import Footer from '@/components/footer'
 import sandclock from '../../../public/assets/sandclock.svg'
 import avatar from '../../../public/assets/avatar.png'
 
-import { axiosApi, getTournamentInfoData } from '@/api'
-import { ApiResponseData, Params } from '@/types'
+import { getTournamentInfoData } from '@/api'
+import { Params } from '@/types'
 
 export default function tournamentPage(props: {
     tournament: string
@@ -32,10 +31,6 @@ export default function tournamentPage(props: {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         navigator.clipboard.writeText(event.target.dataset.mention!)
     }
-    // const router = useRouter()
-    // const tournamentName = router.query.tournament
-
-    // return <p>The {tournamentName} Page!</p>
 
     return (
         <Fragment>
@@ -213,8 +208,4 @@ interface TournamentInfo {
     host: Array<HostInfo>
     server_link: string
     banner_link: string
-}
-
-interface InfoApiResponseData extends Omit<ApiResponseData, 'data'> {
-    data: TournamentInfo
 }

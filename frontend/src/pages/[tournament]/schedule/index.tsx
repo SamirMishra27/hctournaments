@@ -1,7 +1,5 @@
-// import { useRouter } from 'next/router'
 import { Fragment } from 'react'
 import { GetStaticProps, GetStaticPaths } from 'next'
-import Link from 'next/link'
 
 import Header from '@/components/header'
 import Footer from '@/components/footer'
@@ -21,10 +19,7 @@ export default function schedulePage(props: {
         else if (teamARuns < teamBRuns) return 'text-red-100'
         else return 'text-slate-200'
     }
-    // const router = useRouter()
-    // const tournamentName = router.query.tournament
 
-    // return <p>The Schedule page for {tournamentName}!</p>
     return (
         <Fragment>
             <Header />
