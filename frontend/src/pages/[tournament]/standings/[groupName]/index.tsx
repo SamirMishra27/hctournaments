@@ -7,7 +7,7 @@ import Footer from '@/components/footer'
 import { axiosApi, getTournamentInfoData } from '@/api'
 import { GroupsApiPayloadData, GroupInfo, GroupStandings, Params } from '@/types'
 
-export default function standingsOfAGroupPage(props: {
+export default function StandingsGroupPage(props: {
     tournamentFullName: string
     tournament: string
     season: string

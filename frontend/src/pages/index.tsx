@@ -7,7 +7,7 @@ import Footer from '@/components/footer'
 import botslogo from '../../public/assets/bots-logo.png'
 import superlogo from '../../public/assets/superleague-logo.jpg'
 
-export default function Home() {
+export default function HomePage() {
     const imageRefOne = useRef() as MutableRefObject<HTMLImageElement>
     const imageRefTwo = useRef() as MutableRefObject<HTMLImageElement>
     const containerRefOne = useRef() as MutableRefObject<HTMLDivElement>

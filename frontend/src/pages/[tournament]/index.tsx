@@ -13,7 +13,7 @@ import avatar from '../../../public/assets/avatar.png'
 import { getTournamentInfoData } from '@/api'
 import { Params, TournamentInfo } from '@/types'
 
-export default function tournamentPage(props: {
+export default function TournamentPage(props: {
     tournament: string
     tournamentInfo: TournamentInfo
     embedImageUrl: string

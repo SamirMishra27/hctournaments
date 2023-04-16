@@ -6,7 +6,7 @@ import Footer from '@/components/footer'
 import { axiosApi, getTournamentInfoData } from '@/api'
 import { ScheduleApiPayloadData, MatchInfo, Params } from '@/types'
 
-export default function schedulePage(props: {
+export default function SchedulePage(props: {
     tournamentFullName: string
     season: string
     serverLink: string

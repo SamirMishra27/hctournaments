@@ -91,7 +91,7 @@ function PlayerRowComponentBowling(props: { player: PlayerStatistics; index: num
     )
 }
 
-export default function statsPage(props: {
+export default function StatsPage(props: {
     tournamentFullName: string
     season: string
     serverLink: string
