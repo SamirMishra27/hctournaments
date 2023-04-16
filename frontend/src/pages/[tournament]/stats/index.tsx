@@ -32,10 +32,7 @@ function PlayerRowComponentBatting(props: { player: PlayerStatistics; index: num
 
     return (
         <div
-            className={
-                'w-3/4 player-stats-bg-gradient-batting flex items-center justify-between ' +
-                'rounded-xl px-3 py-2 my-1'
-            }
+            className="w-3/4 bg-bright-orange flex items-center justify-between rounded-xl px-3 py-2 my-1"
             key={player.id}>
             <p className="font-semibold text-lg">
                 {index + 1}. {player.name}
@@ -63,10 +60,7 @@ function PlayerRowComponentBowling(props: { player: PlayerStatistics; index: num
 
     return (
         <div
-            className={
-                'w-3/4 player-stats-bg-gradient-bowling flex items-center justify-between ' +
-                'rounded-xl px-3 py-2 my-1'
-            }
+            className="w-3/4 bg-bright-purple flex items-center justify-between rounded-xl px-3 py-2 my-1"
             key={player.id}>
             <p className="font-semibold text-lg">
                 {index + 1}. {player.name}
@@ -128,7 +122,7 @@ export default function StatsPage(props: {
     return (
         <Fragment>
             <Header />
-            <main className="w-full flex flex-col items-center justify-center player-stats-page-gradient">
+            <main className="w-full flex flex-col items-center justify-center bg-page-primary">
                 <section className="container max-w-[96rem] flex flex-col items-center justify-center py-7 my-5">
                     <h1 className="text-slate-50 font-bold text-5xl my-3">
                         {props.tournamentFullName}
@@ -147,8 +141,8 @@ export default function StatsPage(props: {
                     <div
                         className={
                             'w-[50rem] flex flex-col items-center text-center text-slate-50 px-2 py-4 rounded-xl ' +
-                            'bg-gradient-to-br from-[#19376D] via-[#0B2447] to-[#19376D] ' +
-                            'border-4 border-solid border-[#21315B]'
+                            'bg-gradient-to-br from-night-blue-primary via-night-blue-accent ' +
+                            'to-night-blue-primary border-4 border-solid border-[#21315B]'
                         }>
                         {playersSortedByRuns.length
                             ? playersSortedByRuns
@@ -214,8 +208,8 @@ export default function StatsPage(props: {
                     <div
                         className={
                             'w-[50rem] flex flex-col items-center text-center text-slate-50 px-2 py-4 rounded-xl ' +
-                            'bg-gradient-to-br from-[#19376D] via-[#0B2447] to-[#19376D] ' +
-                            'border-4 border-solid border-[#21315B]'
+                            'bg-gradient-to-br from-night-blue-primary via-night-blue-accent ' +
+                            'to-night-blue-primary border-4 border-solid border-[#21315B]'
                         }>
                         {playersSortedByWickets.length
                             ? playersSortedByWickets

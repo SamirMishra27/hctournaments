@@ -43,7 +43,7 @@ export default function HomePage() {
         <Fragment>
             <Header />
             <main className="w-full flex flex-col items-center justify-center">
-                <section className="hero-section w-full flex items-center justify-center h-[40rem]">
+                <section className="hero-section bg-page-primary w-full flex items-center justify-center h-[40rem]">
                     <div className="container max-w-[96rem] flex flex-col items-center justify-center space-y-10">
                         <div className="headline text-slate-50 font-extrabold text-center">
                             <h1 className="text-6xl">Taking Cricket Tournaments</h1>

@@ -35,7 +35,7 @@ export default function TournamentPage(props: {
     return (
         <Fragment>
             <Header />
-            <main className="w-full flex flex-col items-center justify-center page-primary-bg-gradient">
+            <main className="w-full flex flex-col items-center justify-center bg-page-primary">
                 <section className="container max-w-[96rem] flex flex-col items-center justify-center py-7 my-5">
                     <h1 className="text-slate-50 font-bold text-5xl my-3">
                         {tournamentInfo.tournament_full_name}
@@ -111,10 +111,10 @@ export default function TournamentPage(props: {
                     </div>
 
                     <div className="space-y-3">
-                        <h1 className="text-4xl font-bold">Event Hosts</h1>
-                        <p className="italic opacity-95 capitalize">
-                            Quick Glance at those who make {tournamentInfo.tournament_full_name}{' '}
-                            possible!
+                        <h1 className="text-4xl font-bold max-w-xl">Event Hosts</h1>
+                        <p>
+                            Quick glance at those who make {tournamentInfo.tournament_full_name}
+                            &nbsp;possible!
                         </p>
                     </div>
                     <div className="w-[48rem] flex items-center justify-evenly p-6 space-x-8">
@@ -137,8 +137,8 @@ export default function TournamentPage(props: {
                         ))}
                     </div>
 
-                    <div className="space-y-3">
-                        <h1 className="text-4xl font-bold">What are you waiting for?</h1>
+                    <div>
+                        <h1 className="text-4xl font-bold my-3">What are you waiting for?</h1>
                         <p>
                             Join the Server right now to participate in&nbsp;
                             {tournamentInfo.tournament_full_name}!

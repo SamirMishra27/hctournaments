@@ -23,7 +23,7 @@ export default function SchedulePage(props: {
     return (
         <Fragment>
             <Header />
-            <main className="w-full flex flex-col items-center justify-center page-primary-bg-gradient">
+            <main className="w-full flex flex-col items-center justify-center bg-page-primary">
                 <section className="container max-w-[96rem] flex flex-col items-center justify-center py-7 my-5">
                     <h1 className="text-slate-50 font-bold text-5xl my-3">
                         {props.tournamentFullName}
@@ -51,7 +51,7 @@ export default function SchedulePage(props: {
                         {props.schedule.length ? (
                             props.schedule.map((match) => (
                                 <div
-                                    className="w-3/4 row-bg-gradient flex items-center justify-evenly rounded-xl px-3 py-3 my-2"
+                                    className="w-3/4 bg-bright-orange flex items-center justify-evenly rounded-xl px-3 py-3 my-2"
                                     key={match.MatchNo}>
                                     <p>{match.MatchNo}. </p>
                                     <p className="w-56 text-ellipsis">{match.TeamAName}</p>
@@ -82,7 +82,7 @@ export default function SchedulePage(props: {
                         {props.results.length ? (
                             props.schedule.map((match) => (
                                 <div
-                                    className="w-3/4 row-bg-gradient flex items-center justify-evenly rounded-xl px-3 py-3 my-2"
+                                    className="w-3/4 bg-bright-orange flex items-center justify-evenly rounded-xl px-3 py-3 my-2"
                                     key={match.MatchNo}>
                                     <p>{match.MatchNo}. </p>
                                     <div>

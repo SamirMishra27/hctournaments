@@ -21,7 +21,7 @@ export default function StandingsGroupPage(props: {
     return (
         <Fragment>
             <Header />
-            <main className="w-full flex flex-col items-center justify-center player-stats-page-gradient">
+            <main className="w-full flex flex-col items-center justify-center bg-page-primary">
                 <section className="container max-w-[96rem] flex flex-col items-center justify-center py-7 my-5">
                     <h1 className="text-slate-50 font-bold text-5xl my-3">
                         {props.tournamentFullName}
@@ -45,10 +45,7 @@ export default function StandingsGroupPage(props: {
                         }>
                         {props.groupStandings.map((row, index) => (
                             <div
-                                className={
-                                    'w-3/4 group-standings-bg-gradient flex items-center justify-around ' +
-                                    'rounded-xl px-3 py-3 my-2'
-                                }
+                                className="w-3/4 bg-bright-orange flex items-center justify-around rounded-xl px-3 py-3 my-2"
                                 key={index}>
                                 <p>{index + 1}. </p>
                                 <p className="uppercase w-56 break-words text-left">
