@@ -5,7 +5,7 @@ import Link from 'next/link'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
 import { axiosApi, getTournamentInfoData } from '@/api'
-import { ApiResponseData, Params } from '@/types'
+import { GroupsApiPayloadData, GroupInfo, GroupStandings, Params } from '@/types'
 
 export default function standingsOfAGroupPage(props: {
     tournamentFullName: string
@@ -111,7 +111,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     const queriedGroup = availableGroups.filter((group) => group.id === groupId)[0]
 
     const response = await axiosApi.get('/groups/' + tournament + '/' + groupId)
-    const groupData = response.data as GroupsApiResponseData
+    const groupData = response.data as GroupsApiPayloadData
 
     const embedImageUrl = groupData.cloudinary_url
     const groupStandings = groupData.data
@@ -144,21 +144,4 @@ export const getStaticPaths: GetStaticPaths = async () => {
         paths: paramsArray,
         fallback: false
     }
-}
-
-interface GroupInfo {
-    id: string
-    name: string
-}
-
-interface GroupStandings {
-    team_name: string
-    matches_played: number
-    matches_won: number
-    matches_lost: number
-    points: number
-}
-
-interface GroupsApiResponseData extends Omit<ApiResponseData, 'data'> {
-    data: Array<GroupStandings>
 }

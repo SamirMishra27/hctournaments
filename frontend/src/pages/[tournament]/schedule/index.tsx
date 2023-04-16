@@ -4,15 +4,15 @@ import { GetStaticProps, GetStaticPaths } from 'next'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
 import { axiosApi, getTournamentInfoData } from '@/api'
-import { ApiResponseData, Params } from '@/types'
+import { ScheduleApiPayloadData, MatchInfo, Params } from '@/types'
 
 export default function schedulePage(props: {
     tournamentFullName: string
     season: string
     serverLink: string
     embedImageUrl: string
-    schedule: Array<Schedule>
-    results: Array<Schedule>
+    schedule: Array<MatchInfo>
+    results: Array<MatchInfo>
 }) {
     function textColor(teamARuns: number, teamBRuns: number) {
         if (teamARuns > teamBRuns) return 'text-green-100'
@@ -138,7 +138,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     const { season, server_link, tournament_full_name } = tournamentInfoData.data
 
     const response = await axiosApi.get('/schedule/' + tournament)
-    const scheduleData = response.data as ScheduleApiResponseData
+    const scheduleData = response.data as ScheduleApiPayloadData
 
     const embedImageUrl = scheduleData.cloudinary_url
     const scheduleAndResults = scheduleData.data
@@ -160,21 +160,4 @@ export const getStaticPaths: GetStaticPaths = async () => {
         paths: [{ params: { tournament: 'bots' } }, { params: { tournament: 'superleague' } }],
         fallback: false
     }
-}
-
-interface Schedule {
-    MatchNo: number
-    MatchStatus: boolean // If true then match is finished
-    TeamAName: string
-    TeamARuns: number
-    TeamAOvers: number
-    TeamAWickets: number
-    TeamBName: string
-    TeamBRuns: number
-    TeamBOvers: number
-    TeamBWickets: number
-}
-
-interface ScheduleApiResponseData extends Omit<ApiResponseData, 'data'> {
-    data: Array<Schedule>
 }

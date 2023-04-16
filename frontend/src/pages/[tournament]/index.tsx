@@ -11,7 +11,7 @@ import sandclock from '../../../public/assets/sandclock.svg'
 import avatar from '../../../public/assets/avatar.png'
 
 import { getTournamentInfoData } from '@/api'
-import { Params } from '@/types'
+import { Params, TournamentInfo } from '@/types'
 
 export default function tournamentPage(props: {
     tournament: string
@@ -168,7 +168,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     const { tournament } = context.params as Params
     const tournamentInfoData = await getTournamentInfoData(tournament)
 
-    const tournamentInfo = tournamentInfoData.data as unknown as TournamentInfo
+    const tournamentInfo = tournamentInfoData.data as TournamentInfo
     const embedImageUrl = tournamentInfoData.cloudinary_url
 
     return {
@@ -185,27 +185,4 @@ export const getStaticPaths: GetStaticPaths = async () => {
         paths: [{ params: { tournament: 'bots' } }, { params: { tournament: 'superleague' } }],
         fallback: false
     }
-}
-
-interface HostInfo {
-    name: string
-    mention: string
-    id: number
-}
-
-interface TournamentInfo {
-    tournament_full_name: string
-    tournament_short_name: string
-    season: string
-    start_date: string
-    end_date: string
-    participants: number
-    total_teams: number
-    current_stage: string
-    total_matches: number
-    matches_done: number
-    groups: Array<unknown>
-    host: Array<HostInfo>
-    server_link: string
-    banner_link: string
 }

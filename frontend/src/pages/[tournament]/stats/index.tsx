@@ -4,7 +4,7 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
 import { axiosApi } from '@/api'
-import { Params, ApiResponseData } from '@/types'
+import { Params, StatsApiPayloadData, PlayerStatistics } from '@/types'
 import { getTournamentInfoData } from '@/api'
 
 function InteractiveButton(props: {
@@ -283,7 +283,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     const { season, server_link, tournament_full_name } = tournamentInfoData.data
 
     const response = await axiosApi.get('/playerstats/' + tournament)
-    const playerStatsData = response.data as StatsApiResponseData
+    const playerStatsData = response.data as StatsApiPayloadData
 
     const embedImageUrl = playerStatsData.cloudinary_url
     const allPlayerStats = playerStatsData.full_data
@@ -315,20 +315,4 @@ export const getStaticPaths: GetStaticPaths = async () => {
         paths: [{ params: { tournament: 'bots' } }, { params: { tournament: 'superleague' } }],
         fallback: false
     }
-}
-
-interface StatsApiResponseData extends ApiResponseData {
-    full_data: Array<PlayerStatistics>
-    top_ten_batting: Array<PlayerStatistics>
-    top_ten_bowling: Array<PlayerStatistics>
-}
-
-interface PlayerStatistics {
-    name: string
-    id: number
-    runs: number
-    balls: number
-    runs_given: number
-    balls_given: number
-    wickets: number
 }

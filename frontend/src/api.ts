@@ -1,4 +1,4 @@
-import { ApiResponseData } from '@/types'
+import { InfoApiPayloadData } from './types'
 import axios from 'axios'
 
 export const axiosApi = axios.create({
@@ -9,7 +9,7 @@ export async function getTournamentInfoData(tournament: string) {
     const path = '/tournaments/' + tournament
 
     const response = await axiosApi.get(path)
-    const data = response.data as ApiResponseData
+    const data = response.data as InfoApiPayloadData
 
     return data
 }
