@@ -59,6 +59,14 @@ def get_image_from_cloudinary(public_id, cloud_name):
 
     return cloudinary_image, image_needs_update, log_msg
 
+def compare_image_versions(upload_response, cloudinary_image):
+
+    if upload_response.get('version') == cloudinary_image.get('version'):
+        print(
+            'New image\'s content are the same as of the older image. '
+            'Cloudinary didn\'t update and kept the old image'
+        )
+
 def send_404_json_response(**kwargs):
 
     json_body = {}

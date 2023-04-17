@@ -2,7 +2,8 @@ from flask import jsonify, make_response
 
 from routes import cloud_name
 from utils import (
-    cloudinary_upload, 
+    cloudinary_upload,
+    compare_image_versions, 
     get_image_from_cloudinary, 
     send_404_json_response,
     sort_multiple
@@ -130,6 +131,8 @@ def playerstats(tournament_name: str):
 
         upload_response = cloudinary_upload(image_buffer, 'playerstats', f'hctournaments/{tournament_name}')
         cloudinary_image_url = upload_response.get('secure_url')
+
+        compare_image_versions(upload_response, cloudinary_image)
 
     else:
         print('Retrieved an existing image from cloudinary, sending in response')
