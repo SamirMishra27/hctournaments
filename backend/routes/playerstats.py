@@ -13,6 +13,7 @@ from os import listdir
 from operator import itemgetter
 from traceback import print_exception
 from io import BytesIO
+from textwrap import shorten
 
 from PIL import Image
 from PIL import ImageDraw
@@ -32,30 +33,42 @@ def generate_new_image(name, top_ten_batting, top_ten_bowling):
     image_draw.text(xy = (350, 120), text = 'Orange Cap', fill = white_color, font = font_large, anchor = 'ma')
     image_draw.text(xy = (1050, 120), text = 'Purple Cap', fill = white_color, font = font_large, anchor = 'ma')
 
-    top_ten_batting_string = ''
-    top_ten_bowling_string = ''
-
-    for player in top_ten_batting:
-        player_name = player['name'][:15]
-        player_runs = player['runs']
-        top_ten_batting_string += '{:^15} - {:^15}\n\n'.format(player_name, player_runs)
-
-    for player in top_ten_bowling:
-        player_name = player['name'][:15]
-        player_runs = player['runs']
-        top_ten_bowling_string += '{:^15} - {:^15}\n\n'.format(player_name, player_runs)
+    def short(text):
+        return shorten(text, width = 20, placeholder = '...')
 
     image_draw.multiline_text(
-        xy = (180, 220),
-        text = top_ten_batting_string,
+        xy = (120, 220),
+        text = 'Player\n\n' + '\n\n'.join([
+            short(player['name']) for player in top_ten_batting
+        ]),
         fill = white_color,
         font = font_small,
     )
     image_draw.multiline_text(
-        xy = (860, 220),
-        text = top_ten_bowling_string,
+        xy = (520, 220),
+        text = 'Runs\n\n' + '\n\n'.join([
+            str(player['runs']) for player in top_ten_batting
+        ]),
         fill = white_color,
         font = font_small,
+        align = 'center'
+    )
+    image_draw.multiline_text(
+        xy = (830, 220),
+        text = 'Player\n\n' + '\n\n'.join([
+            short(player['name']) for player in top_ten_bowling
+        ]),
+        fill = white_color,
+        font = font_small,
+    )
+    image_draw.multiline_text(
+        xy = (1230, 220),
+        text = 'Wickets\n\n' + '\n\n'.join([
+            str(player['wickets']) for player in top_ten_bowling
+        ]),
+        fill = white_color,
+        font = font_small,
+        align = 'center'
     )
 
     buffer = BytesIO()
@@ -132,7 +145,8 @@ def playerstats(tournament_name: str):
         upload_response = cloudinary_upload(image_buffer, 'playerstats', f'hctournaments/{tournament_name}')
         cloudinary_image_url = upload_response.get('secure_url')
 
-        compare_image_versions(upload_response, cloudinary_image)
+        if cloudinary_image is not None:
+            compare_image_versions(upload_response, cloudinary_image)
 
     else:
         print('Retrieved an existing image from cloudinary, sending in response')

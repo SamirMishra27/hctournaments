@@ -108,7 +108,8 @@ def groups(tournament_name: str, group_name: str):
         upload_response = cloudinary_upload(image_buffer, group_name, f'hctournaments/{tournament_name}')
         cloudinary_image_url = upload_response.get('secure_url')
 
-        compare_image_versions(upload_response, cloudinary_image)
+        if cloudinary_image is not None:
+            compare_image_versions(upload_response, cloudinary_image)
 
     else:
         print('Retrieved an existing image from cloudinary, sending in response')
