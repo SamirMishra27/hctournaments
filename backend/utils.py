@@ -42,6 +42,7 @@ def get_image_from_cloudinary(public_id, cloud_name):
 
     cloudinary_image = None
     image_needs_update = False
+    log_msg = ''
 
     try:
         cloudinary_image = cloudinary.api.resource(public_id = public_id, cloud_name = cloud_name)
@@ -49,14 +50,14 @@ def get_image_from_cloudinary(public_id, cloud_name):
         # The last time an image with same public_id was uploaded
         updated_at = int(cloudinary_image.get('version'))
         if time() - updated_at > DAY:
-            print('Image was created day ago')
+            log_msg = 'Image was created day ago. Creating a new image'
             image_needs_update = True
 
     except NotFound as e:
-        print('Image not found in cloudinary')
+        log_msg = 'Image not found in cloudinary. Creating a new image'
         cloudinary_image = None
 
-    return cloudinary_image, image_needs_update
+    return cloudinary_image, image_needs_update, log_msg
 
 def send_404_json_response(**kwargs):
 

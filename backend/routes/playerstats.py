@@ -109,20 +109,21 @@ def playerstats(tournament_name: str):
         stats_data,
         ( itemgetter('runs'), True ),
         ( itemgetter('balls'), False )
-    )[0:11]
+    )[0:10]
     top_ten_bowling = sort_multiple(
         stats_data,
         ( itemgetter('wickets'), True ),
         ( itemgetter('runs_given'), False ),
         ( itemgetter('balls_given'), False )
-    )[0:11]
+    )[0:10]
 
     cloudinary_path = f'hctournaments/{tournament_name}/playerstats'
-    cloudinary_image, image_needs_update = get_image_from_cloudinary(
+    cloudinary_image, image_needs_update, log_msg = get_image_from_cloudinary(
         public_id = cloudinary_path, cloud_name = cloud_name
     )
 
-    if cloudinary_image is None or image_needs_update:
+    if image_needs_update or cloudinary_image is None:
+        print(log_msg)
         # Image was either not found in storage
         # Or last image was created over a day ago
         image_buffer = generate_new_image(tournament_name, top_ten_batting, top_ten_bowling)

@@ -94,11 +94,12 @@ def groups(tournament_name: str, group_name: str):
     group_points_table = sorted(group_points_table, key = lambda x: x.get('points'), reverse = True)
 
     cloudinary_path = f'hctournaments/{tournament_name}/{group_name}'
-    cloudinary_image, image_needs_update = get_image_from_cloudinary(
+    cloudinary_image, image_needs_update, log_msg = get_image_from_cloudinary(
         public_id = cloudinary_path, cloud_name = cloud_name
     )
 
-    if cloudinary_image is None or image_needs_update:
+    if image_needs_update or cloudinary_image is None:
+        print(log_msg)
         # Image was either not found in storage
         # Or last image was created over a day ago
         image_buffer = generate_new_image(tournament_name, group_name, group_points_table)
