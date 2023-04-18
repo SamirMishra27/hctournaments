@@ -300,7 +300,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
     const tournamentInfoData = await getTournamentInfoData(tournament)
     if (!tournamentInfoData) {
         return {
-            notFound: true
+            notFound: true,
+            revalidate: 60 * 60 * 6
         }
     }
     const { season, server_link, tournament_full_name } = tournamentInfoData.data
@@ -315,7 +316,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
     if (!response || response.status === 404 || !response.data.success) {
         return {
-            notFound: true
+            notFound: true,
+            revalidate: 60 * 60 * 6
         }
     }
     const playerStatsData = response.data as StatsApiPayloadData
@@ -341,13 +343,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
             topTenBatsmen: topTenBatsmen,
             topTenBowlers: topTenBowlers,
             allPlayerStats: allPlayerStats
-        }
+        },
+        revalidate: 60 * 60 * 6
     }
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
     return {
         paths: [{ params: { tournament: 'bots' } }, { params: { tournament: 'superleague' } }],
-        fallback: false
+        fallback: 'blocking'
     }
 }

@@ -129,7 +129,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
     const tournamentInfoData = await getTournamentInfoData('bots')
     if (!tournamentInfoData) {
         return {
-            notFound: true
+            notFound: true,
+            revalidate: 60 * 60 * 6
         }
     }
     const { season, server_link, tournament_full_name } = tournamentInfoData.data
@@ -147,7 +148,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
     if (!response || response.status === 404 || !response.data.success) {
         return {
-            notFound: true
+            notFound: true,
+            revalidate: 60 * 60 * 6
         }
     }
     const groupData = response.data as GroupsApiPayloadData
@@ -166,7 +168,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
             groupFullName: queriedGroup.name,
             groupStandings: groupStandings,
             availableGroups: availableGroups
-        }
+        },
+        revalidate: 60 * 60 * 6
     }
 }
 
@@ -188,6 +191,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
     return {
         paths: paramsArray,
-        fallback: false
+        fallback: 'blocking'
     }
 }

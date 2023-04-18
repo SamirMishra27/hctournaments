@@ -162,7 +162,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
     const tournamentInfoData = await getTournamentInfoData(tournament)
     if (!tournamentInfoData) {
         return {
-            notFound: true
+            notFound: true,
+            revalidate: 60 * 60 * 6
         }
     }
     const { season, server_link, tournament_full_name } = tournamentInfoData.data
@@ -177,7 +178,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
     if (!response || response.status === 404 || !response.data.success) {
         return {
-            notFound: true
+            notFound: true,
+            revalidate: 60 * 60 * 6
         }
     }
     const scheduleData = response.data as ScheduleApiPayloadData
@@ -193,13 +195,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
             embedImageUrl: embedImageUrl,
             schedule: scheduleAndResults.filter((match) => !match.MatchStatus),
             results: scheduleAndResults.filter((match) => match.MatchStatus)
-        }
+        },
+        revalidate: 60 * 60 * 6
     }
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
     return {
         paths: [{ params: { tournament: 'bots' } }, { params: { tournament: 'superleague' } }],
-        fallback: false
+        fallback: 'blocking'
     }
 }

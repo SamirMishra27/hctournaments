@@ -190,7 +190,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
     const tournamentInfoData = await getTournamentInfoData(tournament)
     if (!tournamentInfoData) {
         return {
-            notFound: true
+            notFound: true,
+            revalidate: 60 * 60 * 6
         }
     }
 
@@ -202,13 +203,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
             tournament: tournament,
             tournamentInfo: tournamentInfo,
             embedImageUrl: embedImageUrl
-        }
+        },
+        revalidate: 60 * 60 * 6
     }
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
     return {
         paths: [{ params: { tournament: 'bots' } }, { params: { tournament: 'superleague' } }],
-        fallback: false
+        fallback: 'blocking'
     }
 }
