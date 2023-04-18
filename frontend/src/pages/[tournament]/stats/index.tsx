@@ -2,13 +2,14 @@ import { Fragment, MouseEvent, useState } from 'react'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 
+import { AxiosResponse, isAxiosError } from 'axios'
+
 import Header from '@/components/header'
 import Footer from '@/components/footer'
-import { DefaultMetaData } from '@/utils'
-import { axiosApi } from '@/api'
+
+import { axiosApi, getTournamentInfoData } from '@/api'
 import { Params, StatsApiPayloadData, PlayerStatistics } from '@/types'
-import { getTournamentInfoData } from '@/api'
-import { AxiosResponse, isAxiosError } from 'axios'
+import { DefaultMetaData } from '@/utils'
 
 function InteractiveButton(props: {
     name: string

@@ -1,14 +1,16 @@
 import { Fragment } from 'react'
 import { GetStaticProps, GetStaticPaths } from 'next'
+import { AxiosResponse, isAxiosError } from 'axios'
+
 import Link from 'next/link'
 import Head from 'next/head'
 
 import Header from '@/components/header'
 import Footer from '@/components/footer'
-import { DefaultMetaData } from '@/utils'
+
 import { axiosApi, getTournamentInfoData } from '@/api'
 import { GroupsApiPayloadData, GroupInfo, GroupStandings, Params } from '@/types'
-import { AxiosResponse, isAxiosError } from 'axios'
+import { DefaultMetaData } from '@/utils'
 
 export default function StandingsGroupPage(props: {
     tournamentFullName: string

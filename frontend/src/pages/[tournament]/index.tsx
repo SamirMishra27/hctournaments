@@ -7,13 +7,13 @@ import Head from 'next/head'
 
 import Header from '@/components/header'
 import Footer from '@/components/footer'
+
+import { getTournamentInfoData } from '@/api'
+import { Params, TournamentInfo } from '@/types'
 import { DefaultMetaData } from '@/utils'
 
 import sandclock from '../../../public/assets/sandclock.svg'
 import avatar from '../../../public/assets/avatar.png'
-
-import { getTournamentInfoData } from '@/api'
-import { Params, TournamentInfo } from '@/types'
 
 export default function TournamentPage(props: {
     tournament: string

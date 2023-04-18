@@ -2,12 +2,14 @@ import { Fragment } from 'react'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import Head from 'next/head'
 
+import { AxiosResponse, isAxiosError } from 'axios'
+
 import Header from '@/components/header'
 import Footer from '@/components/footer'
-import { DefaultMetaData } from '@/utils'
+
 import { axiosApi, getTournamentInfoData } from '@/api'
 import { ScheduleApiPayloadData, MatchInfo, Params } from '@/types'
-import { AxiosResponse, isAxiosError } from 'axios'
+import { DefaultMetaData } from '@/utils'
 
 export default function SchedulePage(props: {
     tournamentFullName: string
