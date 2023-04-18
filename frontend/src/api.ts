@@ -1,5 +1,5 @@
 import { InfoApiPayloadData } from './types'
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 
 export const axiosApi = axios.create({
     baseURL: process.env.API_ROUTE
@@ -8,7 +8,12 @@ export const axiosApi = axios.create({
 export async function getTournamentInfoData(tournament: string) {
     const path = '/tournaments/' + tournament
 
-    const response = await axiosApi.get(path)
+    let response: AxiosResponse
+    try {
+        response = await axiosApi.get(path)
+    } catch (error) {
+        return undefined
+    }
     const data = response.data as InfoApiPayloadData
 
     return data

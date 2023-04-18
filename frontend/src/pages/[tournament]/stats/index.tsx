@@ -6,6 +6,7 @@ import Footer from '@/components/footer'
 import { axiosApi } from '@/api'
 import { Params, StatsApiPayloadData, PlayerStatistics } from '@/types'
 import { getTournamentInfoData } from '@/api'
+import { AxiosResponse, isAxiosError } from 'axios'
 
 function InteractiveButton(props: {
     name: string
@@ -274,9 +275,26 @@ export const getStaticProps: GetStaticProps = async (context) => {
     const { tournament } = context.params as Params
 
     const tournamentInfoData = await getTournamentInfoData(tournament)
+    if (!tournamentInfoData) {
+        return {
+            notFound: true
+        }
+    }
     const { season, server_link, tournament_full_name } = tournamentInfoData.data
 
-    const response = await axiosApi.get('/playerstats/' + tournament)
+    let response: AxiosResponse | undefined
+    try {
+        response = await axiosApi.get('/playerstats/' + tournament)
+    } catch (error) {
+        if (isAxiosError(error)) response = error.response
+        else throw error
+    }
+
+    if (!response || response.status === 404 || !response.data.success) {
+        return {
+            notFound: true
+        }
+    }
     const playerStatsData = response.data as StatsApiPayloadData
 
     const embedImageUrl = playerStatsData.cloudinary_url

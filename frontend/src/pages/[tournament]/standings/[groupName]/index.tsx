@@ -6,6 +6,7 @@ import Header from '@/components/header'
 import Footer from '@/components/footer'
 import { axiosApi, getTournamentInfoData } from '@/api'
 import { GroupsApiPayloadData, GroupInfo, GroupStandings, Params } from '@/types'
+import { AxiosResponse, isAxiosError } from 'axios'
 
 export default function StandingsGroupPage(props: {
     tournamentFullName: string
@@ -102,12 +103,29 @@ export const getStaticProps: GetStaticProps = async (context) => {
     // TODO: Fix this bad code
 
     const tournamentInfoData = await getTournamentInfoData('bots')
+    if (!tournamentInfoData) {
+        return {
+            notFound: true
+        }
+    }
     const { season, server_link, tournament_full_name } = tournamentInfoData.data
 
     const availableGroups = tournamentInfoData.data.groups as Array<GroupInfo>
     const queriedGroup = availableGroups.filter((group) => group.id === groupId)[0]
 
-    const response = await axiosApi.get('/groups/' + tournament + '/' + groupId)
+    let response: AxiosResponse | undefined
+    try {
+        response = await axiosApi.get('/groups/' + tournament + '/' + groupId)
+    } catch (error) {
+        if (isAxiosError(error)) response = error.response
+        else throw error
+    }
+
+    if (!response || response.status === 404 || !response.data.success) {
+        return {
+            notFound: true
+        }
+    }
     const groupData = response.data as GroupsApiPayloadData
 
     const embedImageUrl = groupData.cloudinary_url
@@ -130,6 +148,13 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
     const tournamentInfoData = await getTournamentInfoData('bots')
+
+    if (!tournamentInfoData) {
+        return {
+            paths: [],
+            fallback: false
+        }
+    }
 
     const groups = tournamentInfoData.data.groups as Array<GroupInfo>
 

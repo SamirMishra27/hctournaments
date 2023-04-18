@@ -167,6 +167,11 @@ export default function TournamentPage(props: {
 export const getStaticProps: GetStaticProps = async (context) => {
     const { tournament } = context.params as Params
     const tournamentInfoData = await getTournamentInfoData(tournament)
+    if (!tournamentInfoData) {
+        return {
+            notFound: true
+        }
+    }
 
     const tournamentInfo = tournamentInfoData.data as TournamentInfo
     const embedImageUrl = tournamentInfoData.cloudinary_url

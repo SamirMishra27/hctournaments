@@ -5,6 +5,7 @@ import Header from '@/components/header'
 import Footer from '@/components/footer'
 import { axiosApi, getTournamentInfoData } from '@/api'
 import { ScheduleApiPayloadData, MatchInfo, Params } from '@/types'
+import { AxiosResponse, isAxiosError } from 'axios'
 
 export default function SchedulePage(props: {
     tournamentFullName: string
@@ -135,9 +136,26 @@ export const getStaticProps: GetStaticProps = async (context) => {
     const { tournament } = context.params as Params
 
     const tournamentInfoData = await getTournamentInfoData(tournament)
+    if (!tournamentInfoData) {
+        return {
+            notFound: true
+        }
+    }
     const { season, server_link, tournament_full_name } = tournamentInfoData.data
 
-    const response = await axiosApi.get('/schedule/' + tournament)
+    let response: AxiosResponse | undefined
+    try {
+        response = await axiosApi.get('/schedule/' + tournament)
+    } catch (error) {
+        if (isAxiosError(error)) response = error.response
+        else throw error
+    }
+
+    if (!response || response.status === 404 || !response.data.success) {
+        return {
+            notFound: true
+        }
+    }
     const scheduleData = response.data as ScheduleApiPayloadData
 
     const embedImageUrl = scheduleData.cloudinary_url
