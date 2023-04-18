@@ -65,7 +65,7 @@ export default function TournamentPage(props: {
 
                     <hr className="w-[80rem] border-slate-400" />
 
-                    <div className="w-[48rem] grid grid-rows-2 grid-cols-2 gap-x-10 gap-y-24">
+                    <div className="w-[48rem] grid grid-rows-[auto] grid-cols-2 gap-x-10 gap-y-24">
                         <div className="flex flex-col items-center justify-evenly px-4 font-semibold">
                             <p className="mb-3 font-bold text-6xl">{tournamentInfo.participants}</p>
                             <p className="text-xl">Participants</p>

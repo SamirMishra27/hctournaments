@@ -1,6 +1,7 @@
 import { Fragment, MutableRefObject, useEffect, useRef } from 'react'
-
 import Image from 'next/image'
+import Link from 'next/link'
+
 import Header from '@/components/header'
 import Footer from '@/components/footer'
 
@@ -85,7 +86,11 @@ export default function HomePage() {
                                     'rotate-[-5deg] transition-[top] duration-300 blur-md'
                                 }
                             />
-                            <p>View Tournament</p>
+                            <Link
+                                href="/bots"
+                                className="w-full h-full flex items-center justify-center">
+                                View Tournament
+                            </Link>
                         </button>
                     </div>
                 </section>
@@ -118,7 +123,11 @@ export default function HomePage() {
                                     'rotate-[-5deg] transition-[top] duration-300 blur-md'
                                 }
                             />
-                            <p>View Tournament</p>
+                            <Link
+                                href="/superleague"
+                                className="w-full h-full flex items-center justify-center">
+                                View Tournament
+                            </Link>
                         </button>
                     </div>
                 </section>
