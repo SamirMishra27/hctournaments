@@ -3,9 +3,11 @@ import { GetStaticProps, GetStaticPaths } from 'next'
 
 import Link from 'next/link'
 import Image from 'next/image'
+import Head from 'next/head'
 
 import Header from '@/components/header'
 import Footer from '@/components/footer'
+import { DefaultMetaData } from '@/utils'
 
 import sandclock from '../../../public/assets/sandclock.svg'
 import avatar from '../../../public/assets/avatar.png'
@@ -19,6 +21,7 @@ export default function TournamentPage(props: {
     embedImageUrl: string
 }) {
     const { tournament, tournamentInfo, embedImageUrl } = props
+    const metaTitle = `${tournamentInfo.tournament_full_name} | ${DefaultMetaData.OG_MAIN_TITLE}`
 
     const rtf = new Intl.RelativeTimeFormat('en', { style: 'short' })
     const parsedDate = new Date(tournamentInfo.start_date)
@@ -34,6 +37,24 @@ export default function TournamentPage(props: {
 
     return (
         <Fragment>
+            <Head>
+                <title className="capitalize">{metaTitle}</title>
+                <meta property="og:title" content={metaTitle} />
+                <meta property="og:site_name" content={DefaultMetaData.OG_SITE_NAME} />
+
+                <meta property="og:description" content={DefaultMetaData.OG_DESCRIPTION} />
+                <meta name="description" content={DefaultMetaData.OG_DESCRIPTION} />
+
+                <meta property="og:image:type" content="image/jpg" />
+                <meta property="og:image" content={embedImageUrl} />
+                <meta property="og:image:alt" content={DefaultMetaData.OG_DESCRIPTION} />
+
+                <meta property="twitter:description" content={DefaultMetaData.OG_DESCRIPTION} />
+                <meta name="twitter:title" content={metaTitle} />
+
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:image:src" content={embedImageUrl} />
+            </Head>
             <Header />
             <main className="w-full flex flex-col items-center justify-center bg-page-primary">
                 <section className="container max-w-[96rem] flex flex-col items-center justify-center py-7 my-5">

@@ -1,12 +1,15 @@
 import { Fragment, MutableRefObject, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import Head from 'next/head'
 
 import Header from '@/components/header'
 import Footer from '@/components/footer'
+import { DefaultMetaData } from '@/utils'
 
 import botslogo from '../../public/assets/bots-logo.png'
 import superlogo from '../../public/assets/superleague-logo.jpg'
+import homeimage from '../../public/assets/home-image.jpg'
 
 export default function HomePage() {
     const imageRefOne = useRef() as MutableRefObject<HTMLImageElement>
@@ -42,6 +45,24 @@ export default function HomePage() {
 
     return (
         <Fragment>
+            <Head>
+                <title>{DefaultMetaData.OG_MAIN_TITLE}</title>
+                <meta property="og:title" content={DefaultMetaData.OG_MAIN_TITLE} />
+                <meta property="og:site_name" content={DefaultMetaData.OG_SITE_NAME} />
+
+                <meta property="og:description" content={DefaultMetaData.OG_DESCRIPTION} />
+                <meta name="description" content={DefaultMetaData.OG_DESCRIPTION} />
+
+                <meta property="og:image:type" content="image/jpg" />
+                <meta property="og:image" content={homeimage.src} />
+                <meta property="og:image:alt" content={DefaultMetaData.OG_DESCRIPTION} />
+
+                <meta property="twitter:description" content={DefaultMetaData.OG_DESCRIPTION} />
+                <meta name="twitter:title" content={DefaultMetaData.OG_MAIN_TITLE} />
+
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:image:src" content={homeimage.src} />
+            </Head>
             <Header />
             <main className="w-full flex flex-col items-center justify-center">
                 <section className="hero-section bg-page-primary w-full flex items-center justify-center h-[40rem]">

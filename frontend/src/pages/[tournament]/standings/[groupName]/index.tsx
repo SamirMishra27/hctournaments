@@ -1,9 +1,11 @@
 import { Fragment } from 'react'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import Link from 'next/link'
+import Head from 'next/head'
 
 import Header from '@/components/header'
 import Footer from '@/components/footer'
+import { DefaultMetaData } from '@/utils'
 import { axiosApi, getTournamentInfoData } from '@/api'
 import { GroupsApiPayloadData, GroupInfo, GroupStandings, Params } from '@/types'
 import { AxiosResponse, isAxiosError } from 'axios'
@@ -19,14 +21,34 @@ export default function StandingsGroupPage(props: {
     groupStandings: Array<GroupStandings>
     availableGroups: Array<GroupInfo>
 }) {
+    const { tournamentFullName, embedImageUrl, groupFullName } = props
+    const metaTitle = `${tournamentFullName} | ${DefaultMetaData.OG_MAIN_TITLE}`
+    const metaDescription = `Points table for ${groupFullName} of ${tournamentFullName}`
+
     return (
         <Fragment>
+            <Head>
+                <title>{metaTitle}</title>
+                <meta property="og:title" content={metaTitle} />
+                <meta property="og:site_name" content={DefaultMetaData.OG_SITE_NAME} />
+
+                <meta property="og:description" content={metaDescription} />
+                <meta name="description" content={metaDescription} />
+
+                <meta property="og:image:type" content="image/jpg" />
+                <meta property="og:image" content={embedImageUrl} />
+                <meta property="og:image:alt" content={metaDescription} />
+
+                <meta property="twitter:description" content={metaDescription} />
+                <meta name="twitter:title" content={metaTitle} />
+
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:image:src" content={embedImageUrl} />
+            </Head>
             <Header />
             <main className="w-full flex flex-col items-center justify-center bg-page-primary">
                 <section className="container max-w-[96rem] flex flex-col items-center justify-center py-7 my-5">
-                    <h1 className="text-slate-50 font-bold text-5xl my-3">
-                        {props.tournamentFullName}
-                    </h1>
+                    <h1 className="text-slate-50 font-bold text-5xl my-3">{tournamentFullName}</h1>
                     <h3 className="text-slate-50 uppercase font-semibold text-2xl my-3">
                         <span className="text-lime-100">{props.season}</span>
                         <span> - GROUP STANDINGS</span>
