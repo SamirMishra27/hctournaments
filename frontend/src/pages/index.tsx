@@ -26,13 +26,17 @@ export default function HomePage() {
         const observer = new IntersectionObserver((entries) =>
             entries.forEach((entry) => {
                 if (entry.isIntersecting && !entry.target.classList.contains('bottom-6')) {
-                    toggleClasses(entry.target, ['bottom-6'], ['bottom-[-4rem]', 'opacity-0'])
+                    toggleClasses(entry.target, ['bottom-6'], ['-bottom-16', 'opacity-0'])
 
                     if (entry.target.id === 'section-1') {
                         toggleClasses(imageRefOne.current, ['top-0'], ['top-8', 'opacity-0'])
                     }
                     if (entry.target.id === 'section-2') {
-                        toggleClasses(imageRefTwo.current, ['top-[-10rem]'], ['top-0', 'opacity-0'])
+                        toggleClasses(
+                            imageRefTwo.current,
+                            ['-top-0', 'md:-top-40'],
+                            ['top-32', 'md:top-0', 'opacity-0']
+                        )
                     }
                 }
             })
@@ -67,11 +71,15 @@ export default function HomePage() {
             <main className="w-full flex flex-col items-center justify-center">
                 <section className="hero-section bg-page-primary w-full flex items-center justify-center h-[40rem]">
                     <div className="container max-w-[96rem] flex flex-col items-center justify-center space-y-10">
-                        <div className="headline text-slate-50 font-extrabold text-center">
-                            <h1 className="text-6xl">Taking Cricket Tournaments</h1>
-                            <h1 className="text-4xl tracking-widest">to the next level</h1>
+                        <div className="headline text-slate-50 font-extrabold text-center px-3 md:px-2">
+                            <h1 className="text-4xl sm:text-5xl md:text-6xl">
+                                Taking Cricket Tournaments
+                            </h1>
+                            <h1 className="text-2xl sm:text-4xl -tracking-normal sm:tracking-widest font-medium md:font-extrabold">
+                                to the next level
+                            </h1>
                         </div>
-                        <p className="text-slate-50 max-w-lg text-center text-lg">
+                        <p className="text-slate-50 max-w-lg text-justify sm:text-center text-lg px-6 md:px-0">
                             See all the latest updates, schedule and results of official
                             <b> HandCricket Tournaments</b> at one place and stay up-to-date with
                             what is happening!
@@ -83,23 +91,27 @@ export default function HomePage() {
                     <Image
                         src={botslogo}
                         alt="icc trophy"
-                        className="w-auto h-[150%] z-0 absolute left-0 top-8 opacity-0 transition-all duration-700"
+                        className="w-full lg:w-auto h-auto lg:h-[150%] z-0 absolute left-0 top-8 opacity-0 transition-all duration-700"
                         ref={imageRefOne}
                     />
                     <div className="w-full h-full absolute z-10 overlay-gradient-one" />
                     <div
                         className={
-                            'container max-w-md text-slate-50 z-20 absolute bottom-[-4rem] right-6 text-center ' +
-                            'opacity-0 transition-all duration-700 ease-out'
+                            'container max-w-md text-slate-50 z-20 absolute -bottom-16 lg:right-6 text-center ' +
+                            'opacity-0 transition-all duration-700 ease-out pr-3 pl-2 md:px-0'
                         }
                         ref={containerRefOne}
                         id="section-1">
-                        <h1 className="font-bold text-3xl">BATTLE OF THE SERVERS</h1>
-                        <p className="text-lg">Season 12 is coming soon...</p>
+                        <h1 className="font-bold text-2xl md:text-3xl text-right md:text-center">
+                            BATTLE OF THE SERVERS
+                        </h1>
+                        <p className="text-lg text-right md:text-center">
+                            Season 12 is coming soon...
+                        </p>
                         <button
                             className={
-                                'view-button w-48 h-12 my-6 p-1 uppercase text-base font-medium rounded-full ' +
-                                'transition-all overflow-hidden relative hover:scale-105'
+                                'view-button w-48 h-12 my-6 uppercase text-base font-medium rounded-full ' +
+                                'transition-all overflow-hidden relative hover:scale-105 float-right md:float-none'
                             }>
                             <div
                                 className={
@@ -120,23 +132,27 @@ export default function HomePage() {
                     <Image
                         src={superlogo}
                         alt="super league logo"
-                        className="w-auto h-[150%] z-0 absolute right-0 top-0 opacity-0 transition-all duration-700"
+                        className="w-full lg:w-auto h-auto lg:h-[150%] z-0 absolute right-0 top-32 md:top-0 opacity-0 transition-all duration-700"
                         ref={imageRefTwo}
                     />
                     <div className="w-full h-full absolute z-10 overlay-gradient-two" />
                     <div
                         className={
-                            'container max-w-lg text-slate-50 z-20 absolute bottom-[-4rem] left-6 text-center ' +
-                            'opacity-0 transition-all duration-700 ease-out'
+                            'container max-w-lg text-slate-50 z-20 absolute -bottom-16 lg:left-6 text-center ' +
+                            'opacity-0 transition-all duration-700 ease-out pl-3 pr-2 md:px-0'
                         }
                         ref={containerRefTwo}
                         id="section-2">
-                        <h1 className="font-bold text-3xl">SUPER LEAGUE - HAND CRICKET</h1>
-                        <p className="text-lg">Season 1 Champions 〉 Team Malgudi Capitals</p>
+                        <h1 className="font-bold text-2xl md:text-3xl text-left md:text-center">
+                            SUPER LEAGUE - HAND CRICKET
+                        </h1>
+                        <p className="text-lg text-left md:text-center">
+                            Season 1 Champions 〉 Team Malgudi Capitals
+                        </p>
                         <button
                             className={
-                                'view-button w-48 h-12 my-6 p-1 uppercase text-base font-medium rounded-full ' +
-                                'transition-all overflow-hidden relative hover:scale-105'
+                                'view-button w-48 h-12 my-6 uppercase text-base font-medium rounded-full ' +
+                                'transition-all overflow-hidden relative hover:scale-105 float-left md:float-none'
                             }>
                             <div
                                 className={
@@ -154,9 +170,11 @@ export default function HomePage() {
                 </section>
 
                 <section className="w-full flex items-center justify-center bg-soothing-blue">
-                    <div className="my-16 text-slate-50 text-center flex flex-col items-center justify-evenly">
-                        <h3 className="font-bold text-4xl">What are you waiting for?</h3>
-                        <p className="w-[25rem] text-lg">
+                    <div className="my-16 text-slate-50 text-center flex flex-col items-center justify-evenly space-y-2 pl-3 pr-2 md:px-0">
+                        <h3 className="font-bold text-3xl md:text-4xl">
+                            What are you waiting for?
+                        </h3>
+                        <p className="w-[95%] md:w-[25rem] text-base md:text-lg">
                             Gather your friends, and participate in Hand Cricket tournaments, NOW!
                         </p>
                     </div>
