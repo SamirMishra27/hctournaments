@@ -4,7 +4,7 @@ import { INVITE_BOT_LINK, HCL_SERVER_LINK, BOTS_SERVER_LINK } from '../utils'
 export default function Footer() {
     return (
         <footer className="footer w-full flex items-center justify-center bg-gradient-to-br from-slate-800 to-[#18122B]">
-            <div className="container w-full md:w-4/5 xl:w-2/4 my-10 md:my-20 flex flex-col items-start xs:items-center justify-evenly text-center">
+            <div className="container w-full md:w-4/5 xl:w-2/4 my-10 md:my-20 flex flex-col items-start xs:items-center justify-evenly text-left xs:text-center">
                 <nav className="w-full flex flex-col md:flex-row items-start xs:items-center justify-evenly px-2 xs:px-6 text-slate-400 text-lg my-6 space-y-4 md:space-y-0">
                     <Link
                         href={INVITE_BOT_LINK}

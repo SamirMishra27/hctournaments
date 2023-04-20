@@ -57,15 +57,15 @@ export default function TournamentPage(props: {
             </Head>
             <Header />
             <main className="w-full flex flex-col items-center justify-center bg-page-primary">
-                <section className="container max-w-[96rem] flex flex-col items-center justify-center py-7 my-5">
-                    <h1 className="text-slate-50 font-bold text-5xl my-3">
+                <section className="container max-w-[96rem] flex flex-col items-center justify-center py-7 my-5 px-3">
+                    <h1 className="text-slate-50 font-bold text-3xl xs:text-4xl md:text-5xl my-3 text-center">
                         {tournamentInfo.tournament_full_name}
                     </h1>
-                    <h3 className="text-slate-50 uppercase font-semibold text-4xl my-3">
+                    <h3 className="text-slate-50 uppercase font-semibold text-2xl xs:text-3xl md:text-4xl my-3">
                         {tournamentInfo.season}
                     </h3>
                 </section>
-                <hr className="w-[80rem] border-slate-400" />
+                <hr className="w-4/5 xl:w-[80rem] border-slate-400" />
 
                 <section className="container max-w-[96rem] flex flex-col items-center justify-center py-7 my-5 space-y-16 text-center text-slate-50">
                     <Image
@@ -74,6 +74,7 @@ export default function TournamentPage(props: {
                         height={512}
                         alt="icc trophy"
                         quality={100}
+                        className="w-[90%] sm:w-auto"
                     />
                     {currentTimeDiff > 0 ? (
                         <div className="text-3xl font-bold flex items-center justify-evenly space-x-2">
@@ -84,35 +85,45 @@ export default function TournamentPage(props: {
                         <p className="text-3xl font-bold">Season In Progress</p>
                     )}
 
-                    <hr className="w-[80rem] border-slate-400" />
+                    <hr className="w-4/5 xl:w-[80rem] border-slate-400" />
 
-                    <div className="w-[48rem] grid grid-rows-[auto] grid-cols-2 gap-x-10 gap-y-24">
+                    <div className="w-full max-w-3xl grid grid-rows-[auto] grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-24">
                         <div className="flex flex-col items-center justify-evenly px-4 font-semibold">
-                            <p className="mb-3 font-bold text-6xl">{tournamentInfo.participants}</p>
+                            <p className="mb-3 font-bold text-5xl xs:text-6xl">
+                                {tournamentInfo.participants}
+                            </p>
                             <p className="text-xl">Participants</p>
                             <p className="text-base">Registered</p>
                         </div>
                         <div className="flex flex-col items-center justify-evenly px-4 font-semibold">
-                            <p className="mb-3 font-bold text-6xl">{tournamentInfo.total_teams}</p>
+                            <p className="mb-3 font-bold text-5xl xs:text-6xl">
+                                {tournamentInfo.total_teams}
+                            </p>
                             <p className="text-xl">Teams</p>
                             <p className="text-base">Clash</p>
                         </div>
                         <div className="flex flex-col items-center justify-evenly px-4 font-semibold">
-                            <p className="mb-3 font-bold text-6xl">
+                            <p className="mb-3 font-bold text-5xl xs:text-6xl">
                                 {tournamentInfo.total_matches}
                             </p>
                             <p className="text-xl">Total</p>
                             <p className="text-base">Matches</p>
                         </div>
                         <div className="flex flex-col items-center justify-evenly px-4 font-semibold">
-                            <p className="mb-3 font-bold text-6xl">{tournamentInfo.matches_done}</p>
+                            <p className="mb-3 font-bold text-5xl xs:text-6xl">
+                                {tournamentInfo.matches_done}
+                            </p>
                             <p className="text-xl">Matches</p>
                             <p className="text-base">Finished</p>
                         </div>
                     </div>
 
-                    <h1 className="text-4xl font-bold">Group Standings</h1>
-                    <div className="flex items-center justify-evenly px-4 py-2 space-x-6 bg-white/10 rounded-xl backdrop-blur">
+                    <h1 className="text-3xl xs:text-4xl font-bold">Group Standings</h1>
+                    <div
+                        className={
+                            'w-11/12 sm:w-auto flex flex-wrap sm:flex-nowrap items-center justify-evenly px-4 py-2 ' +
+                            'sm:space-x-6 bg-white/10 rounded-xl backdrop-blur gap-x-2'
+                        }>
                         {tournamentInfo.groups.map((group) => (
                             <button
                                 className={
@@ -132,20 +143,30 @@ export default function TournamentPage(props: {
                     </div>
 
                     <div className="space-y-3">
-                        <h1 className="text-4xl font-bold max-w-xl">Event Hosts</h1>
-                        <p>
+                        <h1 className="text-3xl xs:text-4xl font-bold max-w-xl">Event Hosts</h1>
+                        <p className="px-8 sm:px-2 text-justify sm:text-center">
                             Quick glance at those who make {tournamentInfo.tournament_full_name}
                             &nbsp;possible!
                         </p>
                     </div>
-                    <div className="w-[48rem] flex items-center justify-evenly p-6 space-x-8">
+                    <div
+                        className={
+                            'max-w-3xl flex flex-col sm:flex-row items-center justify-evenly p-2 sm:p-6 ' +
+                            'sm:space-x-8 space-y-4 sm:space-y-0'
+                        }>
                         {tournamentInfo.host.map((host) => (
-                            <div className="inline-block p-10 bg-white/5 backdrop-blur-sm rounded-2xl">
+                            <div className="inline-block px-4 py-6 sm:p-10 bg-white/5 backdrop-blur-sm rounded-2xl">
                                 <div className="flex items-center justify-start p-2 pl-0 space-x-4 my-4">
-                                    <Image src={avatar} alt="user avatar" className="w-12 h-12" />
-                                    <h3 className="text-5xl font-medium">{host.name}</h3>
+                                    <Image
+                                        src={avatar}
+                                        alt="user avatar"
+                                        className="w-8 sm:w-12 h-auto sm:h-12"
+                                    />
+                                    <h3 className="text-2xl xs:text-3xl sm:text-5xl font-medium">
+                                        {host.name}
+                                    </h3>
                                 </div>
-                                <p className="text-base my-4">
+                                <p className="text-sm xs:text-base my-4">
                                     <span>Discord Mention: </span>
                                     <span
                                         className="p-1 bg-fuchsia-800/50 rounded-md cursor-pointer"
@@ -158,8 +179,10 @@ export default function TournamentPage(props: {
                         ))}
                     </div>
 
-                    <div>
-                        <h1 className="text-4xl font-bold my-3">What are you waiting for?</h1>
+                    <div className="pl-3 pr-2 sm:px-0 text-left xs:text-center">
+                        <h1 className="text-3xl sm:text-4xl font-bold my-3">
+                            What are you waiting for?
+                        </h1>
                         <p>
                             Join the Server right now to participate in&nbsp;
                             {tournamentInfo.tournament_full_name}!
@@ -169,12 +192,15 @@ export default function TournamentPage(props: {
                     <button
                         className={
                             'bg-gradient-to-br from-[#19376D] to-[#0B2447] font-semibold ' +
-                            'w-[22rem] h-[3.6rem] my-4 rounded-lg text-center text-slate-50 ' +
+                            'w-3/4 sm:w-[22rem] h-[3.6rem] my-4 rounded-lg text-center text-slate-50 ' +
                             'hover:from-[#29519a] hover:to-[#13396d] active:to-[#0B2447] ' +
                             'active:from-[#19376D] disabled:from-slate-300 disabled:to-slate-500' +
                             'rounded-3xl'
                         }>
-                        <Link href={tournamentInfo.server_link} className="text-xl" target="_blank">
+                        <Link
+                            href={tournamentInfo.server_link}
+                            className="text-base xs:text-xl"
+                            target="_blank">
                             Tournament Server
                         </Link>
                     </button>
