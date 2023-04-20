@@ -49,14 +49,16 @@ export default function StandingsGroupPage(props: {
             </Head>
             <Header />
             <main className="w-full flex flex-col items-center justify-center bg-page-primary">
-                <section className="container max-w-[96rem] flex flex-col items-center justify-center py-7 my-5">
-                    <h1 className="text-slate-50 font-bold text-5xl my-3">{tournamentFullName}</h1>
-                    <h3 className="text-slate-50 uppercase font-semibold text-2xl my-3">
+                <section className="container max-w-[96rem] flex flex-col items-center justify-center py-7 my-5 text-center">
+                    <h1 className="text-slate-50 font-bold text-3xl xs:text-4xl md:text-5xl my-3">
+                        {tournamentFullName}
+                    </h1>
+                    <h3 className="text-slate-50 uppercase font-semibold text-xl xs:text-2xl my-3">
                         <span className="text-lime-100">{props.season}</span>
                         <span> - GROUP STANDINGS</span>
                     </h3>
                 </section>
-                <hr className="w-[80rem] border-slate-400" />
+                <hr className="w-4/5 xl:w-[80rem] border-slate-400" />
 
                 <section className="container max-w-[96rem] flex flex-col items-center justify-center py-7 my-5">
                     <h3 className="text-slate-50 uppercase font-semibold text-3xl my-4">
@@ -64,32 +66,32 @@ export default function StandingsGroupPage(props: {
                     </h3>
                     <div
                         className={
-                            'w-[50rem] flex flex-col items-center text-center text-slate-50 font-semibold text-lg ' +
-                            'px-2 py-4 rounded-xl bg-gradient-to-br from-[#19376D] via-[#0B2447] to-[#19376D] ' +
-                            'border-4 border-solid border-[#21315B]'
+                            'w-[95%] lg:w-[50rem] flex flex-col items-center text-center text-slate-50 ' +
+                            'px-0.5 xs:px-2 py-4 rounded-xl bg-gradient-to-br from-[#19376D] via-[#0B2447] to-[#19376D] ' +
+                            'border-4 border-solid border-[#21315B] font-medium xs:font-semibold text-xs xs:text-base sm:text-lg'
                         }>
                         {props.groupStandings.map((row, index) => (
                             <div
-                                className="w-3/4 bg-bright-orange flex items-center justify-around rounded-xl px-3 py-3 my-2"
+                                className="w-[95%] sm:w-3/4 bg-bright-orange flex items-center justify-around rounded-xl px-0 sm:px-3 py-3 my-2"
                                 key={index}>
                                 <p>{index + 1}. </p>
-                                <p className="uppercase w-56 break-words text-left">
+                                <p className="uppercase w-24 xs:w-32 sm:w-56 break-words text-left whitespace-nowrap sm:whitespace-normal overflow-x-hidden text-ellipsis">
                                     {row.team_name}
                                 </p>
                                 <p>{row.matches_played}</p>
                                 <p>{row.matches_won}</p>
                                 <p>{row.matches_lost}</p>
-                                <p className="w-20 flex items-center justify-evenly">
+                                <p className="w-16 sm:w-20 flex items-center justify-evenly">
                                     <span>{row.points}</span>
                                     <span className="font-medium text-xs"> Points</span>
                                 </p>
                             </div>
                         ))}
                     </div>
-                    <h1 className="text-center text-slate-50 font-semibold text-2xl mt-10">
-                        See Other Group&apos; Standings
+                    <h1 className="text-center text-slate-50 font-semibold text-2xl mt-10 px-2">
+                        See Other Group&apos;s Standings
                     </h1>
-                    <div className="flex items-center justify-evenly py-2 px-3 space-x-6 mt-3 mb-10">
+                    <div className="w-11/12 sm:w-auto flex flex-wrap sm:flex-nowrap items-center justify-evenly py-2 px-3 sm:space-x-6 mt-3 mb-10 gap-x-2">
                         {props.availableGroups.map((groupInfo) => (
                             <button
                                 disabled={groupInfo.id === props.groupId}
