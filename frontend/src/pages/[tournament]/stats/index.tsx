@@ -21,9 +21,9 @@ function InteractiveButton(props: {
             disabled={props.disabled}
             className={
                 'bg-gradient-to-br from-[#D47120] to-[#B63A1F] font-semibold ' +
-                'py-3 px-5 my-4 rounded-lg text-center text-slate-50 ' +
+                'py-3 px-1 xs:px-5 my-4 rounded-lg text-center text-slate-50 ' +
                 'hover:from-[#FD841F] hover:to-[#E14D2A] active:from-[#D47120] active:to-[#B63A1F] ' +
-                'disabled:from-slate-300 disabled:to-slate-500'
+                'disabled:from-slate-300 disabled:to-slate-500 w-5/12 xs:w-auto'
             }
             onClick={(event) => props.onClick(event)}>
             {props.name}
@@ -36,9 +36,16 @@ function PlayerRowComponentBatting(props: { player: PlayerStatistics; index: num
 
     return (
         <div
-            className="w-3/4 bg-bright-orange flex items-center justify-between rounded-xl px-3 py-2 my-1"
+            className="w-11/12 sm:w-3/4 bg-bright-orange flex items-center justify-between rounded-xl px-3 py-2 my-1"
             key={player.id}>
-            <p className="font-semibold text-lg">
+            {/* <p className="font-normal xs:font-medium sm:font-semibold text-base sm:text-lg">
+                {index + 1}. {player.name}
+            </p> */}
+            <p
+                className={
+                    'font-normal xs:font-medium sm:font-semibold text-base sm:text-lg ' +
+                    'w-24 xs:w-auto whitespace-nowrap xs:whitespace-normal overflow-x-hidden text-ellipsis'
+                }>
                 {index + 1}. {player.name}
             </p>
             <p className="player-key-stat-box relative">
@@ -46,14 +53,17 @@ function PlayerRowComponentBatting(props: { player: PlayerStatistics; index: num
                     className={
                         'tooltip absolute bg-gradient-to-br from-[#FD841F] to-[#E14D2A] ' +
                         'text-sm right-[-7.5rem] top-[-1rem] opacity-0 transition-opacity ' +
-                        'rounded-xl px-4 py-2 my-1 '
+                        // 'rounded-xl px-4 py-2 my-1 '
+                        'rounded-xl px-3 py-2 my-1 hidden md:block '
                     }>
                     Runs: {player.runs}
                     <br />
                     Balls: {player.balls}
                 </span>
-                <span className="font-semibold text-lg">{player.runs}</span>
-                <span className="font-medium text-xs"> Runs</span>
+                <span className="font-medium sm:font-semibold text-base sm:text-lg">
+                    {player.runs}
+                </span>
+                <span className="font-normal sm:font-medium text-xs"> Runs</span>
             </p>
         </div>
     )
@@ -64,9 +74,16 @@ function PlayerRowComponentBowling(props: { player: PlayerStatistics; index: num
 
     return (
         <div
-            className="w-3/4 bg-bright-purple flex items-center justify-between rounded-xl px-3 py-2 my-1"
+            className="w-11/12 sm:w-3/4 bg-bright-purple flex items-center justify-between rounded-xl px-3 py-2 my-1"
             key={player.id}>
-            <p className="font-semibold text-lg">
+            {/* <p className="font-normal xs:font-medium sm:font-semibold text-base sm:text-lg">
+                {index + 1}. {player.name}
+            </p> */}
+            <p
+                className={
+                    'font-normal xs:font-medium sm:font-semibold text-base sm:text-lg' +
+                    'w-24 xs:w-auto whitespace-nowrap xs:whitespace-normal overflow-x-hidden text-ellipsis'
+                }>
                 {index + 1}. {player.name}
             </p>
             <p className="player-key-stat-box relative">
@@ -74,7 +91,7 @@ function PlayerRowComponentBowling(props: { player: PlayerStatistics; index: num
                     className={
                         'tooltip absolute bg-gradient-to-br from-[#CF4EA8] to-[#8846A9] ' +
                         'text-sm right-[-9.5rem] top-[-1.5rem] opacity-0 transition-opacity ' +
-                        'rounded-xl px-3 py-2 my-1 '
+                        'rounded-xl px-3 py-2 my-1 hidden md:block '
                     }>
                     <span>Wickets: {player.wickets}</span>
                     <br />
@@ -82,8 +99,10 @@ function PlayerRowComponentBowling(props: { player: PlayerStatistics; index: num
                     <br />
                     <span>Balls Given: {player.balls_given}</span>
                 </span>
-                <span className="font-semibold text-lg">{player.wickets}</span>
-                <span className="font-medium text-xs"> Wickets</span>
+                <span className="font-medium sm:font-semibold text-base sm:text-lg">
+                    {player.wickets}
+                </span>
+                <span className="font-normal sm:font-medium text-xs"> Wickets</span>
             </p>
         </div>
     )
@@ -149,24 +168,26 @@ export default function StatsPage(props: {
             </Head>
             <Header />
             <main className="w-full flex flex-col items-center justify-center bg-page-primary">
-                <section className="container max-w-[96rem] flex flex-col items-center justify-center py-7 my-5">
-                    <h1 className="text-slate-50 font-bold text-5xl my-3">{tournamentFullName}</h1>
-                    <h3 className="text-slate-50 uppercase font-semibold text-2xl my-3">
+                <section className="container max-w-[96rem] flex flex-col items-center justify-center py-7 my-5 text-center">
+                    <h1 className="text-slate-50 font-bold text-3xl xs:text-4xl md:text-5xl my-3">
+                        {tournamentFullName}
+                    </h1>
+                    <h3 className="text-slate-50 uppercase font-semibold text-xl xs:text-2xl my-3">
                         <span className="text-lime-100">{props.season + ' - '}</span>
                         <span>Player Rankings</span>
                     </h3>
                 </section>
-                <hr className="w-[80rem] border-slate-400" />
+                <hr className="w-4/5 xl:w-[80rem] border-slate-400" />
 
                 <section className="container max-w-[96rem] flex flex-col items-center justify-center py-7 my-5">
-                    <h3 className="text-slate-50 uppercase font-semibold text-3xl my-4">
+                    <h3 className="text-slate-50 uppercase font-semibold text-2xl xs:text-3xl my-4">
                         Orange Cap
                     </h3>
                     <div
                         className={
-                            'w-[50rem] flex flex-col items-center text-center text-slate-50 px-2 py-4 rounded-xl ' +
-                            'bg-gradient-to-br from-night-blue-primary via-night-blue-accent ' +
-                            'to-night-blue-primary border-4 border-solid border-[#21315B]'
+                            'w-11/12 lg:w-[50rem] flex flex-col items-center text-center text-slate-50 ' +
+                            'bg-gradient-to-br from-night-blue-primary via-night-blue-accent rounded-xl ' +
+                            'to-night-blue-primary border-4 border-solid border-[#21315B] px-0.5 xs:px-2 py-4'
                         }>
                         {playersSortedByRuns.length
                             ? playersSortedByRuns
@@ -193,7 +214,7 @@ export default function StatsPage(props: {
                                   />
                               ))}
                     </div>
-                    <div className="flex items-center justify-evenly py-1 px-3 space-x-6">
+                    <div className="w-full xs:w-auto flex items-center justify-evenly py-1 px-3 xs:space-x-6 space-x-2">
                         {playersSortedByRuns.length ? (
                             false
                         ) : (
@@ -223,17 +244,17 @@ export default function StatsPage(props: {
                         )}
                     </div>
                 </section>
-                <hr className="w-[80rem] border-slate-400" />
+                <hr className="w-4/5 xl:w-[80rem] border-slate-400" />
 
                 <section className="container max-w-[96rem] flex flex-col items-center justify-center py-7 mt-5 mb-24">
-                    <h3 className="text-slate-50 uppercase font-semibold text-3xl my-4">
+                    <h3 className="text-slate-50 uppercase font-semibold text-2xl xs:text-3xl my-4">
                         Purple Cap
                     </h3>
                     <div
                         className={
-                            'w-[50rem] flex flex-col items-center text-center text-slate-50 px-2 py-4 rounded-xl ' +
-                            'bg-gradient-to-br from-night-blue-primary via-night-blue-accent ' +
-                            'to-night-blue-primary border-4 border-solid border-[#21315B]'
+                            'w-11/12 lg:w-[50rem] flex flex-col items-center text-center text-slate-50 ' +
+                            'bg-gradient-to-br from-night-blue-primary via-night-blue-accent rounded-xl ' +
+                            'to-night-blue-primary border-4 border-solid border-[#21315B] px-0.5 xs:px-2 py-4'
                         }>
                         {playersSortedByWickets.length
                             ? playersSortedByWickets
@@ -260,7 +281,7 @@ export default function StatsPage(props: {
                                   />
                               ))}
                     </div>
-                    <div className="flex items-center justify-evenly py-1 px-3 space-x-6">
+                    <div className="w-full xs:w-auto flex items-center justify-evenly py-1 px-3 xs:space-x-6 space-x-2">
                         {playersSortedByWickets.length ? (
                             false
                         ) : (
