@@ -20,7 +20,7 @@ export default function Header() {
                         hctournaments
                     </span>
                 </Link>
-                <nav className="w-full xs:w-auto nav-links h-full flex items-center justify-evenly px-4 space-x-4">
+                <nav className="w-full xs:w-auto nav-links h-full flex items-center justify-evenly px-1 sm:px-4 space-x-1 sm:space-x-4">
                     <button
                         className={
                             'w-1/3 xs:w-24 sm:w-32 h-12 bg-night-blue-primary rounded-xl text-white transition-colors ' +
