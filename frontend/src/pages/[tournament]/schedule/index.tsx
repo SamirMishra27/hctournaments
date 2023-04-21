@@ -51,24 +51,26 @@ export default function SchedulePage(props: {
             </Head>
             <Header />
             <main className="w-full flex flex-col items-center justify-center bg-page-primary">
-                <section className="container max-w-[96rem] flex flex-col items-center justify-center py-7 my-5">
-                    <h1 className="text-slate-50 font-bold text-5xl my-3">{tournamentFullName}</h1>
-                    <h3 className="text-slate-50 uppercase font-semibold text-2xl my-3">
+                <section className="container max-w-[96rem] flex flex-col items-center justify-center py-7 my-5 text-center">
+                    <h1 className="text-slate-50 font-bold text-3xl xs:text-4xl md:text-5xl my-3">
+                        {tournamentFullName}
+                    </h1>
+                    <h3 className="text-slate-50 uppercase font-semibold text-xl xs:text-2xl my-3">
                         <span className="text-lime-100">{props.season}</span>
                         <span> - SCHEDULE AND RESULTS</span>
                     </h3>
                 </section>
-                <hr className="w-[80rem] border-slate-400" />
+                <hr className="w-4/5 xl:w-[80rem] border-slate-400" />
 
                 <section className="container max-w-[96rem] flex flex-col items-center justify-center py-7 my-5">
-                    <h3 className="text-slate-50 uppercase font-semibold text-3xl my-4">
+                    <h3 className="text-slate-50 uppercase font-semibold text-2xl sm:text-3xl my-4">
                         Upcoming Matches
                     </h3>
                     <div
                         className={
-                            'schedule-list w-[50rem] flex flex-col items-center text-center text-lg ' +
+                            'schedule-list w-[95%] lg:w-[50rem] flex flex-col items-center text-center text-base sm:text-lg ' +
                             'px-2 py-4 rounded-xl bg-gradient-to-br from-[#19376D] via-[#0B2447] to-[#19376D] ' +
-                            'border-4 border-solid border-[#21315B] text-slate-50 font-semibold ' +
+                            'transition-colors border-4 border-solid border-[#21315B] text-slate-50 font-medium sm:font-semibold ' +
                             (props.schedule.length
                                 ? 'h-[50rem] overflow-y-scroll '
                                 : 'overflow-y-hidden ')
@@ -76,12 +78,24 @@ export default function SchedulePage(props: {
                         {props.schedule.length ? (
                             props.schedule.map((match) => (
                                 <div
-                                    className="w-3/4 bg-bright-orange flex items-center justify-evenly rounded-xl px-3 py-3 my-2"
+                                    className="w-[95%] md:w-3/4 bg-bright-orange flex items-center justify-evenly rounded-xl px-3 py-3 my-2"
                                     key={match.MatchNo}>
                                     <p>{match.MatchNo}. </p>
-                                    <p className="w-56 text-ellipsis">{match.TeamAName}</p>
-                                    <p className="w-8">VS</p>
-                                    <p className="w-56 text-ellipsis">{match.TeamBName}</p>
+                                    <p
+                                        className={
+                                            'w-24 xs:w-32 sm:w-56 text-ellipsis ' +
+                                            'break-words whitespace-nowrap sm:whitespace-normal overflow-x-hidden'
+                                        }>
+                                        {match.TeamAName}
+                                    </p>
+                                    <p className="w-4 sm:w-8 text-xs sm:text-base">VS</p>
+                                    <p
+                                        className={
+                                            'w-24 xs:w-32 sm:w-56 text-ellipsis ' +
+                                            'break-words whitespace-nowrap sm:whitespace-normal overflow-x-hidden'
+                                        }>
+                                        {match.TeamBName}
+                                    </p>
                                 </div>
                             ))
                         ) : (
@@ -91,50 +105,54 @@ export default function SchedulePage(props: {
                         )}
                     </div>
                 </section>
-                <hr className="w-[80rem] border-slate-400" />
+                <hr className="w-4/5 xl:w-[80rem] border-slate-400" />
 
                 <section className="container max-w-[96rem] flex flex-col items-center justify-center py-7 mt-5 mb-24">
-                    <h3 className="text-slate-50 uppercase font-semibold text-3xl my-4">Results</h3>
+                    <h3 className="text-slate-50 uppercase font-semibold text-2xl sm:text-3xl my-4">
+                        Results
+                    </h3>
                     <div
                         className={
-                            'schedule-list w-[50rem] flex flex-col items-center transition-colors text-center text-lg ' +
+                            'schedule-list w-[95%] lg:w-[50rem] flex flex-col items-center text-center text-base sm:text-lg ' +
                             'px-2 py-4 rounded-xl bg-gradient-to-br from-[#19376D] via-[#0B2447] to-[#19376D] ' +
-                            'border-4 border-solid border-[#21315B] text-slate-50 font-semibold ' +
+                            'transition-colors border-4 border-solid border-[#21315B] text-slate-50 font-medium sm:font-semibold ' +
                             (props.results.length
                                 ? 'h-[50rem] overflow-y-scroll '
                                 : 'overflow-y-hidden ')
                         }>
                         {props.results.length ? (
-                            props.schedule.map((match) => (
+                            props.results.map((match) => (
                                 <div
-                                    className="w-3/4 bg-bright-orange flex items-center justify-evenly rounded-xl px-3 py-3 my-2"
+                                    className="w-[95%] md:w-3/4 bg-bright-orange flex items-center justify-evenly rounded-xl px-3 py-3 my-2"
                                     key={match.MatchNo}>
                                     <p>{match.MatchNo}. </p>
                                     <div>
                                         <p
                                             className={
-                                                'w-56 text-ellipsis ' +
+                                                'w-24 xs:w-32 sm:w-56 text-ellipsis ' +
+                                                'break-words whitespace-nowrap sm:whitespace-normal overflow-x-hidden ' +
                                                 textColor(match.TeamARuns, match.TeamBRuns)
                                             }>
                                             {match.TeamAName}
                                         </p>
-                                        <div className="w-56 text-xs flex items-center justify-evenly">
+                                        <div className="w-24 xs:w-32 sm:w-56 text-xs flex items-center justify-evenly">
                                             <p>
                                                 {match.TeamARuns} / {match.TeamAWickets}
                                             </p>
                                             <p>{match.TeamAOvers} OVERS</p>
                                         </div>
                                     </div>
-                                    <p className="w-8">VS</p>
+                                    <p className="w-4 sm:w-8 text-xs sm:text-base">VS</p>
                                     <div>
                                         <p
                                             className={
-                                                'w-56 text-ellipsis ' +
+                                                'w-24 xs:w-32 sm:w-56 text-ellipsis ' +
+                                                'break-words whitespace-nowrap sm:whitespace-normal overflow-x-hidden ' +
                                                 textColor(match.TeamBRuns, match.TeamARuns)
                                             }>
                                             {match.TeamBName}
                                         </p>
-                                        <div className="w-56 text-xs flex items-center justify-evenly">
+                                        <div className="w-24 xs:w-32 sm:w-56 text-xs flex items-center justify-evenly">
                                             <p>
                                                 {match.TeamBRuns} / {match.TeamBWickets}
                                             </p>
