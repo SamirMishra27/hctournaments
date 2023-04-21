@@ -128,7 +128,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     const groupId = groupName
     // TODO: Fix this bad code
 
-    const tournamentInfoData = await getTournamentInfoData('bots')
+    const tournamentInfoData = await getTournamentInfoData(tournament)
     if (!tournamentInfoData) {
         return {
             notFound: true,
@@ -176,20 +176,21 @@ export const getStaticProps: GetStaticProps = async (context) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-    const tournamentInfoData = await getTournamentInfoData('bots')
+    const paramsArray: { params: { tournament: string; groupName: string } }[] = []
+    const officialTourneys = ['bots', 'superleague']
 
-    if (!tournamentInfoData) {
-        return {
-            paths: [],
-            fallback: false
-        }
+    for (const tournamentId of officialTourneys) {
+        const tournamentInfoData = await getTournamentInfoData(tournamentId)
+
+        if (!tournamentInfoData) continue
+
+        const groups = tournamentInfoData.data.groups as Array<GroupInfo>
+        groups.map((group) => {
+            paramsArray.push({
+                params: { tournament: tournamentId, groupName: group.id }
+            })
+        })
     }
-
-    const groups = tournamentInfoData.data.groups as Array<GroupInfo>
-
-    const paramsArray = groups.map((group) => ({
-        params: { tournament: 'bots', groupName: group.id }
-    }))
 
     return {
         paths: paramsArray,
