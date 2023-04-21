@@ -38,9 +38,6 @@ function PlayerRowComponentBatting(props: { player: PlayerStatistics; index: num
         <div
             className="w-11/12 sm:w-3/4 bg-bright-orange flex items-center justify-between rounded-xl px-3 py-2 my-1"
             key={player.id}>
-            {/* <p className="font-normal xs:font-medium sm:font-semibold text-base sm:text-lg">
-                {index + 1}. {player.name}
-            </p> */}
             <p
                 className={
                     'font-normal xs:font-medium sm:font-semibold text-base sm:text-lg ' +
@@ -53,7 +50,6 @@ function PlayerRowComponentBatting(props: { player: PlayerStatistics; index: num
                     className={
                         'tooltip absolute bg-gradient-to-br from-[#FD841F] to-[#E14D2A] ' +
                         'text-sm right-[-7.5rem] top-[-1rem] opacity-0 transition-opacity ' +
-                        // 'rounded-xl px-4 py-2 my-1 '
                         'rounded-xl px-3 py-2 my-1 hidden md:block '
                     }>
                     Runs: {player.runs}
@@ -76,9 +72,6 @@ function PlayerRowComponentBowling(props: { player: PlayerStatistics; index: num
         <div
             className="w-11/12 sm:w-3/4 bg-bright-purple flex items-center justify-between rounded-xl px-3 py-2 my-1"
             key={player.id}>
-            {/* <p className="font-normal xs:font-medium sm:font-semibold text-base sm:text-lg">
-                {index + 1}. {player.name}
-            </p> */}
             <p
                 className={
                     'font-normal xs:font-medium sm:font-semibold text-base sm:text-lg' +
