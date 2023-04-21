@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+import { screens } from 'tailwindcss/defaultTheme'
+
 module.exports = {
     content: [
         './src/pages/**/*.{js,ts,jsx,tsx}',
@@ -6,6 +8,11 @@ module.exports = {
         './src/app/**/*.{js,ts,jsx,tsx}'
     ],
     theme: {
+        screens: {
+            xs: '320px',
+            // => @media (min-width: 320px) { ... }
+            ...screens
+        },
         extend: {
             backgroundImage: {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -14,8 +21,6 @@ module.exports = {
                 'page-primary': 'linear-gradient(170deg, #001253, #3E6D9C 40% 50%, #E14D2A)'
             },
             screens: {
-                xs: '320px',
-                // => @media (min-width: 320px) { ... }
                 tall: { raw: '(min-height: 624px)' }
                 // => @media (min-height: 800px) { ... }
             },
