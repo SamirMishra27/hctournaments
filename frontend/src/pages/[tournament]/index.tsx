@@ -151,7 +151,9 @@ export default function TournamentPage(props: {
                     </div>
                     <div className="max-w-3xl grid grid-rows-[auto] grid-cols-1 sm:grid-cols-2 p-2 sm:p-6 gap-x-8 gap-y-6 sm:gap-y-4">
                         {tournamentInfo.host.map((host) => (
-                            <div className="inline-block px-4 py-6 sm:p-10 bg-white/5 backdrop-blur-sm rounded-2xl">
+                            <div
+                                className="inline-block px-4 py-6 sm:p-10 bg-white/5 backdrop-blur-sm rounded-2xl"
+                                key={host.id}>
                                 <div className="flex items-center justify-start p-2 pl-0 space-x-4 my-4">
                                     <Image
                                         src={avatar}
