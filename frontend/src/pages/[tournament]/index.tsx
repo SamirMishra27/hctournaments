@@ -149,11 +149,7 @@ export default function TournamentPage(props: {
                             &nbsp;possible!
                         </p>
                     </div>
-                    <div
-                        className={
-                            'max-w-3xl flex flex-col sm:flex-row items-center justify-evenly p-2 sm:p-6 ' +
-                            'sm:space-x-8 space-y-4 sm:space-y-0'
-                        }>
+                    <div className="max-w-3xl grid grid-rows-[auto] grid-cols-1 sm:grid-cols-2 p-2 sm:p-6 gap-x-8 gap-y-6 sm:gap-y-4">
                         {tournamentInfo.host.map((host) => (
                             <div className="inline-block px-4 py-6 sm:p-10 bg-white/5 backdrop-blur-sm rounded-2xl">
                                 <div className="flex items-center justify-start p-2 pl-0 space-x-4 my-4">
@@ -162,11 +158,11 @@ export default function TournamentPage(props: {
                                         alt="user avatar"
                                         className="w-8 sm:w-12 h-auto sm:h-12"
                                     />
-                                    <h3 className="text-2xl xs:text-3xl sm:text-5xl font-medium">
+                                    <h3 className="text-2xl xs:text-3xl sm:text-4xl font-medium">
                                         {host.name}
                                     </h3>
                                 </div>
-                                <p className="text-sm xs:text-base my-4">
+                                <p className="text-sm xs:text-base my-4 text-left">
                                     <span>Discord Mention: </span>
                                     <span
                                         className="p-1 bg-fuchsia-800/50 rounded-md cursor-pointer"
