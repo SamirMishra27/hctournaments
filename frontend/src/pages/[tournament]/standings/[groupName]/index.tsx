@@ -99,7 +99,7 @@ export default function StandingsGroupPage(props: {
                                     'bg-gradient-to-br from-[#D47120] to-[#B63A1F] font-semibold ' +
                                     'w-28 h-12 my-4 rounded-lg text-center text-slate-50 ' +
                                     'hover:from-[#FD841F] hover:to-[#E14D2A] active:from-[#D47120] active:to-[#B63A1F] ' +
-                                    'disabled:from-slate-300 disabled:to-slate-500'
+                                    'disabled:from-slate-300 disabled:to-slate-500 overflow-hidden'
                                 }
                                 id={props.groupId}>
                                 {groupInfo.id === props.groupId ? (

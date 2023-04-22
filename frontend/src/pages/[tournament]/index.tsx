@@ -194,12 +194,12 @@ export default function TournamentPage(props: {
                             'bg-gradient-to-br from-[#19376D] to-[#0B2447] font-semibold ' +
                             'w-3/4 sm:w-[22rem] h-[3.6rem] my-4 rounded-lg text-center text-slate-50 ' +
                             'hover:from-[#29519a] hover:to-[#13396d] active:to-[#0B2447] ' +
-                            'active:from-[#19376D] disabled:from-slate-300 disabled:to-slate-500' +
-                            'rounded-3xl'
+                            'active:from-[#19376D] disabled:from-slate-300 disabled:to-slate-500 ' +
+                            'rounded-3xl overflow-hidden'
                         }>
                         <Link
                             href={tournamentInfo.server_link}
-                            className="text-base xs:text-xl"
+                            className="w-full h-full text-base xs:text-xl flex items-center justify-center"
                             target="_blank">
                             Tournament Server
                         </Link>
