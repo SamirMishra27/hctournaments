@@ -132,7 +132,7 @@ export default function TournamentPage(props: {
                                     'hover:from-[#FD841F] hover:to-[#E14D2A] active:from-[#D47120] active:to-[#B63A1F] ' +
                                     'disabled:from-slate-300 disabled:to-slate-500'
                                 }
-                                id={group.id}>
+                                key={group.id}>
                                 <Link
                                     href={'/' + tournament + '/standings/' + group.id}
                                     className="w-full h-full uppercase flex items-center justify-center">

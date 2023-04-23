@@ -101,7 +101,7 @@ export default function StandingsGroupPage(props: {
                                     'hover:from-[#FD841F] hover:to-[#E14D2A] active:from-[#D47120] active:to-[#B63A1F] ' +
                                     'disabled:from-slate-300 disabled:to-slate-500 overflow-hidden'
                                 }
-                                id={props.groupId}>
+                                key={groupInfo.id}>
                                 {groupInfo.id === props.groupId ? (
                                     <div className="w-full h-full uppercase flex items-center justify-center">
                                         {groupInfo.name}
