@@ -9,3 +9,13 @@ export const DefaultMetaData = {
     OG_MAIN_TITLE: 'hctournaments',
     OG_DESCRIPTION: 'HandCricket Tournaments at one place'
 }
+
+export function hasTournamentStarted(start_date: string) {
+    const rtf = new Intl.RelativeTimeFormat('en', { style: 'short' })
+    const parsedDate = new Date(start_date)
+
+    const currentTimeDiff = parsedDate.getTime() - Date.now()
+    const relativeDate = rtf.format(Math.floor(currentTimeDiff / 1000 / 60 / 60 / 24), 'day')
+
+    return [currentTimeDiff < 0, relativeDate]
+}

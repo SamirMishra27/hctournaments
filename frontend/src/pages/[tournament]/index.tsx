@@ -10,7 +10,7 @@ import Footer from '@/components/footer'
 
 import { getTournamentInfoData } from '@/api'
 import { Params, TournamentInfo } from '@/types'
-import { DefaultMetaData } from '@/utils'
+import { DefaultMetaData, hasTournamentStarted } from '@/utils'
 
 import sandclock from '../../../public/assets/sandclock.svg'
 import avatar from '../../../public/assets/avatar.png'
@@ -22,12 +22,7 @@ export default function TournamentPage(props: {
 }) {
     const { tournament, tournamentInfo, embedImageUrl } = props
     const metaTitle = `${tournamentInfo.tournament_full_name} | ${DefaultMetaData.OG_MAIN_TITLE}`
-
-    const rtf = new Intl.RelativeTimeFormat('en', { style: 'short' })
-    const parsedDate = new Date(tournamentInfo.start_date)
-
-    const currentTimeDiff = parsedDate.getTime() - Date.now()
-    const relativeDate = rtf.format(Math.floor(currentTimeDiff / 1000 / 60 / 60 / 24), 'day')
+    const [tournamentStarted, relativeDate] = hasTournamentStarted(tournamentInfo.start_date)
 
     function copyMentionToClipboard(event: MouseEvent<HTMLSpanElement>) {
         if (!(event.target instanceof HTMLElement)) return
@@ -76,13 +71,13 @@ export default function TournamentPage(props: {
                         quality={100}
                         className="w-[90%] sm:w-auto"
                     />
-                    {currentTimeDiff > 0 ? (
+                    {tournamentStarted ? (
+                        <p className="text-3xl font-bold">Season In Progress</p>
+                    ) : (
                         <div className="text-3xl font-bold flex items-center justify-evenly space-x-2">
                             <p>{`Season starts ${relativeDate}`}</p>
                             <Image src={sandclock} alt="timer sand clock" className="w-6 h-6" />
                         </div>
-                    ) : (
-                        <p className="text-3xl font-bold">Season In Progress</p>
                     )}
 
                     <hr className="w-4/5 xl:w-[80rem] border-slate-400" />
