@@ -7,13 +7,15 @@ import Head from 'next/head'
 
 import Header from '@/components/header'
 import Footer from '@/components/footer'
+import ComingSoonPage from '@/components/comingSoon'
 
 import { axiosApi, getTournamentInfoData } from '@/api'
 import { GroupsApiPayloadData, GroupInfo, GroupStandings, Params } from '@/types'
-import { DefaultMetaData } from '@/utils'
+import { DefaultMetaData, hasTournamentStarted } from '@/utils'
 
 export default function StandingsGroupPage(props: {
     tournamentFullName: string
+    tournamentStartDate: string
     tournament: string
     season: string
     serverLink: string
@@ -26,6 +28,17 @@ export default function StandingsGroupPage(props: {
     const { tournamentFullName, embedImageUrl, groupFullName } = props
     const metaTitle = `${tournamentFullName} | ${DefaultMetaData.OG_MAIN_TITLE}`
     const metaDescription = `Points table for ${groupFullName} of ${tournamentFullName}`
+
+    const [tournamentStarted, relativeDate] = hasTournamentStarted(props.tournamentStartDate)
+    if (!tournamentStarted) {
+        return (
+            <ComingSoonPage
+                tournamentFullName={tournamentFullName}
+                season={props.season}
+                relativeDate={relativeDate}
+            />
+        )
+    }
 
     return (
         <Fragment>
@@ -135,7 +148,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
             revalidate: 60 * 60 * 6
         }
     }
-    const { season, server_link, tournament_full_name } = tournamentInfoData.data
+    const { season, server_link, tournament_full_name, start_date } = tournamentInfoData.data
 
     const availableGroups = tournamentInfoData.data.groups as Array<GroupInfo>
     const queriedGroup = availableGroups.filter((group) => group.id === groupId)[0]
@@ -162,6 +175,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     return {
         props: {
             tournamentFullName: tournament_full_name,
+            tournamentStartDate: start_date,
             tournament: tournament,
             season: season,
             serverLink: server_link,

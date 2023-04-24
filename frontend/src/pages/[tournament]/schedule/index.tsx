@@ -6,14 +6,16 @@ import { AxiosResponse, isAxiosError } from 'axios'
 
 import Header from '@/components/header'
 import Footer from '@/components/footer'
+import ComingSoonPage from '@/components/comingSoon'
 
 import { axiosApi, getTournamentInfoData } from '@/api'
 import { ScheduleApiPayloadData, MatchInfo, Params } from '@/types'
-import { DefaultMetaData } from '@/utils'
+import { DefaultMetaData, hasTournamentStarted } from '@/utils'
 
 export default function SchedulePage(props: {
     tournamentFullName: string
     season: string
+    tournamentStartDate: string
     serverLink: string
     embedImageUrl: string
     schedule: Array<MatchInfo>
@@ -28,6 +30,17 @@ export default function SchedulePage(props: {
     const { tournamentFullName, embedImageUrl } = props
     const metaTitle = `${tournamentFullName} | ${DefaultMetaData.OG_MAIN_TITLE}`
     const metaDescription = 'Upcoming matches, schedule and results for ' + tournamentFullName
+
+    const [tournamentStarted, relativeDate] = hasTournamentStarted(props.tournamentStartDate)
+    if (!tournamentStarted) {
+        return (
+            <ComingSoonPage
+                tournamentFullName={tournamentFullName}
+                season={props.season}
+                relativeDate={relativeDate}
+            />
+        )
+    }
 
     return (
         <Fragment>
@@ -184,7 +197,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
             revalidate: 60 * 60 * 6
         }
     }
-    const { season, server_link, tournament_full_name } = tournamentInfoData.data
+    const { season, server_link, tournament_full_name, start_date } = tournamentInfoData.data
 
     let response: AxiosResponse | undefined
     try {
@@ -209,6 +222,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
         props: {
             tournamentFullName: tournament_full_name,
             season: season,
+            tournamentStartDate: start_date,
             serverLink: server_link,
             embedImageUrl: embedImageUrl,
             schedule: scheduleAndResults.filter((match) => !match.MatchStatus),

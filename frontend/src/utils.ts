@@ -10,7 +10,7 @@ export const DefaultMetaData = {
     OG_DESCRIPTION: 'HandCricket Tournaments at one place'
 }
 
-export function hasTournamentStarted(start_date: string) {
+export function hasTournamentStarted(start_date: string): [boolean, string] {
     const rtf = new Intl.RelativeTimeFormat('en', { style: 'short' })
     const parsedDate = new Date(start_date)
 

@@ -6,10 +6,11 @@ import { AxiosResponse, isAxiosError } from 'axios'
 
 import Header from '@/components/header'
 import Footer from '@/components/footer'
+import ComingSoonPage from '@/components/comingSoon'
 
 import { axiosApi, getTournamentInfoData } from '@/api'
 import { Params, StatsApiPayloadData, PlayerStatistics } from '@/types'
-import { DefaultMetaData } from '@/utils'
+import { DefaultMetaData, hasTournamentStarted } from '@/utils'
 
 function InteractiveButton(props: {
     name: string
@@ -104,6 +105,7 @@ function PlayerRowComponentBowling(props: { player: PlayerStatistics; index: num
 export default function StatsPage(props: {
     tournamentFullName: string
     season: string
+    tournamentStartDate: string
     serverLink: string
     embedImageUrl: string
     topTenBatsmen: Array<PlayerStatistics>
@@ -137,6 +139,17 @@ export default function StatsPage(props: {
                 a.balls_given - b.balls_given
         )
         setSortedByWickets(allPlayerStats)
+    }
+
+    const [tournamentStarted, relativeDate] = hasTournamentStarted(props.tournamentStartDate)
+    if (!tournamentStarted) {
+        return (
+            <ComingSoonPage
+                tournamentFullName={tournamentFullName}
+                season={props.season}
+                relativeDate={relativeDate}
+            />
+        )
     }
 
     return (
@@ -318,7 +331,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
             revalidate: 60 * 60 * 6
         }
     }
-    const { season, server_link, tournament_full_name } = tournamentInfoData.data
+    const { season, server_link, tournament_full_name, start_date } = tournamentInfoData.data
 
     let response: AxiosResponse | undefined
     try {
@@ -352,6 +365,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
         props: {
             tournamentFullName: tournament_full_name,
             season: season,
+            tournamentStartDate: start_date,
             serverLink: server_link,
             embedImageUrl: embedImageUrl,
             topTenBatsmen: topTenBatsmen,
