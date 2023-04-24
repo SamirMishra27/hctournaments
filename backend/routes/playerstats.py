@@ -9,7 +9,7 @@ from utils import (
     sort_multiple
 )
 
-from os import listdir
+from os import listdir, path
 from operator import itemgetter
 from traceback import print_exception
 from io import BytesIO
@@ -90,6 +90,7 @@ def playerstats(tournament_name: str):
     file_path = f'data/{tournament_name}/stats.txt'
     try:
         with open(file_path, encoding = 'utf-8') as file:
+            data_last_edited = path.getmtime(file_path)
             raw_data = file.read()
 
     except Exception as e:
@@ -133,7 +134,9 @@ def playerstats(tournament_name: str):
 
     cloudinary_path = f'hctournaments/{tournament_name}/playerstats'
     cloudinary_image, image_needs_update, log_msg = get_image_from_cloudinary(
-        public_id = cloudinary_path, cloud_name = cloud_name
+        public_id = cloudinary_path,
+        cloud_name = cloud_name,
+        data_last_edited = data_last_edited
     )
 
     if image_needs_update or cloudinary_image is None:

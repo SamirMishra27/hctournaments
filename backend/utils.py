@@ -1,12 +1,9 @@
-from time import time
 from functools import reduce
 
 from flask import jsonify, make_response
 from cloudinary.exceptions import NotFound
 import cloudinary.uploader
 import cloudinary.api
-
-DAY = 60 * 60 * 24
 
 def sort_multiple(sequence, *sort_order):
     """Sort a sequence by multiple criteria.
@@ -38,8 +35,9 @@ def cloudinary_upload(image_buffer, public_id, save_path):
     )
     return response
 
-def get_image_from_cloudinary(public_id, cloud_name):
+def get_image_from_cloudinary(public_id, cloud_name, data_last_edited):
 
+    MAX_TIME_DIFF = 60 * 15
     cloudinary_image = None
     image_needs_update = False
     log_msg = ''
@@ -48,10 +46,15 @@ def get_image_from_cloudinary(public_id, cloud_name):
         cloudinary_image = cloudinary.api.resource(public_id = public_id, cloud_name = cloud_name)
         # The 'version' of an image is a UNIX timestamp indicating
         # The last time an image with same public_id was uploaded
-        updated_at = int(cloudinary_image.get('version'))
-        if time() - updated_at > DAY:
-            log_msg = 'Image was created day ago. Creating a new image'
-            image_needs_update = True
+        image_updated_at = int(cloudinary_image.get('version'))
+        if data_last_edited is not None:
+            if image_updated_at < data_last_edited and data_last_edited - image_updated_at > MAX_TIME_DIFF:
+                log_msg = 'Data was most recently updated than image was. Creating a new image'
+                image_needs_update = True
+        # DAY = 60 * 60 * 24
+        # if time() - updated_at > DAY:
+        #     log_msg = 'Image was created day ago. Creating a new image'
+        #     image_needs_update = True
 
     except NotFound as e:
         log_msg = 'Image not found in cloudinary. Creating a new image'

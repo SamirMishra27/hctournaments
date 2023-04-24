@@ -34,7 +34,9 @@ def schedule(tournament_name: str):
     
     cloudinary_path = f'hctournaments/{tournament_name}/schedule'
     cloudinary_image, _, _ = get_image_from_cloudinary(
-        public_id = cloudinary_path, cloud_name = cloud_name
+        public_id = cloudinary_path,
+        cloud_name = cloud_name,
+        data_last_edited = None
     )
     if cloudinary_image is None:
         cloudinary_image_url = ''

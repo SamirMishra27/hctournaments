@@ -10,7 +10,7 @@ from utils import (
 
 from json import load
 from traceback import print_exception
-from os import listdir
+from os import listdir, path
 from io import BytesIO
 
 from PIL import Image
@@ -75,6 +75,7 @@ def groups(tournament_name: str, group_name: str):
     file_path = f'data/{tournament_name}/groups.json'
     try:
         with open(file_path, encoding = 'utf-8') as file:
+            data_last_edited = path.getmtime(file_path)
             data: dict = load(file)
 
     except Exception as e:
@@ -96,7 +97,9 @@ def groups(tournament_name: str, group_name: str):
 
     cloudinary_path = f'hctournaments/{tournament_name}/{group_name}'
     cloudinary_image, image_needs_update, log_msg = get_image_from_cloudinary(
-        public_id = cloudinary_path, cloud_name = cloud_name
+        public_id = cloudinary_path,
+        cloud_name = cloud_name,
+        data_last_edited = data_last_edited
     )
 
     if image_needs_update or cloudinary_image is None:
