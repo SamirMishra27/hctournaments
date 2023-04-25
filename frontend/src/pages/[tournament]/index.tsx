@@ -113,7 +113,25 @@ export default function TournamentPage(props: {
                         </div>
                     </div>
 
-                    <h1 className="text-3xl xs:text-4xl font-bold">Group Standings</h1>
+                    <h1 className="text-3xl xs:text-4xl font-bold px-2">
+                        Upcoming Matches And Results
+                    </h1>
+                    <button
+                        className={
+                            'bg-gradient-to-br from-[#D47120] to-[#B63A1F] font-semibold ' +
+                            'w-52 h-14 my-4 rounded-lg text-center text-slate-50 ' +
+                            'hover:from-[#FD841F] hover:to-[#E14D2A] ' +
+                            'active:from-[#D47120] active:to-[#B63A1F] ' +
+                            'disabled:from-slate-300 disabled:to-slate-500'
+                        }>
+                        <Link
+                            href={'/' + tournament + '/schedule'}
+                            className="w-full h-full uppercase flex items-center justify-center">
+                            See The Schedule
+                        </Link>
+                    </button>
+
+                    <h1 className="text-3xl xs:text-4xl font-bold px-2">Group Standings</h1>
                     <div
                         className={
                             'w-11/12 sm:w-auto flex flex-wrap sm:flex-nowrap items-center justify-evenly px-4 py-2 ' +
@@ -136,6 +154,22 @@ export default function TournamentPage(props: {
                             </button>
                         ))}
                     </div>
+
+                    <h1 className="text-3xl xs:text-4xl font-bold px-2">Top Performing Players</h1>
+                    <button
+                        className={
+                            'bg-gradient-to-br from-[#D47120] to-[#B63A1F] font-semibold ' +
+                            'w-52 h-14 my-4 rounded-lg text-center text-slate-50 ' +
+                            'hover:from-[#FD841F] hover:to-[#E14D2A] ' +
+                            'active:from-[#D47120] active:to-[#B63A1F] ' +
+                            'disabled:from-slate-300 disabled:to-slate-500'
+                        }>
+                        <Link
+                            href={'/' + tournament + '/stats'}
+                            className="w-full h-full uppercase flex items-center justify-center">
+                            See The Players
+                        </Link>
+                    </button>
 
                     <div className="space-y-3">
                         <h1 className="text-3xl xs:text-4xl font-bold max-w-xl">Event Hosts</h1>
