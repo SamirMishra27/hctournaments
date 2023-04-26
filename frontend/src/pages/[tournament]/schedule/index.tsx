@@ -188,13 +188,14 @@ export default function SchedulePage(props: {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
+    const REVALIDATE_TIME = 60 * 60 * 1
     const { tournament } = context.params as Params
 
     const tournamentInfoData = await getTournamentInfoData(tournament)
     if (!tournamentInfoData) {
         return {
             notFound: true,
-            revalidate: 60 * 60 * 6
+            revalidate: REVALIDATE_TIME
         }
     }
     const { season, server_link, tournament_full_name, start_date } = tournamentInfoData.data
@@ -210,7 +211,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     if (!response || response.status === 404 || !response.data.success) {
         return {
             notFound: true,
-            revalidate: 60 * 60 * 6
+            revalidate: REVALIDATE_TIME
         }
     }
     const scheduleData = response.data as ScheduleApiPayloadData
@@ -228,7 +229,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
             schedule: scheduleAndResults.filter((match) => !match.MatchStatus),
             results: scheduleAndResults.filter((match) => match.MatchStatus)
         },
-        revalidate: 60 * 60 * 6
+        revalidate: REVALIDATE_TIME
     }
 }
 

@@ -239,12 +239,14 @@ export default function TournamentPage(props: {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
+    const REVALIDATE_TIME = 60 * 60 * 1
+
     const { tournament } = context.params as Params
     const tournamentInfoData = await getTournamentInfoData(tournament)
     if (!tournamentInfoData) {
         return {
             notFound: true,
-            revalidate: 60 * 60 * 6
+            revalidate: REVALIDATE_TIME
         }
     }
 
@@ -257,7 +259,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
             tournamentInfo: tournamentInfo,
             embedImageUrl: embedImageUrl
         },
-        revalidate: 60 * 60 * 6
+        revalidate: REVALIDATE_TIME
     }
 }
 

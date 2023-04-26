@@ -137,6 +137,8 @@ export default function StandingsGroupPage(props: {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
+    const REVALIDATE_TIME = 60 * 15
+
     const { tournament, groupName } = context.params as Params
     const groupId = groupName
     // TODO: Fix this bad code
@@ -145,7 +147,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     if (!tournamentInfoData) {
         return {
             notFound: true,
-            revalidate: 60 * 60 * 6
+            revalidate: REVALIDATE_TIME
         }
     }
     const { season, server_link, tournament_full_name, start_date } = tournamentInfoData.data
@@ -164,7 +166,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     if (!response || response.status === 404 || !response.data.success) {
         return {
             notFound: true,
-            revalidate: 60 * 60 * 6
+            revalidate: REVALIDATE_TIME
         }
     }
     const groupData = response.data as GroupsApiPayloadData
@@ -185,7 +187,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
             groupStandings: groupStandings,
             availableGroups: availableGroups
         },
-        revalidate: 60 * 60 * 6
+        revalidate: REVALIDATE_TIME
     }
 }
 

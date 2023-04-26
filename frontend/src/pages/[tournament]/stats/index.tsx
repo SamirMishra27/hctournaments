@@ -322,13 +322,14 @@ export default function StatsPage(props: {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
+    const REVALIDATE_TIME = 60 * 15
     const { tournament } = context.params as Params
 
     const tournamentInfoData = await getTournamentInfoData(tournament)
     if (!tournamentInfoData) {
         return {
             notFound: true,
-            revalidate: 60 * 60 * 6
+            revalidate: REVALIDATE_TIME
         }
     }
     const { season, server_link, tournament_full_name, start_date } = tournamentInfoData.data
@@ -344,7 +345,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     if (!response || response.status === 404 || !response.data.success) {
         return {
             notFound: true,
-            revalidate: 60 * 60 * 6
+            revalidate: REVALIDATE_TIME
         }
     }
     const playerStatsData = response.data as StatsApiPayloadData
@@ -372,7 +373,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
             topTenBowlers: topTenBowlers,
             allPlayerStats: allPlayerStats
         },
-        revalidate: 60 * 60 * 6
+        revalidate: REVALIDATE_TIME
     }
 }
 
