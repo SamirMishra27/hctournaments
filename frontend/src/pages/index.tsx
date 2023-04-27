@@ -106,7 +106,8 @@ export default function HomePage() {
                             BATTLE OF THE SERVERS
                         </h1>
                         <p className="text-lg text-right md:text-center">
-                            Season 12 is coming soon...
+                            {/* Season 12 is coming soon... */}
+                            Season 12 is Ongoing!
                         </p>
                         <button
                             className={
