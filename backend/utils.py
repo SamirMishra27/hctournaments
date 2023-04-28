@@ -37,7 +37,7 @@ def cloudinary_upload(image_buffer, public_id, save_path):
 
 def get_image_from_cloudinary(public_id, cloud_name, data_last_edited):
 
-    MAX_TIME_DIFF = 60 * 15
+    MAX_TIME_DIFF = 60 * 10
     cloudinary_image = None
     image_needs_update = False
     log_msg = ''
@@ -51,10 +51,6 @@ def get_image_from_cloudinary(public_id, cloud_name, data_last_edited):
             if image_updated_at < data_last_edited and data_last_edited - image_updated_at > MAX_TIME_DIFF:
                 log_msg = 'Data was most recently updated than image was. Creating a new image'
                 image_needs_update = True
-        # DAY = 60 * 60 * 24
-        # if time() - updated_at > DAY:
-        #     log_msg = 'Image was created day ago. Creating a new image'
-        #     image_needs_update = True
 
     except NotFound as e:
         log_msg = 'Image not found in cloudinary. Creating a new image'
