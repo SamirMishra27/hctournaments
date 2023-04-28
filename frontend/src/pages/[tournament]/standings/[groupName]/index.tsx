@@ -137,7 +137,7 @@ export default function StandingsGroupPage(props: {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-    const REVALIDATE_TIME = 60 * 15
+    const REVALIDATE_TIME = 60 * 5
 
     const { tournament, groupName } = context.params as Params
     const groupId = groupName

@@ -188,7 +188,7 @@ export default function SchedulePage(props: {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-    const REVALIDATE_TIME = 60 * 60 * 1
+    const REVALIDATE_TIME = 60 * 5
     const { tournament } = context.params as Params
 
     const tournamentInfoData = await getTournamentInfoData(tournament)
