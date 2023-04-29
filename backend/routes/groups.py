@@ -91,11 +91,23 @@ def groups(tournament_name: str, group_name: str):
             success = False,
             message = 'Group not found in this tournament'
         )
-    
-    group_points_table = data[group_name]
-    group_points_table = sorted(group_points_table, key = lambda x: x.get('points'), reverse = True)
+    group_points_table: list[str] = data[group_name]
 
+    for string in group_points_table:
+        index = group_points_table.index(string)
+        split_string = string.split(',')
+
+        group_points_table[index] = {
+            'team_name': str(split_string[0]).strip(),
+            'matches_played': split_string[1],
+            'matches_won': split_string[2],
+            'matches_lost': split_string[3],
+            'points': split_string[4]
+        }
+
+    group_points_table = sorted(group_points_table, key = lambda x: x.get('points'), reverse = True)
     cloudinary_path = f'hctournaments/{tournament_name}/{group_name}'
+
     cloudinary_image, image_needs_update, log_msg = get_image_from_cloudinary(
         public_id = cloudinary_path,
         cloud_name = cloud_name,
