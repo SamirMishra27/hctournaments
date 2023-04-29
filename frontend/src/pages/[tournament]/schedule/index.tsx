@@ -93,7 +93,9 @@ export default function SchedulePage(props: {
                                 <div
                                     className="w-[95%] md:w-3/4 bg-bright-orange flex items-center justify-evenly rounded-xl px-3 py-3 my-2"
                                     key={match.MatchNo}>
-                                    <p>{match.MatchNo}. </p>
+                                    <p className="w-4 xs:w-6 text-sm xs:text-base">
+                                        {match.MatchNo}.
+                                    </p>
                                     <p
                                         className={
                                             'w-24 xs:w-32 sm:w-56 text-ellipsis ' +
@@ -138,7 +140,9 @@ export default function SchedulePage(props: {
                                 <div
                                     className="w-[95%] md:w-3/4 bg-bright-orange flex items-center justify-evenly rounded-xl px-3 py-3 my-2"
                                     key={match.MatchNo}>
-                                    <p>{match.MatchNo}. </p>
+                                    <p className="w-4 xs:w-6 text-sm xs:text-base">
+                                        {match.MatchNo}.
+                                    </p>
                                     <div>
                                         <p
                                             className={
