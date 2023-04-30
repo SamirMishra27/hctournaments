@@ -128,7 +128,7 @@ export default function StatsPage(props: {
 
     function showAllPlayersByRuns() {
         allPlayerStats.sort((a, b) => b.runs - a.runs || a.balls - b.balls)
-        setSortedByRuns(allPlayerStats)
+        setSortedByRuns(allPlayerStats.map((playerStats) => playerStats))
     }
 
     function showAllPlayersByWickets() {
@@ -138,7 +138,7 @@ export default function StatsPage(props: {
                 a.runs_given - b.runs_given ||
                 a.balls_given - b.balls_given
         )
-        setSortedByWickets(allPlayerStats)
+        setSortedByWickets(allPlayerStats.map((playerStats) => playerStats))
     }
 
     const [tournamentStarted, relativeDate] = hasTournamentStarted(props.tournamentStartDate)
