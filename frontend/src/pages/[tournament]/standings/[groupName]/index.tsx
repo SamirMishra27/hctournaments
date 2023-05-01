@@ -83,6 +83,16 @@ export default function StandingsGroupPage(props: {
                             'px-0.5 xs:px-2 py-4 rounded-xl bg-gradient-to-br from-[#19376D] via-[#0B2447] to-[#19376D] ' +
                             'border-4 border-solid border-[#21315B] font-medium xs:font-semibold text-xs xs:text-base sm:text-lg'
                         }>
+                        <div className="w-[95%] sm:w-3/4 bg-bright-orange flex items-center justify-around rounded-xl px-0 sm:px-3 py-3 my-2">
+                            <p>Sr</p>
+                            <p className="uppercase w-24 xs:w-32 sm:w-56 break-words text-left whitespace-nowrap sm:whitespace-normal overflow-x-hidden text-ellipsis">
+                                Team
+                            </p>
+                            <p>M</p>
+                            <p>W</p>
+                            <p>L</p>
+                            <p className="w-16 sm:w-20 flex items-center justify-evenly">Points</p>
+                        </div>
                         {props.groupStandings.map((row, index) => (
                             <div
                                 className="w-[95%] sm:w-3/4 bg-bright-orange flex items-center justify-around rounded-xl px-0 sm:px-3 py-3 my-2"
