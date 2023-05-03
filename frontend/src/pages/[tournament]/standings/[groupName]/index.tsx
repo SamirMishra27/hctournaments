@@ -84,8 +84,8 @@ export default function StandingsGroupPage(props: {
                             'border-4 border-solid border-[#21315B] font-medium xs:font-semibold text-xs xs:text-base sm:text-lg'
                         }>
                         <div className="w-[95%] sm:w-3/4 bg-bright-orange flex items-center justify-around rounded-xl px-0 sm:px-3 py-3 my-2">
-                            <p>Sr</p>
-                            <p className="uppercase w-24 xs:w-32 sm:w-56 break-words text-left whitespace-nowrap sm:whitespace-normal overflow-x-hidden text-ellipsis">
+                            <p className="w-4 xs:w-6 text-xs xs:text-base">Sr</p>
+                            <p className="uppercase w-24 xs:w-2/5 sm:w-56 break-words text-left whitespace-nowrap sm:whitespace-normal overflow-x-hidden text-ellipsis sm:-ml-2">
                                 Team
                             </p>
                             <p>M</p>
@@ -97,8 +97,8 @@ export default function StandingsGroupPage(props: {
                             <div
                                 className="w-[95%] sm:w-3/4 bg-bright-orange flex items-center justify-around rounded-xl px-0 sm:px-3 py-3 my-2"
                                 key={index}>
-                                <p>{index + 1}. </p>
-                                <p className="uppercase w-24 xs:w-32 sm:w-56 break-words text-left whitespace-nowrap sm:whitespace-normal overflow-x-hidden text-ellipsis">
+                                <p className="w-4 xs:w-6 text-xs xs:text-base">{index + 1}. </p>
+                                <p className="uppercase w-24 xs:w-2/5 sm:w-56 break-words text-left whitespace-nowrap sm:whitespace-normal overflow-x-hidden text-ellipsis sm:-ml-2">
                                     {row.team_name}
                                 </p>
                                 <p>{row.matches_played}</p>
