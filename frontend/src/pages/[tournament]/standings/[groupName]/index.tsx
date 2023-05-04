@@ -63,10 +63,10 @@ export default function StandingsGroupPage(props: {
             <Header />
             <main className="w-full flex flex-col items-center justify-center bg-page-primary">
                 <section className="container max-w-[96rem] flex flex-col items-center justify-center py-7 my-5 text-center">
-                    <h1 className="text-slate-50 font-bold text-3xl xs:text-4xl md:text-5xl my-3">
+                    <h1 className="text-slate-50 font-bold text-3xl xs:text-4xl md:text-5xl my-3 px-4">
                         {tournamentFullName}
                     </h1>
-                    <h3 className="text-slate-50 uppercase font-semibold text-xl xs:text-2xl my-3">
+                    <h3 className="text-slate-50 uppercase font-semibold text-xl xs:text-2xl my-3 px-4">
                         <span className="text-lime-100">{props.season}</span>
                         <span> - GROUP STANDINGS</span>
                     </h3>
