@@ -99,10 +99,10 @@ def groups(tournament_name: str, group_name: str):
 
         group_points_table[index] = {
             'team_name': str(split_string[0]).strip(),
-            'matches_played': split_string[1],
-            'matches_won': split_string[2],
-            'matches_lost': split_string[3],
-            'points': split_string[4]
+            'matches_played': int(split_string[1]),
+            'matches_won': int(split_string[2]),
+            'matches_lost': int(split_string[3]),
+            'points': int(split_string[4])
         }
 
     group_points_table = sorted(group_points_table, key = lambda x: x.get('points'), reverse = True)
