@@ -63,7 +63,7 @@ body {
 }
 
 .player-key-stat-box:hover > .tooltip {
-    opacity: 1;
+    visibility: visible;
 }
 
 .schedule-list::-webkit-scrollbar {

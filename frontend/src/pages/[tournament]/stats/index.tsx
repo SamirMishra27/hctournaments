@@ -50,7 +50,7 @@ function PlayerRowComponentBatting(props: { player: PlayerStatistics; index: num
                 <span
                     className={
                         'tooltip absolute bg-gradient-to-br from-[#FD841F] to-[#E14D2A] ' +
-                        'text-sm right-[-7.5rem] top-[-1rem] opacity-0 transition-opacity ' +
+                        'text-sm right-[-7.5rem] top-[-1rem] invisible transition-opacity ' +
                         'rounded-xl px-3 py-2 my-1 hidden md:block '
                     }>
                     Runs: {player.runs}
@@ -84,7 +84,7 @@ function PlayerRowComponentBowling(props: { player: PlayerStatistics; index: num
                 <span
                     className={
                         'tooltip absolute bg-gradient-to-br from-[#CF4EA8] to-[#8846A9] ' +
-                        'text-sm right-[-9.5rem] top-[-1.5rem] opacity-0 transition-opacity ' +
+                        'text-sm right-[-9.5rem] top-[-1.5rem] invisible transition-opacity ' +
                         'rounded-xl px-3 py-2 my-1 hidden md:block '
                     }>
                     <span>Wickets: {player.wickets}</span>
