@@ -105,10 +105,7 @@ export default function HomePage() {
                         <h1 className="font-bold text-2xl md:text-3xl text-right md:text-center">
                             BATTLE OF THE SERVERS
                         </h1>
-                        <p className="text-lg text-right md:text-center">
-                            {/* Season 12 is coming soon... */}
-                            Season 12 is Ongoing!
-                        </p>
+                        <p className="text-lg text-right md:text-center">Season 13 is ongoing!</p>
                         <button
                             className={
                                 'view-button w-48 h-12 my-6 uppercase text-base font-medium rounded-full ' +
