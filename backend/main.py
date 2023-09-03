@@ -1,10 +1,18 @@
 from flask import Flask
 from flask_cors import CORS
 
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
+from models import BaseModel
+from custom_types import RouteInfo
+
+# Load config file
 from json import load
 with open('config.json') as f:
     config = load(f)
 
+# Initiate flask app and setup Cors
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "*"}})
 
@@ -15,13 +23,22 @@ from routes import (
     schedule
 )
 
-app.add_url_rule('/tournaments/<string:tournament_name>', view_func = tournaments)
-app.add_url_rule('/groups/<string:tournament_name>/<string:group_name>', view_func = groups)
-app.add_url_rule('/playerstats/<string:tournament_name>', view_func = playerstats)
-app.add_url_rule('/schedule/<string:tournament_name>', view_func = schedule)
+
+# Connect to database and store session in app
+def establish_database_connection(connection_link: str):
+    Engine = create_engine(connection_link)
+    BaseModel.metadata.create_all(Engine)
+    Session = sessionmaker(Engine)
+
+    app.db_engine = Engine
+    app.session = Session
+    app.logger.warning('Established connection with the database!')
 
 if __name__ == "__main__":
+
+    establish_database_connection(config['POSTGRES_DATABASE_CONN_LINK'])
     app.logger.warning("Running flask server...")
+
     app.run(
         host = config.get('HOST', '0.0.0.0'),
         port = config.get('PORT', 3000),
