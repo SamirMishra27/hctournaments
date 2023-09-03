@@ -1,7 +1,12 @@
 {
     "STAGE": "BETA / PROD",
+    "HOST": "0.0.0.0",
     "PORT": "Flask application port",
+
     "CLOUDINARY_CLOUD_NAME": "Your cloud's name (Check cloudinary dashboard)",
     "CLOUDINARY_API_KEY": "Api key (Check cloudinary dashboard)",
-    "CLOUDINARY_API_SECRET": "Api Secret (Check cloudinary dashboard)"
+    "CLOUDINARY_API_SECRET": "Api Secret (Check cloudinary dashboard)",
+
+    "POSTGRESS_DATABASE_CONN_LINK": "PostgreSql database connection url (with username & password)",
+    "CLIENT_API_KEY": "An api auth key to globally validate requests from client"
 }
