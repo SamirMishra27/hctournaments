@@ -6,7 +6,7 @@ class TeamStandings(BaseModel):
     __tablename__ = 'team_standings'
 
     row_id = Column(CHAR(OBJECT_ID_LENGTH), nullable = False, primary_key = True, autoincrement = False)
-    season_no = Column(SMALLINT, nullable = False)
+    tournament_id = Column(CHAR(OBJECT_ID_LENGTH), nullable = False)
 
     group_name = Column(VARCHAR(100), nullable = False)
     group_id = Column(VARCHAR(50), nullable = False)

@@ -6,7 +6,7 @@ class Matches(BaseModel):
     __tablename__ = 'matches'
 
     match_id = Column(CHAR(OBJECT_ID_LENGTH), nullable = False, primary_key = True, autoincrement = False)
-    season_no = Column(SMALLINT, nullable = False)
+    tournament_id = Column(CHAR(OBJECT_ID_LENGTH), nullable = False)
 
     title = Column(VARCHAR(250), nullable = True)
     description = Column(VARCHAR(500), nullable = False)
