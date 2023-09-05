@@ -55,12 +55,3 @@ class Tournaments(BaseModel):
             champions_team = json_data.get('champions_team', '')
         )
         return new_tournament
-
-    def to_json(self) -> Dict[str, Union[str, int]]:
-        json_data = {}
-
-        for key, value in vars(self).items():
-            if not key.startswith('_'):
-                json_data[key] = value
-
-        return json_data
