@@ -29,16 +29,16 @@ class TeamStandings(BaseModel):
     def from_json(self, json_data: Dict[str, Union[str, int, bool]]) -> 'TeamStandings':
 
         new_team_standing = TeamStandings(
-            row_id = ['row_id'],
-            tournament_id = ['tournament_id'],
-            group_name = ['group_name'],
-            group_id = ['group_id'],
-            team_name = ['team_name'],
-            matches_played = ['matches_played'],
-            matches_won = ['matches_won'],
-            matches_lost = ['matches_lost'],
-            points_multiplier = ['points_multiplier'],
-            points = ['points'],
+            row_id = json_data['row_id'],
+            tournament_id = json_data['tournament_id'],
+            group_name = json_data['group_name'],
+            group_id = json_data['group_id'],
+            team_name = json_data['team_name'],
+            matches_played = json_data['matches_played'],
+            matches_won = json_data['matches_won'],
+            matches_lost = json_data['matches_lost'],
+            points_multiplier = json_data['points_multiplier'],
+            points = json_data['points'],
             runs_per_wicket_ratio = json_data.get('runs_per_wicket_ratio', 0),
             priority = json_data['priority'],
             qualified = json_data.get('qualified', False)
