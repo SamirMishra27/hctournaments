@@ -30,26 +30,21 @@ def get_tournaments(tournament_slug: str, season_no: int):
         query = select(Hosts).where(Hosts.tournament_id == tournament_data.tournament_id)
         hosts_data = session.scalars(query).all()
 
-    cloudinary_path = f'hctournaments/{tournament_slug}/s{season_no}/info'
+    image_path = f'hctournaments/{tournament_slug}/s{season_no}/info'
 
-    cloudinary_image, _, _ = get_image_from_cloudinary(
-        public_id = cloudinary_path,
+    image, _, _ = get_image_from_cloudinary(
+        public_id = image_path,
         cloud_name = cloud_name,
         data_last_edited = None
     )
-    cloudinary_image_url = '' if cloudinary_image is None else cloudinary_image.get('secure_url')
+    image_url = '' if image is None else image.get('secure_url')
 
     hosts_info = []
-    for single_host_data in hosts_data:
-        host_info = {}
-
-        for attribute, value in vars(single_host_data).items():
-            if not attribute.startswith('_'):
-                host_info[attribute] = value
-        hosts_info.append(host_info)
+    for host_data in hosts_data:
+        hosts_info.append(host_data.to_json())
 
     json_data = tournament_data.to_json()
-    json_data['embed_theme_link'] = cloudinary_image_url
+    json_data['embed_theme_link'] = image_url
     json_data['hosts'] = hosts_info
 
     response = make_response(jsonify(json_data), 200)
