@@ -1,18 +1,25 @@
-import cloudinary
-from json import load
+__all__ = [
+    'get_admins',
+    'put_admins',
+    'get_tournaments',
+    'post_tournaments',
+    'put_tournaments',
+    'get_playerstats',
+    'put_playerstats',
+    'get_matches',
+    'put_matches',
+    'get_groups',
+    'put_groups'
+]
 
-with open('config.json') as file:
-    config = load(file)
-    cloud_name = config['CLOUDINARY_CLOUD_NAME']
-
-cloudinary.config(
-    cloud_name = config['CLOUDINARY_CLOUD_NAME'],
-    api_key = config['CLOUDINARY_API_KEY'],
-    api_secret = config['CLOUDINARY_API_SECRET'],
-    secure = True
-)
-
-from .tournaments import tournaments
-from .groups import groups
-from .playerstats import playerstats
-from .schedule import schedule
+from . import get_admins
+from . import put_admins
+from . import get_tournaments
+from . import post_tournaments
+from . import put_tournaments
+from . import get_playerstats
+from . import put_playerstats
+from . import get_matches
+from . import put_matches
+from . import get_groups
+from . import put_groups
