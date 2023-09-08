@@ -1,11 +1,20 @@
-from functools import reduce
-
 from flask import jsonify, make_response
 from cloudinary.exceptions import NotFound
 import cloudinary.uploader
 import cloudinary.api
 
-def sort_multiple(sequence, *sort_order):
+from custom_types import TYPE
+
+from functools import reduce
+from json import load
+from PIL import ImageFont
+from typing import Sequence, Tuple
+
+with open('config.json') as file:
+    config = load(file)
+    cloud_name = config['CLOUDINARY_CLOUD_NAME']
+
+def sort_multiple(sequence: Sequence[TYPE], *sort_order: Tuple[Tuple]) -> Sequence[TYPE]:
     """Sort a sequence by multiple criteria.
 
     Accepts a sequence and 0 or more (key, reverse) tuples, where
@@ -74,3 +83,6 @@ def send_404_json_response(**kwargs):
 
     response = make_response(jsonify(json_body), 404)
     return response
+
+def font_of_size(font_size: int) -> ImageFont.FreeTypeFont:
+    return ImageFont.truetype('assets/BakbakOne-Regular.ttf', font_size)
