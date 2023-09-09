@@ -6,10 +6,10 @@ from typing import Dict, Union
 class PlayerStats(BaseModel):
     __tablename__ = 'player_stats'
 
-    row_id = Column(CHAR(OBJECT_ID_LENGTH), nullable = False, primary_key = True, autoincrement = False)
+    row_id = Column(CHAR(OBJECT_ID_LENGTH), nullable = False, primary_key = True, autoincrement = False, unique = True)
     tournament_id = Column(CHAR(OBJECT_ID_LENGTH), nullable = False)
 
-    user_id = Column(BIGINT, nullable = False, primary_key = True)
+    user_id = Column(BIGINT, nullable = False)
     player_name = Column(VARCHAR(USERNAME_MAX_LENGTH), nullable = False)
 
     runs = Column(SMALLINT, nullable = False)

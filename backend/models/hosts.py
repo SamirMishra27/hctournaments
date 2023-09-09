@@ -6,7 +6,7 @@ from typing import Dict, Union
 class Hosts(BaseModel):
     __tablename__ = 'hosts'
 
-    row_id = Column(CHAR(OBJECT_ID_LENGTH), nullable = False, primary_key = True, autoincrement = False)
+    row_id = Column(CHAR(OBJECT_ID_LENGTH), nullable = False, primary_key = True, autoincrement = False, unique = True)
     tournament_id = Column(CHAR(OBJECT_ID_LENGTH), nullable = False, autoincrement = False)
     user_id = Column(BIGINT, nullable = False)
 

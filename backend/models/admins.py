@@ -8,7 +8,7 @@ from typing import Dict, Union
 class Admins(BaseModel):
     __tablename__ = 'admins'
 
-    user_id = Column(BIGINT, nullable = False, primary_key = True)
+    user_id = Column(BIGINT, nullable = False, primary_key = True, unique = True)
     roles = Column(JSON, nullable = False)
 
     @classmethod

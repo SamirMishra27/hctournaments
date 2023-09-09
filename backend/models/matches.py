@@ -6,11 +6,11 @@ from typing import Dict, Union
 class Matches(BaseModel):
     __tablename__ = 'matches'
 
-    match_id = Column(CHAR(OBJECT_ID_LENGTH), nullable = False, primary_key = True, autoincrement = False)
+    match_id = Column(CHAR(OBJECT_ID_LENGTH), nullable = False, primary_key = True, autoincrement = False, unique = True)
     tournament_id = Column(CHAR(OBJECT_ID_LENGTH), nullable = False)
 
-    title = Column(VARCHAR(250), nullable = True)
-    description = Column(VARCHAR(500), nullable = False)
+    title = Column(VARCHAR(250), nullable = False)
+    description = Column(VARCHAR(500), nullable = True)
     status = Column(VARCHAR(ENUM_MAX_LENGTH), nullable = False)
 
     team_a_name = Column(VARCHAR(TEAM_NAME_MAX_LENGTH), nullable = False)

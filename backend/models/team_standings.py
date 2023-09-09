@@ -6,7 +6,7 @@ from typing import Dict, Union
 class TeamStandings(BaseModel):
     __tablename__ = 'team_standings'
 
-    row_id = Column(CHAR(OBJECT_ID_LENGTH), nullable = False, primary_key = True, autoincrement = False)
+    row_id = Column(CHAR(OBJECT_ID_LENGTH), nullable = False, primary_key = True, autoincrement = False, unique = True)
     tournament_id = Column(CHAR(OBJECT_ID_LENGTH), nullable = False)
 
     group_name = Column(VARCHAR(100), nullable = False)
