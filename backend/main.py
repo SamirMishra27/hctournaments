@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 
 from sqlalchemy import create_engine
@@ -26,16 +26,24 @@ cloudinary.config(
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "*"}})
 
-from routes import (
-    tournaments,
-    groups,
-    playerstats,
-    schedule
-)
 
+# Import all routes
+import routes
+
+for name, route_info in vars(routes).items():
+    name: str
+    route_info: RouteInfo
+
+    if name in routes.__all__:
+        app.add_url_rule(
+            route_info.ROUTE,
+            view_func = route_info.__callback__,
+            methods = route_info.METHOD
+        )
 
 # Connect to database and store session in app
 def establish_database_connection(connection_link: str):
+
     Engine = create_engine(connection_link)
     BaseModel.metadata.create_all(Engine)
     Session = sessionmaker(Engine)
