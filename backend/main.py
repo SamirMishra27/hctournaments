@@ -26,6 +26,24 @@ cloudinary.config(
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "*"}})
 
+# Add middleware or before route invoked callback
+@app.before_request
+def verify_auth_key():
+
+    authorization_key: str = request.headers.get('Authorization')
+    client_api_key: str = config['CLIENT_API_KEY']
+
+    if authorization_key == client_api_key:
+        return None
+
+    if authorization_key is None:
+        reject_reason = 'No authorization key provided'
+
+    else:
+        reject_reason = 'Invalid authorization key'
+
+    response = jsonify({'message' : reject_reason})
+    return response, 401
 
 # Import all routes
 import routes
