@@ -7,10 +7,9 @@ from sqlalchemy.orm import sessionmaker
 from models import BaseModel
 from custom_types import RouteInfo
 
-# Load config file
-from json import load
-with open('config.json') as f:
-    config = load(f)
+# Load config file using python-dotenv
+from dotenv import dotenv_values
+config = dict(dotenv_values('.env'))
 
 # Setup cloudinary
 import cloudinary
@@ -77,7 +76,6 @@ if __name__ == "__main__":
 
     app.run(
         host = config.get('HOST', '0.0.0.0'),
-        port = config.get('PORT', 3000),
-        debug = False if config.get('STAGE') == 'PROD' else True,
-        ssl_context = ('cert.pem', 'key.pem') if config.get('STAGE') == 'PROD' else None
+        port = int( config.get('PORT', 3000) ),
+        debug = False if config.get('STAGE') == 'PROD' else True
     )
