@@ -13,7 +13,6 @@ from utils import (
 from io import BytesIO
 from requests import get
 from PIL import Image, ImageDraw
-from time import time
 
 __all__ = ['ROUTE', 'METHOD', '__callback__']
 
@@ -50,23 +49,20 @@ def generate_new_image(image_link, primary_text, secondary_text) -> BytesIO:
     return image_buffer
 
 def update_embed_images(theme_image_link, tourney_name, slug_name, season_no) -> str:
+
+    # This is the theme background, it has no text
     base_path = f'hctournaments/{slug_name}/s{season_no}'
+    cloudinary_upload(theme_image_link, 'theme', base_path)
 
-    time_ = time()
-    upload_response = cloudinary_upload(theme_image_link, 'theme', base_path)
-    embed_theme_link = upload_response.get('secure_url')
-    print(time() - time_)
-    time_ = time()
-
+    # This will have the tournament's name and season
+    # Stored with tournament metadata
     image_buffer = generate_new_image(theme_image_link, tourney_name, f'SEASON {season_no}')
-    cloudinary_upload(image_buffer, 'info', base_path)
-    print(time() - time_)
-    time_ = time()
+    upload_response = cloudinary_upload(image_buffer, 'info', base_path)
+    embed_theme_link = upload_response.get('secure_url')
 
+    # This one is for matches page
     image_buffer = generate_new_image(theme_image_link, tourney_name, 'SCHEDULE & RESULTS')
     cloudinary_upload(image_buffer, 'matches', base_path)
-    print(time() - time_)
-    time_ = time()
 
     return embed_theme_link
 
@@ -110,21 +106,24 @@ def post_tournaments(tournament_slug: str, season_no: int):
                 message = 'Tournament entity with the same `slug_name` and `season_no` already exists'
             )
 
+        # Create new tournament row
         new_tournament = Tournaments.from_json(request_body)
-        session.add(new_tournament)
-        session.commit()
 
-    if theme_image_link:
-        embed_theme_link = update_embed_images(
+        # Create embed images in cloudinary and get the link for 'info'
+        new_tournament.embed_theme_link = update_embed_images(
             theme_image_link,
             new_tournament.tournament_name,
             slug_name,
             season_no
         )
 
+        # Create entry in the database
+        session.add(new_tournament)
+        session.commit()
+
     json_body = request_body
     json_body['success'] = True
-    json_body['embed_theme_link'] = embed_theme_link
+    json_body['embed_theme_link'] = new_tournament.embed_theme_link
 
     response = make_response(jsonify(json_body), 201)
     return response
