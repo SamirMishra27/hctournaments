@@ -18,7 +18,6 @@ def get_admins():
     with Session() as session:
         query = select(Admins)
         admin_data = session.scalars(query).all()
-        print(session.execute(query).all())
 
     json_data = []
     for admin in admin_data:
