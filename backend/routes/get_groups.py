@@ -56,7 +56,8 @@ def get_groups(tournament_slug: str, season_no: int):
         team_standings.append(standing_data.to_json())
 
     json_data = {
-        'embed_image_url' : image_urls,
+        'tournament_id': tournament_id,
+        'embed_image_urls' : image_urls,
         'team_standings': team_standings
     }
     response = make_response(jsonify(json_data), 200)

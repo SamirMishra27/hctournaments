@@ -52,6 +52,7 @@ def get_playerstats(tournament_slug: str, season_no: int):
         player_stats.append(player_data.to_json())
 
     json_data = {
+        'tournament_id': tournament_id,
         'embed_image_url' : image_url,
         'player_stats' : player_stats
     }
