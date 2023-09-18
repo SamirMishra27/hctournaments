@@ -50,10 +50,11 @@ def generate_new_image(image_link, tourney_name, player_stats_data: Sequence[Pla
     )[0:10]
 
     # Step 4 Write necessary text
+    length = len(top_ten_batters)
     y_coord = 180
     font = font_of_size(28)
 
-    for i in range(3):
+    for i in range(length):
 
         image_draw.multiline_text(xy = (95, y_coord), text = str(top_ten_batters[i].player_name), align = 'center', font = font)
 
