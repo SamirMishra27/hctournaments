@@ -96,13 +96,21 @@ def put_playerstats(tournament_slug: str, season_no: int):
         # Get tournament id, name and embed link
         query = select(
             Tournaments.tournament_id,
+            Tournaments.slug_name,
             Tournaments.tournament_name,
             Tournaments.embed_theme_link
         ).where(and_(
             Tournaments.slug_name == tournament_slug.lower(),
             Tournaments.season_no == season_no
         ))
-        tournament_id, tournament_name, embed_image_link = session.execute(query).one()
+        tournament_id, slug_name, tournament_name, embed_image_link = session.execute(query).one()
+
+        theme_image, _, _ = get_image_from_cloudinary(
+            public_id = f'hctournaments/{slug_name}/s{season_no}/theme',
+            cloud_name = cloud_name,
+            data_last_edited = None
+        )
+        theme_image_link = theme_image.get('secure_url')
 
         query = select(PlayerStats).where(PlayerStats.tournament_id == tournament_id)
         player_stats_data = session.scalars(query).all()
@@ -128,7 +136,7 @@ def put_playerstats(tournament_slug: str, season_no: int):
         session.commit()
 
         player_stats_data = session.scalars(query).all()
-        image_buffer = generate_new_image(embed_image_link, tournament_name, player_stats_data)
+        image_buffer = generate_new_image(theme_image_link, tournament_name, player_stats_data)
 
         image_path = f'hctournaments/{tournament_slug}/s{season_no}'
         cloudinary_upload(image_buffer, 'playerstats', image_path)
