@@ -81,13 +81,22 @@ def put_groups(tournament_slug: str, season_no: int):
         # Get tournament id, name and embed link
         query = select(
             Tournaments.tournament_id,
+            Tournaments.slug_name,
             Tournaments.tournament_name,
             Tournaments.embed_theme_link
         ).where(and_(
             Tournaments.slug_name == tournament_slug.lower(),
             Tournaments.season_no == season_no
         ))
-        tournament_id, tournament_name, embed_theme_link = session.execute(query).one_or_none()
+        tournament_id, slug_name, tournament_name, embed_theme_link = session.execute(query).one_or_none()
+        # TODO: REFACTOR
+
+        theme_image, _, _ = get_image_from_cloudinary(
+            public_id = f'hctournaments/{slug_name}/s{season_no}/theme',
+            cloud_name = cloud_name,
+            data_last_edited = None
+        )
+        theme_image_link = theme_image.get('secure_url')
 
         if not tournament_id:
             return send_404_json_response(
@@ -133,7 +142,7 @@ def put_groups(tournament_slug: str, season_no: int):
         for group_id in distinct_group_ids_after:
             group_team_standings = [standing for standing in team_standings_data if standing.group_id == group_id]
 
-            image_buffer = generate_new_image(embed_theme_link, tournament_name, group_team_standings)
+            image_buffer = generate_new_image(theme_image_link, tournament_name, group_team_standings)
             cloudinary_upload(image_buffer, group_id, base_image_path)
 
     response = make_response(jsonify({'success': True}), 204)
