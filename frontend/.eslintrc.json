@@ -26,7 +26,9 @@
         "react/react-in-jsx-scope": "off",
         "react/jsx-key": "off",
         "react-hooks/rules-of-hooks": "off",
-        
+        "react-hooks/exhaustive-deps": "off",
+        "@typescript-eslint/no-unused-vars": ["warn", { "varsIgnorePattern": "^_" }],
+
         // Require self closing tags in JSX/HTML
         "react/self-closing-comp": ["error", { "component": true, "html": true }],
 
@@ -46,7 +48,7 @@
             { "blankLine": "always", "prev": "*", "next": "continue" },
             { "blankLine": "always", "prev": "*", "next": "throw" }
         ],
-        "prettier/prettier": 
+        "prettier/prettier":
         [ "error",
         {
             "semi": false,
