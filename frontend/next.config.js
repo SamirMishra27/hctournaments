@@ -2,10 +2,12 @@
 const nextConfig = {
     reactStrictMode: true,
     images: {
-        domains: ['media.discordapp.net', 'cdn.discordapp.com']
+        domains: ['media.discordapp.net', 'cdn.discordapp.com'],
+        remotePatterns: [{ protocol: 'https', hostname: '*.discordapp.net' }]
     },
     experimental: {
-        scrollRestoration: true
+        scrollRestoration: true,
+        serverActions: true
     }
 }
 
