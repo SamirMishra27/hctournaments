@@ -20,9 +20,10 @@
 }
 
 body {
-    width: 100%;
+    width: 100vw;
     font-family: 'Inter', 'Grotesk Schibsted', 'Segoe UI', Tahoma, Geneva, 'Open Sans', 'Helvetica Neue', Verdana, sans-serif;
     background-color: rgb(24, 24, 24);
+    overflow-x: hidden;
 }
 
 .overlay-gradient-one {
@@ -82,4 +83,62 @@ body {
 
 .schedule-list::-webkit-scrollbar-thumb:hover {
     background-color: #001253;
+}
+
+.custom-breadcrumb-styles {
+    content: "";
+    display: block;
+    --tw-rotate: 30deg;
+    border-top: none;
+}
+
+.breadcrumbs > ul > li + *:before, .breadcrumbs > ol > li + *:before {
+    @apply h-8 border-r border-r-stone-400 my-3 custom-breadcrumb-styles
+}
+
+body:has(.motion-dialog) {
+    overflow: hidden;
+}
+
+@media (hover:hover) {
+    .breadcrumbs > ul > li > a:hover, .breadcrumbs > ol > li > a:hover {
+        text-decoration-line: none;
+    }
+}
+
+.loading-pulse::before {
+    content: "";
+    width: 1rem;
+    height: 1rem;
+    border-radius: 100%;
+    position: absolute;
+    background-color: inherit;
+    opacity: 1;
+}
+
+.loading-pulse[data-stage="UPCOMING"]::before,
+.loading-pulse[data-stage="REGISTRATION"]::before,
+.loading-pulse[data-stage="ONGOING"]::before {
+    animation: pulse 0.9s linear 0s infinite normal forwards;
+}
+
+@keyframes pulse {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        transform: scale(1.8);
+    }
+}
+
+.text-appear {
+    animation: text-appear-anim 300ms ease-in var(--delay) 1 normal forwards;
+}
+
+@keyframes text-appear-anim {
+    to {
+        opacity: 1;
+        transform: translateY(0rem);
+    }
 }
