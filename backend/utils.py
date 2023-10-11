@@ -8,9 +8,9 @@ from custom_types import TYPE
 from functools import reduce
 from PIL import ImageFont
 from typing import Sequence, Tuple
-from dotenv import get_key
+from os import environ
 
-cloud_name = get_key('.env', 'CLOUDINARY_CLOUD_NAME')
+cloud_name = environ.get('CLOUDINARY_CLOUD_NAME')
 
 def sort_multiple(sequence: Sequence[TYPE], *sort_order: Tuple[Tuple]) -> Sequence[TYPE]:
     """Sort a sequence by multiple criteria.

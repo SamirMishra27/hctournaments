@@ -8,8 +8,11 @@ from models import BaseModel
 from custom_types import RouteInfo
 
 # Load config file using python-dotenv
-from dotenv import dotenv_values
-config = dict(dotenv_values('.env'))
+from dotenv import load_dotenv
+load_dotenv()
+
+from os import environ
+config = environ
 
 # Setup cloudinary
 import cloudinary
