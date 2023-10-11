@@ -9,7 +9,10 @@ __all__ = [
     'get_matches',
     'put_matches',
     'get_groups',
-    'put_groups'
+    'put_groups',
+    'get_hosts',
+    'put_hosts',
+    'get_all_tournaments'
 ]
 
 from . import get_admins
@@ -23,3 +26,6 @@ from . import get_matches
 from . import put_matches
 from . import get_groups
 from . import put_groups
+from . import get_hosts
+from . import put_hosts
+from . import get_all_tournaments
