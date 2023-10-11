@@ -1,8 +1,8 @@
 from flask import jsonify, make_response, current_app, request
-from sqlalchemy import select, update
+from sqlalchemy import select
 
 from custom_types import SessionMaker
-from models import Hosts, Tournaments
+from models import Tournaments
 from .post_tournaments import update_embed_images
 from utils import send_404_json_response
 
@@ -36,9 +36,6 @@ def put_tournaments(tournament_slug: str, season_no: int):
         query = select(Tournaments).where(Tournaments.tournament_id == tournament_id)
         tournament_data = session.scalars(query).one()
 
-        query = select(Hosts).where(Hosts.tournament_id == tournament_id)
-        hosts_data = session.scalars(query).all()
-
         for key, value in request_body.items():
             if key == 'hosts' or key == 'embed_theme_link':
                 continue
@@ -48,32 +45,14 @@ def put_tournaments(tournament_slug: str, season_no: int):
         if embed_theme_link := request_body.get('embed_theme_link'):
             if embed_theme_link != tournament_data.embed_theme_link:
 
-                update_embed_images(
+                new_embed_theme_link = update_embed_images(
                     embed_theme_link,
                     tournament_data.tournament_name,
                     tournament_data.slug_name,
                     tournament_data.season_no
                 )
-                tournament_data.embed_theme_link = embed_theme_link
+                tournament_data.embed_theme_link = new_embed_theme_link
             # Please improve response time
-
-        hosts_to_be_updated = []
-        deleted_hosts_ids = [host_info['row_id'] for host_info in request_body['hosts']['deleted']]
-
-        for host_info in request_body['hosts']['updated']:
-            hosts_to_be_updated.append(host_info)
-
-        if hosts_to_be_updated:
-            session.execute(update(Hosts), hosts_to_be_updated)
-
-        for host_info in request_body['hosts']['added']:
-
-            new_host = Hosts.from_json(host_info)
-            session.add(new_host)
-
-        for host in hosts_data:
-            if host.row_id in deleted_hosts_ids:
-                session.delete(host)
 
         session.commit()
 
