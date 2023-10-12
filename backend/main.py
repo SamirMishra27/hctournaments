@@ -25,8 +25,21 @@ cloudinary.config(
 )
 
 # Initiate flask app and setup Cors
-app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": "*"}})
+def create_app() -> Flask:
+    app = Flask(__name__)
+    CORS(app, resources={r"/api/*": {"origins": "*"}})
+
+    # Connect to database and store session in app
+    Engine = create_engine(config['POSTGRES_DATABASE_CONN_LINK'])
+    BaseModel.metadata.create_all(Engine)
+    Session = sessionmaker(Engine)
+
+    app.db_engine = Engine
+    app.session = Session
+    app.logger.warning('Established connection with the database!')
+
+    return app
+app = create_app()
 
 # Add middleware or before route invoked callback
 @app.before_request
@@ -61,22 +74,9 @@ for name, route_info in vars(routes).items():
             methods = route_info.METHOD
         )
 
-# Connect to database and store session in app
-def establish_database_connection(connection_link: str):
-
-    Engine = create_engine(connection_link)
-    BaseModel.metadata.create_all(Engine)
-    Session = sessionmaker(Engine)
-
-    app.db_engine = Engine
-    app.session = Session
-    app.logger.warning('Established connection with the database!')
-
 if __name__ == "__main__":
 
-    establish_database_connection(config['POSTGRES_DATABASE_CONN_LINK'])
     app.logger.warning("Running flask server...")
-
     app.run(
         host = config.get('HOST', '0.0.0.0'),
         port = int( config.get('PORT', 3000) ),
