@@ -1,20 +1,23 @@
-from sqlalchemy import Column, CHAR, SMALLINT, TIMESTAMP, VARCHAR
+from sqlalchemy import Column, BOOLEAN, CHAR, SMALLINT, TIMESTAMP, TEXT
 from .base import BaseModel
-from constants import *
+from constants import OBJECT_ID_LENGTH
 from typing import Dict, Union
 
 class Tournaments(BaseModel):
     __tablename__ = 'tournaments'
 
     tournament_id = Column(CHAR(OBJECT_ID_LENGTH), nullable = False, primary_key = True, autoincrement = False, unique = True)
-    tournament_name = Column(VARCHAR(100), nullable = False)
+    tournament_name = Column(TEXT, nullable = False)
 
-    slug_name = Column(VARCHAR(50), nullable = False)
+    created_at = Column(TIMESTAMP, nullable = False)
+    published = Column(BOOLEAN, nullable = False)
+
+    slug_name = Column(TEXT, nullable = False)
     season_no = Column(SMALLINT, nullable = False)
 
     start_date = Column(TIMESTAMP, nullable = False)
     end_date = Column(TIMESTAMP, nullable = False)
-    stage = Column(VARCHAR(ENUM_MAX_LENGTH), nullable = False)
+    stage = Column(TEXT, nullable = False)
 
     participants = Column(SMALLINT, nullable = True)
     total_teams = Column(SMALLINT, nullable = True)
@@ -22,11 +25,11 @@ class Tournaments(BaseModel):
     total_matches = Column(SMALLINT, nullable = True)
     matches_done = Column(SMALLINT, nullable = True)
 
-    server_link = Column(VARCHAR(250), nullable = True)
-    banner_link = Column(VARCHAR(250), nullable = True)
-    embed_theme_link = Column(VARCHAR(250), nullable = True)
+    server_link = Column(TEXT, nullable = True)
+    banner_link = Column(TEXT, nullable = True)
 
-    champions_team = Column(VARCHAR(TEAM_NAME_MAX_LENGTH), nullable = True)
+    embed_theme_link = Column(TEXT, nullable = True)
+    champions_team = Column(TEXT, nullable = True)
 
     @classmethod
     def from_json(cls, json_data: Dict[str, Union[str, int]]) -> 'Tournaments':
@@ -34,6 +37,9 @@ class Tournaments(BaseModel):
         new_tournament = Tournaments(
             tournament_id = json_data['tournament_id'],
             tournament_name = json_data['tournament_name'],
+
+            created_at = json_data['created_at'],
+            published = json_data['published'],
 
             slug_name = json_data['slug_name'],
             season_no = json_data['season_no'],
