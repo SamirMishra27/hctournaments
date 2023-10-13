@@ -1,6 +1,6 @@
-from sqlalchemy import Column, CHAR, BIGINT, VARCHAR
+from sqlalchemy import Column, CHAR, BIGINT, SMALLINT, TEXT
 from .base import BaseModel
-from constants import USERNAME_MAX_LENGTH, OBJECT_ID_LENGTH
+from constants import OBJECT_ID_LENGTH
 from typing import Dict, Union
 
 class Hosts(BaseModel):
@@ -8,11 +8,12 @@ class Hosts(BaseModel):
 
     row_id = Column(CHAR(OBJECT_ID_LENGTH), nullable = False, primary_key = True, autoincrement = False, unique = True)
     tournament_id = Column(CHAR(OBJECT_ID_LENGTH), nullable = False, autoincrement = False)
-    user_id = Column(BIGINT, nullable = False)
+    row_no = Column(SMALLINT, nullable = False)
 
-    name = Column(VARCHAR(100), nullable = False)
-    username = Column(VARCHAR(USERNAME_MAX_LENGTH), nullable = False)
-    avatar_url = Column(VARCHAR(250), nullable = False)
+    user_id = Column(BIGINT, nullable = False)
+    name = Column(TEXT, nullable = False)
+    username = Column(TEXT, nullable = False)
+    avatar_url = Column(TEXT, nullable = False)
 
     @classmethod
     def from_json(cls, json_data: Dict[str, Union[str, int]]) -> 'Hosts':
@@ -20,6 +21,7 @@ class Hosts(BaseModel):
         new_host = cls(
             row_id = json_data['row_id'],
             tournament_id = json_data['tournament_id'],
+            row_no = json_data['row_no'],
             user_id = json_data.get('user_id'),
             name = json_data.get('name'),
             username = json_data.get('username'),
