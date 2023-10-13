@@ -1,6 +1,6 @@
-from sqlalchemy import Column, BOOLEAN, CHAR, FLOAT, SMALLINT, VARCHAR
+from sqlalchemy import Column, BOOLEAN, CHAR, FLOAT, SMALLINT, TEXT
 from .base import BaseModel
-from constants import *
+from constants import OBJECT_ID_LENGTH
 from typing import Dict, Union
 
 class TeamStandings(BaseModel):
@@ -8,11 +8,12 @@ class TeamStandings(BaseModel):
 
     row_id = Column(CHAR(OBJECT_ID_LENGTH), nullable = False, primary_key = True, autoincrement = False, unique = True)
     tournament_id = Column(CHAR(OBJECT_ID_LENGTH), nullable = False)
+    row_no = Column(SMALLINT, nullable = False)
 
-    group_name = Column(VARCHAR(100), nullable = False)
-    group_id = Column(VARCHAR(50), nullable = False)
+    group_name = Column(TEXT, nullable = False)
+    group_id = Column(TEXT, nullable = False)
 
-    team_name = Column(VARCHAR(TEAM_NAME_MAX_LENGTH), nullable = False)
+    team_name = Column(TEXT, nullable = False)
     matches_played = Column(SMALLINT, nullable = False)
     matches_won = Column(SMALLINT, nullable = False)
     matches_lost = Column(SMALLINT, nullable = False)
@@ -31,6 +32,7 @@ class TeamStandings(BaseModel):
         new_team_standing = TeamStandings(
             row_id = json_data['row_id'],
             tournament_id = json_data['tournament_id'],
+            row_no = json_data['row_no'],
             group_name = json_data['group_name'],
             group_id = json_data['group_id'],
             team_name = json_data['team_name'],
