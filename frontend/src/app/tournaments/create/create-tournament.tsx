@@ -14,6 +14,9 @@ export default function TournamentInfoCreatePage(props: {
         tournamentId: getUniqueId(),
         tournamentName: '',
 
+        published: false,
+        createdAt: new Date().toISOString(),
+
         slugName: '',
         seasonNo: 0,
 
@@ -29,6 +32,7 @@ export default function TournamentInfoCreatePage(props: {
 
         serverLink: '',
         bannerLink: '',
+
         embedThemeLink: '',
         championsTeam: ''
     }
