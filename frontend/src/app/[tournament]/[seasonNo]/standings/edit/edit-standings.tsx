@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useReducer } from 'react'
+import { useState, useReducer, ChangeEvent } from 'react'
 import { Formik, Form, Field } from 'formik'
 import * as Yup from 'yup'
 import MotionDialog from '@/components/MotionDialog'
@@ -70,7 +70,7 @@ function StandingEditView(props: {
                     updateState(values)
                     setEditingTeam(undefined)
                 }}>
-                {({ errors }) => (
+                {({ errors, setFieldValue }) => (
                     <Form
                         className=" flex flex-col items-start justify-evenly text-sm font-normal text-gray-800 uppercase dark:text-slate-100 transition"
                         autoComplete="off">
@@ -166,7 +166,13 @@ function StandingEditView(props: {
                             <Field
                                 as="select"
                                 name="qualified"
-                                className=" w-full border-2 border-dim-white rounded p-1 dark:bg-bright-navy/25 dark:border-bright-navy transition [&>option]:dark:bg-bright-navy">
+                                className=" w-full border-2 border-dim-white rounded p-1 dark:bg-bright-navy/25 dark:border-bright-navy transition [&>option]:dark:bg-bright-navy"
+                                onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                                    setFieldValue(
+                                        'qualified',
+                                        e.target.value === 'true' ? true : false
+                                    )
+                                }>
                                 <option value="true">Qualified</option>
                                 <option value="false">Not Qualified</option>
                             </Field>
