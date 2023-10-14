@@ -231,6 +231,7 @@ export default function PlayerStatsEditPage(props: {
         const newPlayerStats: PlayerStatisticState = {
             rowId: getUniqueId(),
             tournamentId: props.tournamentId,
+            rowNo: playerStats.length ? playerStats[playerStats.length - 1].rowNo : 1,
 
             userId: '',
             playerName: '',
@@ -279,7 +280,7 @@ export default function PlayerStatsEditPage(props: {
     }
 
     function processBulkInput(input: string) {
-        type PlayerInput = Omit<PlayerStatisticState, 'rowId' | 'tournamentId'>
+        type PlayerInput = Omit<PlayerStatisticState, 'rowId' | 'tournamentId' | 'rowNo'>
         const DELIMITER = ','
 
         const inputSplit = input.split('\n')
@@ -323,6 +324,7 @@ export default function PlayerStatsEditPage(props: {
 
                 rowId: getUniqueId(),
                 tournamentId: props.tournamentId,
+                rowNo: playerStats.length ? playerStats[playerStats.length - 1].rowNo + 1 : 1,
 
                 ...playerInput
             })
