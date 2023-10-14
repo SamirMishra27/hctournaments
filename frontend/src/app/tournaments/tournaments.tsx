@@ -111,6 +111,7 @@ export default function TournamentsPage(props: {
                                 subTextOf(tournament.tournamentName, searchText) ||
                                 subTextOf(tournament.slugName, searchText)
                         )
+                        .filter((tournament) => isAdmin || tournament.published)
                         .map((tournament) => (
                             <TournamentCard tournament={tournament} key={tournament.tournamentId} />
                         ))}
