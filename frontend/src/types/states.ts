@@ -3,6 +3,9 @@ import { StatefulData } from './generics'
 
 export interface AdminState extends StatefulData {
     userId: string
+    rowNo: number
+
+    name: string
     roles: AdminRole[]
     tempId?: string
 }
@@ -10,8 +13,9 @@ export interface AdminState extends StatefulData {
 export interface HostState extends StatefulData {
     rowId: string
     tournamentId: string
-    userId: string
+    rowNo: number
 
+    userId: string
     name: string
     username: string
     avatarUrl: string
@@ -20,6 +24,7 @@ export interface HostState extends StatefulData {
 export interface MatchState extends StatefulData {
     matchId: string
     tournamentId: string
+    rowNo: number
 
     title: string
     description: string
@@ -40,6 +45,7 @@ export interface MatchState extends StatefulData {
 export interface PlayerStatisticState extends StatefulData {
     rowId: string
     tournamentId: string
+    rowNo: number
 
     userId: string
     playerName: string
@@ -56,6 +62,7 @@ export interface PlayerStatisticState extends StatefulData {
 export interface TeamStandingState extends StatefulData {
     rowId: string
     tournamentId: string
+    rowNo: number
 
     groupName: string
     groupId: string
@@ -78,6 +85,9 @@ export interface TournamentState extends StatefulData {
     tournamentId: string
     tournamentName: string
 
+    createdAt: string
+    published: boolean
+
     slugName: string
     seasonNo: number
 
@@ -93,6 +103,7 @@ export interface TournamentState extends StatefulData {
 
     serverLink: string
     bannerLink: string
+
     embedThemeLink: string
     championsTeam: string
 }
