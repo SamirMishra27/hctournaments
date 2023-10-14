@@ -181,7 +181,15 @@ export default function AdminEditPage(props: {
     const [deleted, setDeleted] = useState<AdminState[]>([])
 
     function createState() {
-        dispatch({ type: 'CREATE', data: { userId: '', roles: ['ADMIN'], tempId: getUniqueId() } })
+        const newAdmin: AdminState = {
+            userId: '',
+            rowNo: admins.length ? admins[admins.length - 1].rowNo + 1 : 1,
+
+            name: '',
+            roles: ['ADMIN'],
+            tempId: getUniqueId()
+        }
+        dispatch({ type: 'CREATE', data: newAdmin })
     }
 
     function updateState(newAdmin: AdminState) {
