@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useReducer } from 'react'
+import { useState, useReducer, ChangeEvent } from 'react'
 import { Formik, Form, Field } from 'formik'
 import Link from 'next/link'
 import * as Yup from 'yup'
@@ -102,7 +102,7 @@ export function TournamentEditView(props: {
                 if (updateState) updateState(values)
                 if (createState) createState(values)
             }}>
-            {({ errors }) => (
+            {({ errors, setFieldValue }) => (
                 <Form
                     className=" flex flex-col items-center justify-evenly text-base font-normal text-gray-800 p-2 my-2 space-y-2 dark:text-slate-100 transition"
                     autoComplete="off">
@@ -164,7 +164,13 @@ export function TournamentEditView(props: {
                                 <Field
                                     as="select"
                                     name="published"
-                                    className=" w-full border-2 border-dim-white rounded p-1 dark:bg-bright-navy/25 dark:border-bright-navy transition [&>option]:dark:bg-bright-navy">
+                                    className=" w-full border-2 border-dim-white rounded p-1 dark:bg-bright-navy/25 dark:border-bright-navy transition [&>option]:dark:bg-bright-navy"
+                                    onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                                        setFieldValue(
+                                            'published',
+                                            e.target.value === 'true' ? true : false
+                                        )
+                                    }>
                                     <option value="true">True</option>
                                     <option value="false">False</option>
                                 </Field>
