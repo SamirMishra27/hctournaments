@@ -236,6 +236,7 @@ export default function StandingsEditPage(props: {
         const newStanding: TeamStandingState = {
             rowId: getUniqueId(),
             tournamentId: props.tournamentId,
+            rowNo: standings.length ? standings[standings.length - 1].rowNo + 1 : 1,
 
             groupName: '',
             groupId: '',
