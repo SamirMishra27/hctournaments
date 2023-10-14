@@ -3,14 +3,18 @@ import { AdminRole, MatchStatus, TournamentStage } from './constants'
 
 export interface AdminData extends StatefulData {
     user_id: string
+    row_no: number
+
+    name: string
     roles: AdminRole[]
 }
 
 export interface HostData extends StatefulData {
     row_id: string
     tournament_id: string
-    user_id: string
+    row_no: number
 
+    user_id: string
     name: string
     username: string
     avatar_url: string
@@ -19,6 +23,7 @@ export interface HostData extends StatefulData {
 export interface MatchData extends StatefulData {
     match_id: string
     tournament_id: string
+    row_no: number
 
     title: string
     description: string
@@ -40,6 +45,7 @@ export interface MatchData extends StatefulData {
 export interface PlayerStatisticData extends StatefulData {
     row_id: string
     tournament_id: string
+    row_no: number
 
     user_id: string
     player_name: string
@@ -56,6 +62,7 @@ export interface PlayerStatisticData extends StatefulData {
 export interface TeamStandingData extends StatefulData {
     row_id: string
     tournament_id: string
+    row_no: number
 
     group_name: string
     group_id: string
@@ -78,6 +85,9 @@ export interface TournamentData extends StatefulData {
     tournament_id: string
     tournament_name: string
 
+    created_at: string
+    published: boolean
+
     slug_name: string
     season_no: number
 
@@ -93,7 +103,7 @@ export interface TournamentData extends StatefulData {
 
     server_link: string
     banner_link: string
-    embed_theme_link: string
 
+    embed_theme_link: string
     champions_team: string
 }
