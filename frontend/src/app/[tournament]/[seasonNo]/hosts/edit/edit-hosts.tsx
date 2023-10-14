@@ -158,6 +158,7 @@ export default function HostsEditPage(props: {
         const newHost: HostState = {
             rowId: getUniqueId(),
             tournamentId: props.tournamentId,
+            rowNo: hosts.length ? hosts[hosts.length - 1].rowNo + 1 : 1,
 
             userId: '',
             name: '',
