@@ -256,6 +256,7 @@ export default function MatchesEditPage(props: {
         const newMatch: MatchState = {
             matchId: getUniqueId(),
             tournamentId: props.tournamentId,
+            rowNo: matches.length ? matches[matches.length - 1].rowNo + 1 : 1,
 
             title: '',
             description: '',
