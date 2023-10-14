@@ -156,6 +156,21 @@ export function TournamentEditView(props: {
                             keyName="tournamentName"
                             errorMessage={errors.tournamentName}
                         />
+                        <div className=" w-full flex items-center justify-evenly p-1 md:pl-4 pr-1 md:pr-2 py-2 my-2 text-sm md:text-base">
+                            <strong className=" w-1/2 md:w-[22rem]" aria-label="Stage">
+                                Published
+                            </strong>
+                            <div className=" w-1/2 md:w-80 h-auto flex-1 break-all relative">
+                                <Field
+                                    as="select"
+                                    name="published"
+                                    className=" w-full border-2 border-dim-white rounded p-1 dark:bg-bright-navy/25 dark:border-bright-navy transition [&>option]:dark:bg-bright-navy">
+                                    <option value="true">True</option>
+                                    <option value="false">False</option>
+                                </Field>
+                                <ErrorBox message={errors.published} />
+                            </div>
+                        </div>
                         <EditableField
                             labelName="Tournament Link Slug"
                             keyName="slugName"
@@ -273,6 +288,8 @@ function TournamentInfoView(props: {
             <div className=" w-full flex flex-col items-center justify-center p-4 border-2 border-dim-white rounded-xl dark:border-bright-navy transition">
                 <Detail labelName="Tournament Id" value={state.tournamentId} />
                 <Detail labelName="Tournament Name" value={state.tournamentName} />
+                <Detail labelName="Created At" value={new Date(state.createdAt).toDateString()} />
+                <Detail labelName="Published" value={String(state.published)} />
                 <Detail labelName="Tournament Link Slug" value={state.slugName} />
                 <Detail labelName="Season Number" value={state.seasonNo} />
                 <Detail labelName="Start Date" value={new Date(state.startDate).toDateString()} />
