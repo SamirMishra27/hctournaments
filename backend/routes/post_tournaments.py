@@ -116,6 +116,7 @@ def post_tournaments(tournament_slug: str, season_no: int):
             slug_name,
             season_no
         )
+        embed_theme_link = new_tournament.embed_theme_link
 
         # Create entry in the database
         session.add(new_tournament)
@@ -123,7 +124,7 @@ def post_tournaments(tournament_slug: str, season_no: int):
 
     json_body = request_body
     json_body['success'] = True
-    json_body['embed_theme_link'] = new_tournament.embed_theme_link
+    json_body['embed_theme_link'] = embed_theme_link
 
     response = make_response(jsonify(json_body), 201)
     return response
