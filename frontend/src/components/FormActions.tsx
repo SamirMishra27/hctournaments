@@ -30,7 +30,8 @@ export default function FormControls(props: {
                     ' dark:hover:bg-red-500 dark:active:bg-red-500/80 dark:shadow-slate-400' +
                     cancelButtonClassName
                 }
-                onClick={onCancelClick}>
+                onClick={onCancelClick}
+                type="reset">
                 Cancel
             </button>
         </div>
