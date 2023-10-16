@@ -27,7 +27,9 @@ function StandingEditView(props: {
         .matches(/^[a-zA-Z0-9._\s\W]+$/, "Don't use invalid characters")
         .required("This can't be empty")
 
-    const groupAndTeamSchema = baseStringSchema.max(100, 'Maximum length is 100 characters')
+    const groupAndTeamSchema = baseStringSchema
+        .max(100, 'Maximum length is 100 characters')
+        .uppercase()
 
     const baseNumberSchema = Yup.number()
         .min(0, 'Value must be positive')
@@ -79,7 +81,7 @@ function StandingEditView(props: {
                                 <div className=" font-semibold normal-case">Group Name</div>
                                 <Field
                                     name="groupName"
-                                    className=" w-full border-2 border-dim-white rounded p-1 dark:bg-bright-navy/25 dark:border-bright-navy transition"
+                                    className=" w-full border-2 border-dim-white rounded p-1 dark:bg-bright-navy/25 dark:border-bright-navy transition uppercase"
                                 />
                                 <ErrorBox message={errors.groupName} />
                             </div>
@@ -96,7 +98,7 @@ function StandingEditView(props: {
                             <div className=" font-semibold normal-case">Team Name</div>
                             <Field
                                 name="teamName"
-                                className=" w-full border-2 border-dim-white rounded p-1 dark:bg-bright-navy/25 dark:border-bright-navy transition"
+                                className=" w-full border-2 border-dim-white rounded p-1 dark:bg-bright-navy/25 dark:border-bright-navy transition capitalize"
                             />
                             <ErrorBox message={errors.teamName} />
                         </div>
