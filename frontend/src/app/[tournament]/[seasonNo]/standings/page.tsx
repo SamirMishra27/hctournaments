@@ -3,12 +3,15 @@ import Header from '@/components/Header'
 import { getTeamStandingsData, getTournamentData } from '@/api'
 import TournamentNav from '@/components/TournamentNav'
 import { getDiscordUser, isSiteAdmin } from '@/serverActions'
-import { Metadata } from 'next'
+import { Metadata, ResolvingMetadata } from 'next'
 
-export async function generateMetadata(props: {
-    params: { tournament: string; seasonNo: number }
-    searchParams: { [key: string]: string | undefined }
-}): Promise<Metadata> {
+export async function generateMetadata(
+    props: {
+        params: { tournament: string; seasonNo: number }
+        searchParams: { [key: string]: string | undefined }
+    },
+    parent: ResolvingMetadata
+): Promise<Metadata> {
     const { tournament, seasonNo } = props.params
     const { group_id } = props.searchParams
 
@@ -31,12 +34,15 @@ export async function generateMetadata(props: {
         title: title,
         description: description,
         openGraph: {
+            siteName: (await parent).openGraph?.siteName,
             title: title,
-            images: image
+            images: image,
+            description: description
         },
         twitter: {
             title: title,
-            images: image
+            images: image,
+            description: description
         }
     }
 }
