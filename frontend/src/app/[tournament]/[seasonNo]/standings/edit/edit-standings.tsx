@@ -13,14 +13,17 @@ import FormControls from '@/components/FormActions'
 import RowActions from '@/components/RowActions'
 import { toast } from 'sonner'
 import useEscapeKey from '@/hooks/useEscapeKey'
+import AutocompleteField from '@/components/AutocompleteField'
 
 function StandingEditView(props: {
     editingTeam: TeamStandingState
+    groupNames: string[]
+    groupIds: string[]
     setEditingTeam: (data: TeamStandingState | undefined) => void
     updateState: (data: TeamStandingState) => void
     deleteState: (data: TeamStandingState) => void
 }) {
-    const { editingTeam, setEditingTeam, updateState, deleteState } = props
+    const { editingTeam, groupNames, groupIds, setEditingTeam, updateState, deleteState } = props
 
     const baseStringSchema = Yup.string()
         .min(2, 'Min length should be 2 characters')
@@ -79,20 +82,19 @@ function StandingEditView(props: {
                         <div className=" flex items-center justify-evenly space-x-2">
                             <div className=" w-full py-2 relative">
                                 <div className=" font-semibold normal-case">Group Name</div>
-                                <Field
-                                    name="groupName"
-                                    className=" w-full border-2 border-dim-white rounded p-1 dark:bg-bright-navy/25 dark:border-bright-navy transition uppercase"
+                                <AutocompleteField
+                                    keyName="groupName"
+                                    options={groupNames}
+                                    errorMessage={errors.groupName}
+                                    setFieldValue={setFieldValue}
                                 />
-                                <ErrorBox message={errors.groupName} />
                             </div>
-                            <div className=" w-full py-2 relative">
-                                <div className=" font-semibold normal-case">Group Id</div>
-                                <Field
-                                    name="groupId"
-                                    className=" w-full border-2 border-dim-white rounded p-1 dark:bg-bright-navy/25 dark:border-bright-navy transition"
-                                />
-                                <ErrorBox message={errors.groupId} />
-                            </div>
+                            <AutocompleteField
+                                keyName="groupId"
+                                options={groupIds}
+                                errorMessage={errors.groupId}
+                                setFieldValue={setFieldValue}
+                            />
                         </div>
                         <div className=" w-full py-2 relative">
                             <div className=" font-semibold normal-case">Team Name</div>
@@ -303,6 +305,12 @@ export default function StandingsEditPage(props: {
                 {editingTeam && (
                     <StandingEditView
                         editingTeam={editingTeam}
+                        groupNames={Array.from(
+                            new Set(standings.map((row) => row.groupName.toUpperCase()))
+                        )}
+                        groupIds={Array.from(
+                            new Set(standings.map((row) => row.groupId.toLowerCase()))
+                        )}
                         setEditingTeam={setEditingTeam}
                         updateState={updateState}
                         deleteState={deleteState}
