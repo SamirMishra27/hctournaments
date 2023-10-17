@@ -41,7 +41,7 @@ function MatchEditView(props: {
 
     const validationSchema = Yup.object().shape({
         title: baseStringSchema.max(100, 'Maximum length is 100'),
-        description: baseStringSchema.max(500, 'Maximum length is 500 characters'),
+        description: baseStringSchema.max(500, 'Maximum length is 500 characters').notRequired(),
         status: baseStringSchema.max(50, 'Maximum length is 50 characters').oneOf(matchStatus),
 
         teamAName: teamNameSchema,
@@ -54,7 +54,7 @@ function MatchEditView(props: {
         teamBOvers: baseNumberSchema.max(50, 'Value must be less than 50'),
         teamBWickets: baseIntegerSchema.max(20, 'Value must be less than 20'),
 
-        winnerName: teamNameSchema
+        winnerName: teamNameSchema.notRequired()
     })
 
     useEscapeKey(() => {
