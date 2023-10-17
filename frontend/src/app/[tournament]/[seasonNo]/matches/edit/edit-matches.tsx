@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useReducer } from 'react'
+import { useState, useReducer, ChangeEvent } from 'react'
 import { Formik, Form, Field } from 'formik'
 import * as Yup from 'yup'
 import MotionDialog from '@/components/MotionDialog'
@@ -14,6 +14,7 @@ import FormControls from '@/components/FormActions'
 import RowActions from '@/components/RowActions'
 import { toast } from 'sonner'
 import useEscapeKey from '@/hooks/useEscapeKey'
+import AutocompleteField from '@/components/AutocompleteField'
 
 function MatchEditView(props: {
     editingMatch: MatchState
@@ -70,7 +71,7 @@ function MatchEditView(props: {
                     updateState(values)
                     setEditingMatch(undefined)
                 }}>
-                {({ errors }) => (
+                {({ errors, setFieldValue, values }) => (
                     <Form
                         className=" flex flex-col items-start justify-evenly text-sm font-normal text-gray-800 uppercase dark:text-slate-100 transition"
                         autoComplete="off">
@@ -108,7 +109,10 @@ function MatchEditView(props: {
                             <div className=" font-semibold normal-case">Home Team</div>
                             <Field
                                 name="teamAName"
-                                className=" w-full border-2 border-dim-white rounded p-1 dark:bg-bright-navy/25 dark:border-bright-navy transition"
+                                className=" w-full border-2 border-dim-white rounded p-1 dark:bg-bright-navy/25 dark:border-bright-navy transition capitalize"
+                                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                    setFieldValue('teamAName', e.currentTarget.value)
+                                }
                             />
                             <ErrorBox message={errors.teamAName} />
                         </div>
@@ -147,6 +151,9 @@ function MatchEditView(props: {
                             <Field
                                 name="teamBName"
                                 className=" w-full border-2 border-dim-white rounded p-1 dark:bg-bright-navy/25 dark:border-bright-navy transition"
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                                    setFieldValue('teamBName', e.currentTarget.value)
+                                }}
                             />
                             <ErrorBox message={errors.teamBName} />
                         </div>
@@ -182,11 +189,18 @@ function MatchEditView(props: {
                         </div>
                         <div className=" w-full py-2 relative">
                             <div className=" font-semibold normal-case">Winner</div>
-                            <Field
+                            {/* <Field
                                 name="winnerName"
                                 className=" w-full border-2 border-dim-white rounded p-1 dark:bg-bright-navy/25 dark:border-bright-navy transition"
                             />
-                            <ErrorBox message={errors.winnerName} />
+                            <ErrorBox message={errors.winnerName} /> */}
+                            <AutocompleteField
+                                keyName="winnerName"
+                                options={[values.teamAName, values.teamBName]}
+                                extraClassNames=" capitalize"
+                                errorMessage={errors.winnerName}
+                                setFieldValue={setFieldValue}
+                            />
                         </div>
                         <FormControls
                             onCancelClick={() => {
