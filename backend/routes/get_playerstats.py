@@ -35,7 +35,7 @@ def get_playerstats(tournament_slug: str, season_no: int):
                 message = 'No tournament with slug `{}` & season `{}` found'.format(tournament_slug, season_no)
             )
 
-        query = select(PlayerStats).where(PlayerStats.tournament_id == tournament_id)
+        query = select(PlayerStats).where(PlayerStats.tournament_id == tournament_id).order_by(PlayerStats.row_no)
         player_stats_data = session.scalars(query).all()
 
     image_path = f'hctournaments/{tournament_slug}/s{season_no}/playerstats'

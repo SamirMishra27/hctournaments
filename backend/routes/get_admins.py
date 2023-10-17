@@ -16,7 +16,7 @@ def get_admins():
     Session: SessionMaker = current_app.session
 
     with Session() as session:
-        query = select(Admins)
+        query = select(Admins).order_by(Admins.row_no)
         admin_data = session.scalars(query).all()
 
     json_data = []

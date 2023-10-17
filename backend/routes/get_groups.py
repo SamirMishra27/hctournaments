@@ -35,7 +35,7 @@ def get_groups(tournament_slug: str, season_no: int):
                 message = 'No tournament with slug `{}` & season `{}` found'.format(tournament_slug, season_no)
             )
 
-        query = select(TeamStandings).where(TeamStandings.tournament_id == tournament_id)
+        query = select(TeamStandings).where(TeamStandings.tournament_id == tournament_id).order_by(TeamStandings.row_no)
         team_standings_data = session.scalars(query).all()
 
     distinct_group_ids = set([standing.group_id for standing in team_standings_data])

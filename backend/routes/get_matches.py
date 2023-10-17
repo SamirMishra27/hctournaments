@@ -35,7 +35,7 @@ def get_matches(tournament_slug: str, season_no: int):
                 message = 'No tournament with slug `{}` & season `{}` found'.format(tournament_slug, season_no)
             )
 
-        query = select(Matches).where(Matches.tournament_id == tournament_id)
+        query = select(Matches).where(Matches.tournament_id == tournament_id).order_by(Matches.row_no)
         matches_data = session.scalars(query).all()
 
     # Get embed image from cloudinary

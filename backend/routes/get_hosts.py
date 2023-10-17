@@ -31,7 +31,7 @@ def get_hosts(tournament_slug: str, season_no: int):
                 message = 'No tournament with slug `{}` & season `{}` found'.format(tournament_slug, season_no)
             )
 
-        query = select(Hosts).where(Hosts.tournament_id == tournament_id)
+        query = select(Hosts).where(Hosts.tournament_id == tournament_id).order_by(Hosts.row_no)
         hosts_data = session.scalars(query).all()
 
     hosts = []
