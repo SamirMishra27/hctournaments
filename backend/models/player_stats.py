@@ -1,4 +1,4 @@
-from sqlalchemy import Column, CHAR, BIGINT, SMALLINT, TEXT
+from sqlalchemy import Column, CHAR, SMALLINT, TEXT
 from .base import BaseModel
 from constants import OBJECT_ID_LENGTH
 from typing import Dict, Union
@@ -10,7 +10,7 @@ class PlayerStats(BaseModel):
     tournament_id = Column(CHAR(OBJECT_ID_LENGTH), nullable = False)
     row_no = Column(SMALLINT, nullable = False)
 
-    user_id = Column(BIGINT, nullable = False)
+    user_id = Column(TEXT, nullable = False)
     player_name = Column(TEXT, nullable = False)
 
     runs = Column(SMALLINT, nullable = False)
