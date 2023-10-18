@@ -11,7 +11,7 @@ export default function AutocompleteField(props: {
     options: string[]
     setFieldValue: (field: string, value: string) => void
 }) {
-    const { keyName, extraClassNames, errorMessage, options, setFieldValue } = props
+    const { keyName, extraClassNames = '', errorMessage, options, setFieldValue } = props
 
     const [showOptions, setShowOptions] = useState(false)
     const [currIndex, setCurrIndex] = useState(0)
@@ -23,6 +23,8 @@ export default function AutocompleteField(props: {
 
     useEffect(() => {
         const onKeyDown = (e: globalThis.KeyboardEvent) => {
+            if (!showOptions) return
+
             if (e.code === 'ArrowDown') {
                 if (currIndex === options.length - 1 || currIndex >= options.length) setCurrIndex(0)
                 else setCurrIndex(currIndex + 1)
@@ -49,17 +51,21 @@ export default function AutocompleteField(props: {
     return (
         <>
             {showOptions && (
-                <ul className=" w-full absolute top-16 flex flex-col items-center bg-zinc-200 dark:bg-zinc-700 rounded join join-vertical z-10">
+                <ul className=" w-full absolute top-16 flex flex-col items-center bg-zinc-200 dark:bg-zinc-700 rounded join join-vertical z-10 normal-case">
                     {options.map((option, index) => (
                         <li
                             key={option}
                             data-option={option}
                             className={
-                                ' w-full join-item text-left p-1' +
+                                ' w-full join-item text-left p-1 cursor-pointer' +
                                 (index === currIndex ? ' bg-zinc-300 dark:bg-bright-navy' : '')
                             }
                             onFocus={(e) => e.currentTarget.scrollIntoView()}
-                            onClick={(e) => insertValue(e.currentTarget.dataset.option as string)}>
+                            onMouseDown={(e) =>
+                                insertValue(e.currentTarget.dataset.option as string)
+                            }
+                            onMouseEnter={() => setCurrIndex(index)}
+                            onMouseLeave={() => setCurrIndex(0)}>
                             {option}
                         </li>
                     ))}
