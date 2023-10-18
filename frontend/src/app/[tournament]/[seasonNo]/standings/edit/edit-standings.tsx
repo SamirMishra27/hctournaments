@@ -79,7 +79,7 @@ function StandingEditView(props: {
                     <Form
                         className=" flex flex-col items-start justify-evenly text-sm font-normal text-gray-800 uppercase dark:text-slate-100 transition"
                         autoComplete="off">
-                        <div className=" flex items-center justify-evenly space-x-2">
+                        <div className=" w-full flex items-center justify-evenly space-x-2">
                             <div className=" w-full py-2 relative">
                                 <div className=" font-semibold normal-case">Group Name</div>
                                 <AutocompleteField
@@ -89,12 +89,16 @@ function StandingEditView(props: {
                                     setFieldValue={setFieldValue}
                                 />
                             </div>
-                            <AutocompleteField
-                                keyName="groupId"
-                                options={groupIds}
-                                errorMessage={errors.groupId}
-                                setFieldValue={setFieldValue}
-                            />
+                            <div className=" w-full py-2 relative">
+                                <div className=" font-semibold normal-case">Group Id</div>
+                                <AutocompleteField
+                                    keyName="groupId"
+                                    options={groupIds}
+                                    extraClassNames=" normal-case"
+                                    errorMessage={errors.groupId}
+                                    setFieldValue={setFieldValue}
+                                />
+                            </div>
                         </div>
                         <div className=" w-full py-2 relative">
                             <div className=" font-semibold normal-case">Team Name</div>
