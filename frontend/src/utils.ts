@@ -151,3 +151,12 @@ export function convertCamelCaseToSnakeCase<T extends object>(
         )
     } as never
 }
+
+/**
+ * Capitalize *each* first letter of a string
+ * @param input String to capitalize
+ * @returns Capitalized string
+ */
+export function capitalize(input: string): string {
+    return input.replace(/\b\w/g, (char) => char.toUpperCase())
+}

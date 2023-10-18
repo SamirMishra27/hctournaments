@@ -5,7 +5,7 @@ import { Formik, Form, Field } from 'formik'
 import * as Yup from 'yup'
 import MotionDialog from '@/components/MotionDialog'
 import ErrorBox from '@/components/ErrorBox'
-import { getUniqueId } from '@/utils'
+import { capitalize, getUniqueId } from '@/utils'
 import { TeamStandingState, TournamentState } from '@/types/states'
 import { standingsReducer } from '@/hooks/reducers'
 import { AnimatePresence } from 'framer-motion'
@@ -101,6 +101,9 @@ function StandingEditView(props: {
                             <Field
                                 name="teamName"
                                 className=" w-full border-2 border-dim-white rounded p-1 dark:bg-bright-navy/25 dark:border-bright-navy transition capitalize"
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                                    setFieldValue('teamName', capitalize(e.currentTarget.value))
+                                }}
                             />
                             <ErrorBox message={errors.teamName} />
                         </div>
