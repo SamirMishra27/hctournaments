@@ -54,7 +54,7 @@ export default function Header(props: { isHomepage?: boolean; pathways: string[]
                         </span>
                     </Link>
                 ) : (
-                    <nav className=" w-full breadcrumbs flex-[3]">
+                    <nav className=" w-full breadcrumbs flex-[3] overflow-x-hidden">
                         <ul>
                             <li>
                                 <Link
@@ -68,7 +68,7 @@ export default function Header(props: { isHomepage?: boolean; pathways: string[]
                                 </Link>
                             </li>
                             {pathways.map(([pathName, pathLink]) => (
-                                <li key={pathAsId(pathName)} className=" !hidden md:flex">
+                                <li key={pathAsId(pathName)} className=" !hidden lg:!flex">
                                     <Link
                                         href={pathLink}
                                         className={
