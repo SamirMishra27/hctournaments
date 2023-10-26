@@ -111,7 +111,7 @@ function StandingEditView(props: {
                             />
                             <ErrorBox message={errors.teamName} />
                         </div>
-                        <div className=" flex items-center justify-evenly space-x-2">
+                        <div className=" w-full flex items-center justify-evenly space-x-2">
                             <div className=" w-full py-2 max-w-[10rem] relative">
                                 <div className=" font-semibold normal-case">Matches Played</div>
                                 <Field
@@ -149,14 +149,25 @@ function StandingEditView(props: {
                             />
                             <ErrorBox message={errors.pointsMultiplier} />
                         </div>
-                        <div className=" w-full py-2 relative">
-                            <div className=" font-semibold normal-case">Points</div>
-                            <Field
-                                name="points"
-                                type="number"
-                                className=" w-full border-2 border-dim-white rounded p-1 dark:bg-bright-navy/25 dark:border-bright-navy transition"
-                            />
-                            <ErrorBox message={errors.points} />
+                        <div className=" w-full flex items-center justify-evenly space-x-2">
+                            <div className=" w-full py-2 relative">
+                                <div className=" font-semibold normal-case">Points</div>
+                                <Field
+                                    name="points"
+                                    type="number"
+                                    className=" w-full border-2 border-dim-white rounded p-1 dark:bg-bright-navy/25 dark:border-bright-navy transition"
+                                />
+                                <ErrorBox message={errors.points} />
+                            </div>
+                            <div className=" w-full py-2 relative">
+                                <div className=" font-semibold normal-case">Priority</div>
+                                <Field
+                                    name="priority"
+                                    type="number"
+                                    className=" w-full border-2 border-dim-white rounded p-1 dark:bg-bright-navy/25 dark:border-bright-navy transition"
+                                />
+                                <ErrorBox message={errors.priority} />
+                            </div>
                         </div>
                         <div className=" w-full py-2 relative">
                             <div
