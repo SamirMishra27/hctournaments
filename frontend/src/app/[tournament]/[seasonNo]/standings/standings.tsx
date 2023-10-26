@@ -21,7 +21,14 @@ export default function StandingsPage(props: {
     const router = useRouter()
 
     const groups = distinctGroupIds.map((groupId) =>
-        standings.filter((row) => row.groupId == groupId)
+        standings
+            .filter((row) => row.groupId == groupId)
+            .sort(
+                (a, b) =>
+                    b.priority - a.priority ||
+                    b.points - a.points ||
+                    b.runsPerWicketRatio - a.runsPerWicketRatio
+            )
     )
 
     useEffect(() => {
