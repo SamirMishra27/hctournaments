@@ -15,7 +15,8 @@ export default function FormControls(props: {
                     'bg-white hover:text-full-white hover:font-semibold ' +
                     'hover:bg-green-500 active:bg-green-500/80 rounded-md shadow-sm ' +
                     ' dark:bg-bright-navy dark:text-slate-100 dark:border-bright-navy' +
-                    ' dark:hover:bg-green-500 dark:active:bg-green-500/80 dark:shadow-slate-400' +
+                    ' dark:hover:bg-green-500 dark:active:bg-green-500/80 ' +
+                    ' dark:shadow-slate-400 dark:focus-visible:outline-stone-300 ' +
                     saveButtonClassName
                 }
                 type="submit">
@@ -26,8 +27,9 @@ export default function FormControls(props: {
                     ' btn no-animation uppercase h-8 px-3 text-xs min-h-0 min-w-[4rem] ' +
                     'bg-white hover:text-full-white hover:font-semibold ' +
                     'hover:bg-red-500 active:bg-red-500/80 rounded-md shadow-sm ' +
-                    ' dark:bg-bright-navy dark:text-slate-100 dark:border-bright-navy' +
-                    ' dark:hover:bg-red-500 dark:active:bg-red-500/80 dark:shadow-slate-400' +
+                    ' dark:bg-bright-navy dark:text-slate-100 dark:border-bright-navy ' +
+                    ' dark:hover:bg-red-500 dark:active:bg-red-500/80 ' +
+                    ' dark:shadow-slate-400 dark:focus-visible:outline-stone-300 ' +
                     cancelButtonClassName
                 }
                 onClick={onCancelClick}
