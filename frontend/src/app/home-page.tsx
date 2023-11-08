@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { CSSProperties } from 'react'
-import heroImage from '@assets/hero-image.jpg'
+import heroImage from '@assets/hero-image.webp'
 
 export default function HomePage() {
     const heroText = 'Taking Cricket Tournaments'
