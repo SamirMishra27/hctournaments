@@ -1,11 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import Image from 'next/image'
 import { PlayerStatisticState } from '@/types/states'
-
-import arrowLeft from '@assets/arrow-left.svg'
-import arrowRight from '@assets/arrow-right.svg'
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa6'
 
 export default function PlayerStatsPage(props: {
     playerStats: PlayerStatisticState[]
@@ -75,45 +72,34 @@ export default function PlayerStatsPage(props: {
             <>
                 <button
                     className={
-                        ' join-item btn no-animation text-xl border-dim-white border' +
-                        ' border-2 border-r-0 dark:bg-black/20 dark:text-white dark:hover:bg-white/10' +
-                        ' dark:disabled:opacity-50 transition dark:border-bright-navy'
+                        ' join-item btn no-animation text-xl border-stone-300' +
+                        ' dark:bg-black/20 dark:text-white dark:hover:bg-white/10' +
+                        ' dark:disabled:opacity-50 transition dark:border-bright-navy' +
+                        ' dark:focus-visible:outline-stone-300'
                     }
                     onClick={() => navigationLeft()}
                     disabled={currentIndex === 0}>
-                    <Image
-                        src={arrowLeft}
-                        alt="Arrow left"
-                        className=" w-6 h-auto"
-                        quality={100}
-                        width={128}
-                        height={128}
-                    />
+                    <FaArrowLeft title="Page left" size="1.5rem" />
                 </button>
                 <button
                     className={
-                        ' join-item btn no-animation uppercase px-8 border' +
+                        ' join-item btn no-animation uppercase px-8 text-base border-stone-300' +
                         ' dark:bg-black/20 border-dim-white dark:border-bright-navy' +
-                        ' dark:text-white min-w-[8rem] dark:hover:bg-white/10 transition'
+                        ' dark:text-white min-w-[8rem] dark:hover:bg-white/10 transition' +
+                        ' dark:focus-visible:outline-stone-300'
                     }>
                     Page {currentIndex + 1}
                 </button>
                 <button
                     className={
-                        ' join-item btn no-animation text-xl border-dim-white' +
-                        ' border-2 border-l-0 dark:bg-black/20 dark:text-white dark:hover:bg-white/10' +
-                        ' dark:disabled:opacity-50 transition dark:border-bright-navy'
+                        ' join-item btn no-animation text-xl border-stone-300' +
+                        ' dark:bg-black/20 dark:text-white dark:hover:bg-white/10' +
+                        ' dark:disabled:opacity-50 transition dark:border-bright-navy' +
+                        ' dark:focus-visible:outline-stone-300'
                     }
                     onClick={() => navigationRight()}
                     disabled={currentIndex === LAST_PAGE_INDEX}>
-                    <Image
-                        src={arrowRight}
-                        alt="Arrow right"
-                        className=" w-6 h-auto"
-                        quality={100}
-                        width={128}
-                        height={128}
-                    />
+                    <FaArrowRight title="Page right" size="1.5rem" />
                 </button>
             </>
         )
