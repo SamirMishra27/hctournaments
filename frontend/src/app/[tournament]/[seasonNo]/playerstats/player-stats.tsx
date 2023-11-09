@@ -4,6 +4,81 @@ import { useState } from 'react'
 import { PlayerStatisticState } from '@/types/states'
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa6'
 
+function BatterDetails(props: { player: PlayerStatisticState; index: number }) {
+    const { player, index } = props
+
+    return (
+        <tr className=" border-b-2 border-b-dim-white dark:border-b-bright-navy transition dark:text-slate-100">
+            <td className=" capitalize text-center">{index}</td>
+            <td className=" w-[28rem] capitalize">{player.playerName}</td>
+            <td className=" uppercase text-center pl-2">
+                <span className=" w-11 inline-block">{player.runs}</span>
+                <span className=" w-10 inline-block text-xs"> Runs</span>
+            </td>
+        </tr>
+    )
+}
+
+function BowlerDetails(props: { player: PlayerStatisticState; index: number }) {
+    const { player, index } = props
+
+    return (
+        <tr className=" border-b-2 border-b-dim-white dark:border-b-bright-navy transition dark:text-slate-100">
+            <td className=" capitalize text-center">{index}</td>
+            <td className=" w-[28rem] capitalize">{player.playerName}</td>
+            <td className=" uppercase text-center pl-2">
+                <span className=" w-9 inline-block">{player.wickets}</span>
+                <span className=" w-10 inline-block text-xs"> Wkts</span>
+            </td>
+        </tr>
+    )
+}
+
+function Navigation(props: {
+    navigationLeft: () => void
+    navigationRight: () => void
+    currentIndex: number
+    disabled: boolean
+}) {
+    const { navigationLeft, navigationRight, currentIndex, disabled } = props
+
+    return (
+        <>
+            <button
+                className={
+                    ' join-item btn no-animation text-xl border-stone-300' +
+                    ' dark:bg-black/20 dark:text-white dark:hover:bg-white/10' +
+                    ' dark:disabled:opacity-50 transition dark:border-bright-navy' +
+                    ' dark:focus-visible:outline-stone-300'
+                }
+                onClick={() => navigationLeft()}
+                disabled={currentIndex === 0}>
+                <FaArrowLeft title="Page left" size="1.5rem" />
+            </button>
+            <button
+                className={
+                    ' join-item btn no-animation uppercase px-8 text-base border-stone-300' +
+                    ' dark:bg-black/20 border-dim-white dark:border-bright-navy' +
+                    ' dark:text-white min-w-[8rem] dark:hover:bg-white/10 transition' +
+                    ' dark:focus-visible:outline-stone-300'
+                }>
+                Page {currentIndex + 1}
+            </button>
+            <button
+                className={
+                    ' join-item btn no-animation text-xl border-stone-300' +
+                    ' dark:bg-black/20 dark:text-white dark:hover:bg-white/10' +
+                    ' dark:disabled:opacity-50 transition dark:border-bright-navy' +
+                    ' dark:focus-visible:outline-stone-300'
+                }
+                onClick={() => navigationRight()}
+                disabled={disabled}>
+                <FaArrowRight title="Page right" size="1.5rem" />
+            </button>
+        </>
+    )
+}
+
 export default function PlayerStatsPage(props: {
     playerStats: PlayerStatisticState[]
     imageUrl: string
@@ -22,88 +97,6 @@ export default function PlayerStatsPage(props: {
 
     const sortedBowlers = playerStats
     const [indexBowlers, setIndexBowlers] = useState(0)
-
-    function BatterDetails(props: { player: PlayerStatisticState; index: number }) {
-        const { player, index } = props
-
-        return (
-            <tr className=" border-b-2 border-b-dim-white dark:border-b-bright-navy transition dark:text-slate-100">
-                <td className=" capitalize text-center">
-                    {indexBatsmen === 0
-                        ? index + 1 + indexBatsmen
-                        : index + 1 + indexBatsmen * PAGE_SIZE}
-                </td>
-                <td className=" w-[28rem] capitalize">{player.playerName}</td>
-                <td className=" uppercase text-center pl-2">
-                    <span className=" w-11 inline-block">{player.runs}</span>
-                    <span className=" w-10 inline-block text-xs"> Runs</span>
-                </td>
-            </tr>
-        )
-    }
-
-    function BowlerDetails(props: { player: PlayerStatisticState; index: number }) {
-        const { player, index } = props
-
-        return (
-            <tr className=" border-b-2 border-b-dim-white dark:border-b-bright-navy transition dark:text-slate-100">
-                <td className=" capitalize text-center">
-                    {indexBowlers === 0
-                        ? index + 1 + indexBowlers
-                        : index + 1 + indexBowlers + PAGE_SIZE}
-                </td>
-                <td className=" w-[28rem] capitalize">{player.playerName}</td>
-                <td className=" uppercase text-center pl-2">
-                    <span className=" w-9 inline-block">{player.wickets}</span>
-                    <span className=" w-10 inline-block text-xs"> Wkts</span>
-                </td>
-            </tr>
-        )
-    }
-
-    function Navigation(props: {
-        navigationLeft: () => void
-        navigationRight: () => void
-        currentIndex: number
-    }) {
-        const { navigationLeft, navigationRight, currentIndex } = props
-
-        return (
-            <>
-                <button
-                    className={
-                        ' join-item btn no-animation text-xl border-stone-300' +
-                        ' dark:bg-black/20 dark:text-white dark:hover:bg-white/10' +
-                        ' dark:disabled:opacity-50 transition dark:border-bright-navy' +
-                        ' dark:focus-visible:outline-stone-300'
-                    }
-                    onClick={() => navigationLeft()}
-                    disabled={currentIndex === 0}>
-                    <FaArrowLeft title="Page left" size="1.5rem" />
-                </button>
-                <button
-                    className={
-                        ' join-item btn no-animation uppercase px-8 text-base border-stone-300' +
-                        ' dark:bg-black/20 border-dim-white dark:border-bright-navy' +
-                        ' dark:text-white min-w-[8rem] dark:hover:bg-white/10 transition' +
-                        ' dark:focus-visible:outline-stone-300'
-                    }>
-                    Page {currentIndex + 1}
-                </button>
-                <button
-                    className={
-                        ' join-item btn no-animation text-xl border-stone-300' +
-                        ' dark:bg-black/20 dark:text-white dark:hover:bg-white/10' +
-                        ' dark:disabled:opacity-50 transition dark:border-bright-navy' +
-                        ' dark:focus-visible:outline-stone-300'
-                    }
-                    onClick={() => navigationRight()}
-                    disabled={currentIndex === LAST_PAGE_INDEX}>
-                    <FaArrowRight title="Page right" size="1.5rem" />
-                </button>
-            </>
-        )
-    }
 
     return (
         <main className=" w-full min-h-[80vh] flex flex-col items-center justify-center bg-full-white dark:bg-dark-navy transition">
@@ -136,7 +129,11 @@ export default function PlayerStatsPage(props: {
                                 .map((player, index) => (
                                     <BatterDetails
                                         player={player}
-                                        index={index}
+                                        index={
+                                            indexBatsmen === 0
+                                                ? index + 1 + indexBatsmen
+                                                : index + 1 + indexBatsmen * PAGE_SIZE
+                                        }
                                         key={player.rowId}
                                     />
                                 ))}
@@ -148,6 +145,7 @@ export default function PlayerStatsPage(props: {
                         navigationLeft={() => setIndexBatsmen(indexBatsmen - 1)}
                         navigationRight={() => setIndexBatsmen(indexBatsmen + 1)}
                         currentIndex={indexBatsmen}
+                        disabled={indexBatsmen === LAST_PAGE_INDEX}
                     />
                 </div>
             </section>
@@ -182,7 +180,11 @@ export default function PlayerStatsPage(props: {
                                 .map((player, index) => (
                                     <BowlerDetails
                                         player={player}
-                                        index={index}
+                                        index={
+                                            indexBowlers === 0
+                                                ? index + 1 + indexBowlers
+                                                : index + 1 + indexBowlers + PAGE_SIZE
+                                        }
                                         key={player.rowId}
                                     />
                                 ))}
@@ -194,6 +196,7 @@ export default function PlayerStatsPage(props: {
                         navigationLeft={() => setIndexBowlers(indexBowlers - 1)}
                         navigationRight={() => setIndexBowlers(indexBowlers + 1)}
                         currentIndex={indexBowlers}
+                        disabled={indexBowlers === LAST_PAGE_INDEX}
                     />
                 </div>
             </section>
