@@ -12,7 +12,7 @@ function BatterDetails(props: { player: PlayerStatisticState; index: number }) {
             <td className=" capitalize text-center">{index}</td>
             <td className=" w-[28rem] capitalize">{player.playerName}</td>
             <td className=" uppercase text-center pl-2">
-                <span className=" w-11 inline-block">{player.runs}</span>
+                <span className=" w-11 inline-block tabular-nums">{player.runs}</span>
                 <span className=" w-10 inline-block text-xs"> Runs</span>
             </td>
         </tr>
@@ -27,7 +27,7 @@ function BowlerDetails(props: { player: PlayerStatisticState; index: number }) {
             <td className=" capitalize text-center">{index}</td>
             <td className=" w-[28rem] capitalize">{player.playerName}</td>
             <td className=" uppercase text-center pl-2">
-                <span className=" w-9 inline-block">{player.wickets}</span>
+                <span className=" w-9 inline-block tabular-nums">{player.wickets}</span>
                 <span className=" w-10 inline-block text-xs"> Wkts</span>
             </td>
         </tr>
@@ -60,7 +60,7 @@ function Navigation(props: {
                     ' join-item btn no-animation uppercase px-8 text-base border-stone-300' +
                     ' dark:bg-black/20 border-dim-white dark:border-bright-navy' +
                     ' dark:text-white min-w-[8rem] dark:hover:bg-white/10 transition' +
-                    ' dark:focus-visible:outline-stone-300'
+                    ' dark:focus-visible:outline-stone-300 tabular-nums'
                 }>
                 Page {currentIndex + 1}
             </button>
