@@ -26,65 +26,6 @@ body {
     overflow-x: hidden;
 }
 
-.overlay-gradient-one {
-    background: linear-gradient(167deg, transparent, #0B2447 60%, #850000 100%);
-}
-
-.overlay-gradient-two {
-    background: linear-gradient(193deg, transparent, #36393e 60%, #39AEA9 100%);
-}
-
-.view-button {
-    background: linear-gradient(to bottom, #ff6a00, #9c4100);
-}
-
-.view-button:active {
-    background: linear-gradient(to bottom, #ff7817, #b94d00);
-}
-
-.view-button:hover > div {
-    top: 3.5rem;
-    transition-timing-function: ease-in-out;
-}
-
-.bg-bright-orange {
-    background: linear-gradient(170deg, #d47120, #b63a1f, #d47120);
-}
-
-.bg-bright-orange:hover {
-    background: linear-gradient(170deg, var(--orange), var(--red-orange), var(--orange));
-}
-
-.bg-bright-purple {
-    background: linear-gradient(170deg, var(--purple-primary), var(--purple-accent), var(--purple-primary));
-}
-
-.bg-bright-purple:hover {
-    background: linear-gradient(170deg, #CF4EA8, #8846A9, #CF4EA8);
-}
-
-.player-key-stat-box:hover > .tooltip {
-    visibility: visible;
-}
-
-.schedule-list::-webkit-scrollbar {
-    width: 1rem;
-}
-
-.schedule-list::-webkit-scrollbar-track {
-    border-radius: 1rem;
-    background-color: #19376D;
-}
-
-.schedule-list::-webkit-scrollbar-thumb {
-    border-radius: 1rem;
-    background-color: var(--soothing-blue);
-}
-
-.schedule-list::-webkit-scrollbar-thumb:hover {
-    background-color: #001253;
-}
-
 .custom-breadcrumb-styles {
     content: "";
     display: block;
