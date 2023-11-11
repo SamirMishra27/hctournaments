@@ -8,7 +8,7 @@ function BatterDetails(props: { player: PlayerStatisticState; index: number }) {
     const { player, index } = props
 
     return (
-        <tr className=" border-b-2 border-b-dim-white dark:border-b-bright-navy transition dark:text-slate-100">
+        <tr className=" border-b-2 last:border-none border-b-dim-white dark:border-b-bright-navy transition dark:text-slate-100">
             <td className=" capitalize text-center">{index}</td>
             <td className=" w-[28rem] capitalize">{player.playerName}</td>
             <td className=" uppercase text-center pl-2">
@@ -23,7 +23,7 @@ function BowlerDetails(props: { player: PlayerStatisticState; index: number }) {
     const { player, index } = props
 
     return (
-        <tr className=" border-b-2 border-b-dim-white dark:border-b-bright-navy transition dark:text-slate-100">
+        <tr className=" border-b-2 last:border-none border-b-dim-white dark:border-b-bright-navy transition dark:text-slate-100">
             <td className=" capitalize text-center">{index}</td>
             <td className=" w-[28rem] capitalize">{player.playerName}</td>
             <td className=" uppercase text-center pl-2">
@@ -101,7 +101,7 @@ export default function PlayerStatsPage(props: {
     return (
         <main className=" w-full min-h-[80vh] flex flex-col items-center justify-center bg-full-white dark:bg-dark-navy transition">
             <section className=" w-full overflow-x-auto my-20 px-2 flex flex-col items-center">
-                <div className=" overflow-hidden rounded-2xl border-2 border-dim-white [border-bottom:none] dark:border-bright-navy transition dark:bg-black/20">
+                <div className=" overflow-clip rounded-2xl border-2 border-dim-white dark:border-bright-navy transition dark:bg-black/20">
                     <div
                         className={
                             ' flex flex-1 flex-col items-start justify-center py-3 pl-4' +
@@ -150,7 +150,7 @@ export default function PlayerStatsPage(props: {
                 </div>
             </section>
             <section className=" w-full overflow-x-auto my-4 px-2 flex flex-col items-center">
-                <div className=" overflow-hidden rounded-2xl border-2 border-dim-white [border-bottom:none] dark:border-bright-navy transition dark:bg-black/20">
+                <div className=" overflow-clip rounded-2xl border-2 border-dim-white dark:border-bright-navy transition dark:bg-black/20">
                     <div
                         className={
                             ' flex flex-1 flex-col items-start justify-center py-3 pl-4' +
