@@ -10,7 +10,7 @@ export default function Footer() {
                 <nav className=" flex flex-col md:flex-row items-start md:items-center justify-start [&>a]:transition gap-x-4 md:gap-x-8">
                     <Link
                         href="/"
-                        className=" btn no-animation min-h-0 h-8 bg-transparent hover:bg-transparent active:bg-transparent text-sm border-none block hover:no-underline">
+                        className=" btn no-animation min-h-0 h-8 bg-transparent hover:bg-transparent active:bg-transparent text-sm border-none block hover:no-underline px-0">
                         <Image
                             src={logoGold}
                             alt="cricket trophy logo"
