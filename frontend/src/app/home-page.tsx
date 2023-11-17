@@ -86,7 +86,7 @@ export default function HomePage() {
                     <p className=" text-black/90 max-w-lg text-justify sm:text-center text-lg px-6 md:px-0 mt-8 z-10 inline-block text-appear opacity-0 translate-y-4 [--delay:1s]">
                         See all the latest updates, schedule and results of official
                         <b> HandCricket Tournaments</b> at one place and stay up-to-date with what
-                        what is happening!
+                        is happening!
                     </p>
                 </div>
             </section>
