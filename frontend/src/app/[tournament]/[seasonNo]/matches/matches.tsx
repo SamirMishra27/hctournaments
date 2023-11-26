@@ -13,14 +13,13 @@ export default function MatchesPage(props: { matches: MatchState[]; imageUrl: st
 
     return (
         <main className=" w-full min-h-[80vh] flex flex-col items-center justify-center bg-full-white dark:bg-dark-navy transition">
-            {/* <div className=" divider-horizontal" /> */}
             <section className=" w-full overflow-x-auto my-4 px-2 flex flex-col items-center">
                 {props.matches.map((match, index) => (
                     <article
                         className=" w-full lg:w-[60rem] flex flex-col my-4 rounded-xl border-2 border-dim-white dark:border-bright-navy"
                         key={index}>
                         <div className=" w-full px-2 sm:px-4 py-1 border-b-2 border-b-dim-white rounded-t-xl text-gray-800 text-xs xs:text-sm sm:text-base font-normal md:font-medium bg-gray-100 dark:bg-bright-navy dark:text-slate-100 transition dark:border-b-bright-navy">
-                            Match {index + 1}
+                            {match.title}
                         </div>
                         <div className=" w-full flex items-center justify-evenly overflow-y-hidden h-24 max-h-24 overflow-x-hidden rounded-b-[10px]">
                             <div className=" flex flex-1 flex-col md:flex-row items-center justify-evenly h-full text-gray-800 dark:text-slate-100">
