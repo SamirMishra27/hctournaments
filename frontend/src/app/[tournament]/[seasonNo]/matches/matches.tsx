@@ -25,8 +25,8 @@ export default function MatchesPage(props: { matches: MatchState[]; imageUrl: st
                             <div className=" flex flex-1 flex-col md:flex-row items-center justify-evenly h-full text-gray-800 dark:text-slate-100">
                                 <div
                                     className={
-                                        ' w-[110%] md:w-5/6 h-full text-sm xs:text-base sm:text-xl md:text-2xl text-white text-center' +
-                                        ' uppercase font-normal xs:font-medium sm:font-semibold md:font-bold md:pl-6 -skew-x-8 ' +
+                                        ' w-[110%] md:w-5/6 h-full text-base sm:text-xl md:text-2xl text-white text-center' +
+                                        ' uppercase font-medium sm:font-semibold md:font-bold p-2 md:pl-6 -skew-x-8 ' +
                                         ' flex items-center justify-center relative md:-left-6 border-r-2 border-r-dim-white bg-gradient-to-br' +
                                         ' dark:border-r-bright-navy dark:text-slate-100 transition' +
                                         getColour(match.teamAName, match.winnerName, match.status)
@@ -82,8 +82,8 @@ export default function MatchesPage(props: { matches: MatchState[]; imageUrl: st
                                 )}
                                 <div
                                     className={
-                                        ' w-[110%] md:w-5/6 h-full text-sm xs:text-base sm:text-xl md:text-2xl text-white text-center' +
-                                        ' uppercase font-normal xs:font-medium sm:font-semibold md:font-bold md:pr-6 -skew-x-8 ' +
+                                        ' w-[110%] md:w-5/6 h-full text-base sm:text-xl md:text-2xl text-white text-center' +
+                                        ' uppercase font-medium sm:font-semibold md:font-bold p-2 md:pr-6 -skew-x-8 ' +
                                         ' flex items-center justify-center relative md:-right-6 border-l border-l-dim-white bg-gradient-to-br' +
                                         ' dark:border-l-bright-navy dark:text-slate-100 transition' +
                                         getColour(match.teamBName, match.winnerName, match.status)
