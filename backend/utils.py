@@ -73,6 +73,7 @@ def compare_image_versions(upload_response, cloudinary_image):
             'Cloudinary didn\'t update and kept the old image'
         )
 
+# This will be replaced
 def send_404_json_response(**kwargs):
 
     json_body = {}
@@ -80,6 +81,23 @@ def send_404_json_response(**kwargs):
         json_body.update({ str(key) : value })
 
     response = make_response(jsonify(json_body), 404)
+    return response
+
+def send_error_json_response(code: int, **kwargs):
+    """
+    Send a JSON response with a custom error code and a custom message.
+    Response codes:
+    - 400 - Bad request
+    - 401 - Unauthorized
+    - 403 - Forbidden
+    - 404 - Not found
+    """
+
+    json_body = {}
+    for key, value in kwargs.items():
+        json_body.update({ str(key) : value })
+
+    response = make_response(jsonify(json_body), code)
     return response
 
 def font_of_size(font_size: int) -> ImageFont.FreeTypeFont:
