@@ -30,7 +30,11 @@ def create_app() -> Flask:
     CORS(app, resources={r"/api/*": {"origins": "*"}})
 
     # Connect to database and store session in app
-    Engine = create_engine(config['POSTGRES_DATABASE_CONN_LINK'])
+    Engine = create_engine(
+        config['POSTGRES_DATABASE_CONN_LINK'],
+        pool_pre_ping = True,
+        pool_recycle = 3600   # 1 hour
+    )
     BaseModel.metadata.create_all(Engine)
     Session = sessionmaker(Engine)
 
