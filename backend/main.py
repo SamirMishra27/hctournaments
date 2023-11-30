@@ -57,12 +57,14 @@ def verify_auth_key():
 
     if authorization_key is None:
         reject_reason = 'No authorization key provided'
+        code = 400
 
     else:
         reject_reason = 'Invalid authorization key'
+        code = 401
 
     response = jsonify({'message' : reject_reason})
-    return response, 401
+    return response, code
 
 # Import all routes
 import routes
