@@ -87,6 +87,7 @@ function StandingEditView(props: {
                                     options={groupNames}
                                     errorMessage={errors.groupName}
                                     setFieldValue={setFieldValue}
+                                    transformer={(value) => value.toUpperCase()}
                                 />
                             </div>
                             <div className=" w-full py-2 relative">

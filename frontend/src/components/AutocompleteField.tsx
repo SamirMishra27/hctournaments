@@ -10,14 +10,22 @@ export default function AutocompleteField(props: {
     errorMessage?: string
     options: string[]
     setFieldValue: (field: string, value: string) => void
+    transformer?: (value: string) => string
 }) {
-    const { keyName, extraClassNames = '', errorMessage, options, setFieldValue } = props
+    const {
+        keyName,
+        extraClassNames = '',
+        errorMessage,
+        options,
+        setFieldValue,
+        transformer
+    } = props
 
     const [showOptions, setShowOptions] = useState(false)
     const [currIndex, setCurrIndex] = useState(0)
 
     function insertValue(value: string) {
-        setFieldValue(keyName, value)
+        setFieldValue(keyName, transformer ? transformer(value) : value)
         setShowOptions(false)
     }
 
@@ -81,7 +89,8 @@ export default function AutocompleteField(props: {
                 onFocus={() => setShowOptions(true)}
                 onBlur={() => setShowOptions(false)}
                 onChange={(e: KeyboardEvent<HTMLInputElement>) => {
-                    setFieldValue(keyName, e.currentTarget.value)
+                    const value = e.currentTarget.value
+                    setFieldValue(keyName, transformer ? transformer(value) : value)
                     if (!showOptions) setShowOptions(true)
                 }}
             />
