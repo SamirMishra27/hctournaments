@@ -42,6 +42,10 @@ export function TournamentEditView(props: {
 }) {
     const { state, createState, updateState, setEditMode } = props
 
+    function getFormattedDate(string: string) {
+        return new Date(string).toISOString().split('T')[0]
+    }
+
     const tournamentStage: TournamentStage[] = [
         'UPCOMING',
         'REGISTRATION',
@@ -96,7 +100,11 @@ export function TournamentEditView(props: {
 
     return (
         <Formik
-            initialValues={state}
+            initialValues={{
+                ...state,
+                startDate: getFormattedDate(state.startDate),
+                endDate: getFormattedDate(state.endDate)
+            }}
             validationSchema={validationSchema}
             onSubmit={(values) => {
                 if (updateState) updateState(values)
