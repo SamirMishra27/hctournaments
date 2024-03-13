@@ -43,6 +43,8 @@ export function TournamentEditView(props: {
     const { state, createState, updateState, setEditMode } = props
 
     function getFormattedDate(string: string) {
+        if (!string) return new Date().toISOString().split('T')[0]
+
         return new Date(string).toISOString().split('T')[0]
     }
 
