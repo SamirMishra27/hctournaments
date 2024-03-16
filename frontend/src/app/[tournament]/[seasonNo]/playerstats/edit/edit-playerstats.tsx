@@ -23,7 +23,7 @@ function BulkEditorView(props: {
         textInput: Yup.string()
             .min(10)
             .required('This is required!')
-            .matches(/^[a-zA-Z0-9|,._\s]+$/, "Don't use invalid characters")
+            .matches(/^[a-zA-Z0-9|,._\s\S]+$/, "Don't use invalid characters")
     })
 
     useEscapeKey(() => props.setBulkEditorDisplay(false))
