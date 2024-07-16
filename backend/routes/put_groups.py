@@ -16,6 +16,7 @@ from io import BytesIO
 from requests import get
 from typing import Sequence
 from PIL import Image, ImageDraw
+from threading import Event, Thread
 
 __all__ = ['ROUTE', 'METHOD', '__callback__']
 
@@ -70,6 +71,24 @@ def generate_new_image(image_link, tourney_name, groups: Sequence[TeamStandings]
     image_buffer.seek(0)
     return image_buffer
 
+def update_group_images(
+    distinct_group_ids_after: Sequence[str],
+    team_standings_data: Sequence[TeamStandings],
+    theme_image_link: str,
+    tournament_name: str,
+    base_image_path: str
+):
+    for group_id in distinct_group_ids_after:
+        group_team_standings = [standing for standing in team_standings_data if standing.group_id == group_id]
+
+        image_buffer = generate_new_image(theme_image_link, tournament_name, group_team_standings)
+        cloudinary_upload(image_buffer, group_id, base_image_path)
+
+def remove_deleted_group_images(removed_group_ids: Sequence[str], base_image_path: str):
+    for group_id in removed_group_ids:
+        image_path = f'{base_image_path}/{group_id}'
+        uploader.destroy(public_id = image_path)
+
 def put_groups(tournament_slug: str, season_no: int):
 
     # Setup session
@@ -78,30 +97,24 @@ def put_groups(tournament_slug: str, season_no: int):
     request_body: dict = request.json
     with Session() as session:
 
-        # Get tournament id, name and embed link
-        query = select(
-            Tournaments.tournament_id,
-            Tournaments.slug_name,
-            Tournaments.tournament_name,
-            Tournaments.embed_theme_link
-        ).where(and_(
+        query = select(Tournaments).where(and_(
             Tournaments.slug_name == tournament_slug.lower(),
             Tournaments.season_no == season_no
         ))
-        tournament_id, slug_name, tournament_name, embed_theme_link = session.execute(query).one_or_none()
-        # TODO: REFACTOR
 
+        tournament = session.execute(query).one_or_none()
+        if not tournament:
+            return no_tournament_found(tournament_slug, season_no)
+
+        tour: Tournaments = tournament[0]
         theme_image, _, _ = get_image_from_cloudinary(
-            public_id = f'hctournaments/{slug_name}/s{season_no}/theme',
+            public_id = f'hctournaments/{tour.slug_name}/s{season_no}/theme',
             cloud_name = cloud_name,
             data_last_edited = None
         )
         theme_image_link = theme_image.get('secure_url')
 
-        if not tournament_id:
-            return no_tournament_found(tournament_slug, season_no)
-
-        query = select(TeamStandings).where(TeamStandings.tournament_id == tournament_id)
+        query = select(TeamStandings).where(TeamStandings.tournament_id == tour.tournament_id)
         team_standings_data = session.scalars(query).all()
 
         distinct_group_ids_before = set([standing.group_id for standing in team_standings_data])
@@ -132,15 +145,20 @@ def put_groups(tournament_slug: str, season_no: int):
         distinct_group_ids_after = set([standing.group_id for standing in team_standings_data])
         removed_group_ids = distinct_group_ids_before - distinct_group_ids_after
 
-        for group_id in removed_group_ids:
-            image_path = f'{base_image_path}/{group_id}'
-            uploader.destroy(public_id = image_path)
+        # Run in background
+        thread_event = Event()
+        thread_event.set()
 
-        for group_id in distinct_group_ids_after:
-            group_team_standings = [standing for standing in team_standings_data if standing.group_id == group_id]
-
-            image_buffer = generate_new_image(theme_image_link, tournament_name, group_team_standings)
-            cloudinary_upload(image_buffer, group_id, base_image_path)
+        t1 = Thread(target = remove_deleted_group_images, args = (removed_group_ids, base_image_path))
+        t1.start()
+        t2 = Thread(target = update_group_images, args = (
+            distinct_group_ids_after,
+            team_standings_data,
+            theme_image_link,
+            tour.tournament_name,
+            base_image_path
+        ))
+        t2.start()
 
     response = make_response(jsonify({'success': True}), 204)
     return response
