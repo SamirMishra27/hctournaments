@@ -5,7 +5,7 @@ from custom_types import SessionMaker
 from models import TeamStandings, Tournaments
 from utils import (
     get_image_from_cloudinary,
-    send_404_json_response,
+    no_tournament_found,
     cloud_name
 )
 
@@ -30,10 +30,7 @@ def get_groups(tournament_slug: str, season_no: int):
         tournament_id = session.scalars(query).one_or_none()
 
         if not tournament_id:
-            return send_404_json_response(
-                success = False,
-                message = 'No tournament with slug `{}` & season `{}` found'.format(tournament_slug, season_no)
-            )
+            return no_tournament_found(tournament_slug, season_no)
 
         query = select(TeamStandings).where(TeamStandings.tournament_id == tournament_id).order_by(TeamStandings.row_no)
         team_standings_data = session.scalars(query).all()

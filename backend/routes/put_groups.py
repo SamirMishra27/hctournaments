@@ -8,7 +8,7 @@ from utils import (
     font_of_size,
     cloudinary_upload,
     get_image_from_cloudinary,
-    send_404_json_response,
+    no_tournament_found,
     cloud_name
 )
 
@@ -99,10 +99,7 @@ def put_groups(tournament_slug: str, season_no: int):
         theme_image_link = theme_image.get('secure_url')
 
         if not tournament_id:
-            return send_404_json_response(
-                success = False,
-                message = 'No tournament with slug `{}` & season `{}` found'.format(tournament_slug, season_no)
-            )
+            return no_tournament_found(tournament_slug, season_no)
 
         query = select(TeamStandings).where(TeamStandings.tournament_id == tournament_id)
         team_standings_data = session.scalars(query).all()

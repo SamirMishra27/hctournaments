@@ -5,7 +5,7 @@ from custom_types import SessionMaker
 from models import Hosts, Tournaments
 from utils import (
     get_image_from_cloudinary,
-    send_404_json_response,
+    no_tournament_found,
     cloud_name
 )
 
@@ -25,7 +25,10 @@ def get_tournaments(tournament_slug: str, season_no: int):
             Tournaments.slug_name == tournament_slug.lower(),
             Tournaments.season_no == season_no
         ))
-        tournament_data = session.scalars(query).one()
+        tournament_data = session.scalars(query).one_or_none()
+
+        if not tournament_data:
+            return no_tournament_found(tournament_slug, season_no)
 
         query = select(Hosts).where(Hosts.tournament_id == tournament_data.tournament_id)
         hosts_data = session.scalars(query).all()

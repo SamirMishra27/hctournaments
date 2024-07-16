@@ -7,7 +7,6 @@ from utils import (
     font_of_size,
     cloudinary_upload,
     get_image_from_cloudinary,
-    send_404_json_response,
     sort_multiple,
     cloud_name,
 )

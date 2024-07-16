@@ -5,7 +5,7 @@ from custom_types import SessionMaker
 from models import Matches, Tournaments
 from utils import (
     get_image_from_cloudinary,
-    send_404_json_response
+    no_tournament_found
 )
 
 __all__ = ['ROUTE', 'METHOD', '__callback__']
@@ -28,6 +28,9 @@ def put_matches(tournament_slug: str, season_no: int):
             Tournaments.season_no == season_no
         ))
         tournament_id = session.scalars(query).one().tournament_id
+
+        if not tournament_id:
+            return no_tournament_found(tournament_slug, season_no)
 
         query = select(Matches).where(Matches.tournament_id == tournament_id)
         matches_data = session.scalars(query).all()

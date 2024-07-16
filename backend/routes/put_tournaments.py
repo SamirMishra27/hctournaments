@@ -4,7 +4,7 @@ from sqlalchemy import select
 from custom_types import SessionMaker
 from models import Tournaments
 from .post_tournaments import update_embed_images
-from utils import send_404_json_response
+from utils import send_error_json_response
 
 __all__ = ['ROUTE', 'METHOD', '__callback__']
 
@@ -19,13 +19,15 @@ def put_tournaments(tournament_slug: str, season_no: int):
 
     request_body: dict = request.json
     if not request_body:
-        return send_404_json_response(
+        return send_error_json_response(
+            code = 400,
             success = False,
             message = 'No body provided'
         )
 
     if 'tournament_id' not in request_body:
-        return send_404_json_response(
+        return send_error_json_response(
+            code = 400,
             success = False,
             message = '`tournament_id` not provided'
         )

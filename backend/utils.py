@@ -102,3 +102,20 @@ def send_error_json_response(code: int, **kwargs):
 
 def font_of_size(font_size: int) -> ImageFont.FreeTypeFont:
     return ImageFont.truetype('assets/BakbakOne-Regular.ttf', font_size)
+
+def no_tournament_found(tournament_slug: str, season_no: int):
+    """
+    Abstract function to handle the case when no tournament is found
+
+    Args:
+    - tournament_slug (str): Slug name of the tournament
+    - season_no (int): Season number of the tournament
+
+    Returns:
+    - Flask response object
+    """
+    return send_error_json_response(
+        code = 404,
+        success = False,
+        message = 'No tournament with slug `{}` & season `{}` found'.format(tournament_slug, season_no)
+    )

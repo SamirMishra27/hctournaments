@@ -3,7 +3,7 @@ from sqlalchemy import and_, select
 
 from custom_types import SessionMaker
 from models import Hosts, Tournaments
-from utils import send_404_json_response
+from utils import no_tournament_found
 
 __all__ = ['ROUTE', 'METHOD', '__callback__']
 
@@ -26,10 +26,7 @@ def get_hosts(tournament_slug: str, season_no: int):
         tournament_id = session.scalars(query).one_or_none()
 
         if not tournament_id:
-            return send_404_json_response(
-                success = False,
-                message = 'No tournament with slug `{}` & season `{}` found'.format(tournament_slug, season_no)
-            )
+            return no_tournament_found(tournament_slug, season_no)
 
         query = select(Hosts).where(Hosts.tournament_id == tournament_id).order_by(Hosts.row_no)
         hosts_data = session.scalars(query).all()

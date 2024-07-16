@@ -7,7 +7,7 @@ from models import Tournaments
 from utils import (
     font_of_size,
     cloudinary_upload,
-    send_404_json_response
+    send_error_json_response
 )
 
 from io import BytesIO
@@ -73,7 +73,8 @@ def post_tournaments(tournament_slug: str, season_no: int):
 
     request_body: dict = request.json
     if not request_body:
-        return send_404_json_response(
+        return send_error_json_response(
+            code = 400,
             success = False,
             message = 'No body provided'
         )
@@ -84,7 +85,8 @@ def post_tournaments(tournament_slug: str, season_no: int):
             missing_keys.append(key)
 
     if missing_keys:
-        return send_404_json_response(
+        return send_error_json_response(
+            code = 400,
             success = False,
             message = 'Missing the following important parameters: {}'.format(', '.join(missing_keys))
         )
@@ -101,9 +103,10 @@ def post_tournaments(tournament_slug: str, season_no: int):
 
         data = session.scalars(query).all()
         if data:
-            return send_404_json_response(
+            return send_error_json_response(
+                code = 400,
                 success = False,
-                message = 'Tournament entity with the same `slug_name` and `season_no` already exists'
+                message = 'Tournament with slug `{}` and season `{}` already exists'.format(slug_name, season_no)
             )
 
         # Create new tournament row
