@@ -113,12 +113,12 @@ export default function StandingsPage(props: {
                 <Tabs
                     className=" rounded-2xl border-2 text-gray-800 border-dim-white border-b-0 dark:border-bright-navy transition overflow-hidden max-w-[50rem]"
                     index={groupIndex}>
-                    <TabList className=" inline-block bg-transparent dark:bg-stone-200 transition">
+                    <TabList className=" inline-block bg-transparent dark:bg-stone-200 transition overflow-x-auto designed-scrollbar">
                         {groups.map((group, index) => (
                             <Tab
                                 className={
                                     'flex flex-1 justify-center px-2 py-3 uppercase text-base sm:text-xl' +
-                                    ' md:text-2xl font-semibold bg-gradient-to-br' +
+                                    ' md:text-2xl font-semibold bg-gradient-to-br min-w-[10rem]' +
                                     getTabColour(index)
                                 }
                                 key={group[0].rowId}
@@ -129,7 +129,7 @@ export default function StandingsPage(props: {
                             </Tab>
                         ))}
                     </TabList>
-                    <TabIndicator className=" h-1 bg-slate-600 -mt-1" />
+                    {/* <TabIndicator className=" h-1 bg-slate-600 -mt-1" /> */}
                     <TabPanels>
                         {groups.map((group, index) => (
                             <GroupTab group={group} index={index} key={group[0].rowId} />

@@ -83,3 +83,14 @@ body:has(.motion-dialog) {
         transform: translateY(0rem);
     }
 }
+
+.designed-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background-color: transparent;
+}
+
+.designed-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #9E4784;
+    border-radius: 3px;
+}
