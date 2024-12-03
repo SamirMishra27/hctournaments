@@ -37,12 +37,14 @@ def generate_new_image(image_link, tourney_name, groups: Sequence[TeamStandings]
     image_draw = ImageDraw.Draw(image)
 
     # Step 3 Write necessary text
-    length = len(groups)
+    # If more than 16 teams, only show top 16
+    max_teams = 16
+    length = len(groups) if len(groups) <= max_teams else max_teams
     y_coord = 180
     font = font_of_size(28)
 
     groups = sorted(groups, key = lambda team: team.points, reverse = True)
-    for team_standing in groups:
+    for team_standing in groups[:length]:
 
         image_draw.multiline_text(xy = (95, y_coord), text = str(team_standing.team_name), align = 'center', font = font)
 
@@ -61,6 +63,10 @@ def generate_new_image(image_link, tourney_name, groups: Sequence[TeamStandings]
         [(1180, 53), groups[0].group_name, 48, 'ra']
     ]:
         image_draw.multiline_text(xy = coordinates, text = text, align = 'center', font = font_of_size(font_size), anchor = anchor)
+
+    if len(groups) > max_teams:
+        text = 'And {} more...'.format(len(groups) - max_teams)
+        image_draw.multiline_text(xy = (95, 680), text = text, align = 'center', font = font_of_size(24))
 
     # Step 4 Convert new image to buffer and return it
     image_buffer = BytesIO()
